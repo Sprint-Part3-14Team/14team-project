@@ -7,7 +7,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="my-[100px] flex flex-col items-center justify-center md:my-[200px]">
       <div className="relative h-[195px] w-[140px] md:h-[279px] md:w-[200px]">
         <Image src={logo} alt="logo" fill />
       </div>
