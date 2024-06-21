@@ -45,14 +45,18 @@ export default function SignInForm() {
           id="password"
           className="h-[50px] rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
         />
-        <Image
-          src={visibilityIcon}
-          alt="password visibility icon"
-          width={24}
-          height={24}
+        <button
           className="absolute bottom-[25px] right-4 translate-y-1/2 cursor-pointer"
           onClick={togglePasswordVisibility}
-        />
+          type="button"
+        >
+          <Image
+            src={visibilityIcon}
+            alt="password visibility icon"
+            width={24}
+            height={24}
+          />
+        </button>
       </div>
       <button
         type="submit"

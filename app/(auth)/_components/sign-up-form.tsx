@@ -63,14 +63,18 @@ export default function SignUpForm() {
           id="password"
           className="h-[50px] rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
         />
-        <Image
-          src={visibilityIcon}
-          alt="password visibility icon"
-          width={24}
-          height={24}
+        <button
           className="absolute bottom-[25px] right-4 translate-y-1/2 cursor-pointer"
           onClick={togglePasswordVisibility}
-        />
+          type="button"
+        >
+          <Image
+            src={visibilityIcon}
+            alt="password visibility icon"
+            width={24}
+            height={24}
+          />
+        </button>
       </div>
       <div className="relative mb-6 flex flex-col gap-y-2">
         <label htmlFor="passwordConfirmation">비밀번호 확인</label>
@@ -81,14 +85,18 @@ export default function SignUpForm() {
           id="passwordConfirmation"
           className="h-[50px] rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
         />
-        <Image
-          src={visibilityIcon}
-          alt="password confirmation visibility icon"
-          width={24}
-          height={24}
+        <button
           className="absolute bottom-[25px] right-4 translate-y-1/2 cursor-pointer"
           onClick={togglePasswordConfirmationVisibility}
-        />
+          type="button"
+        >
+          <Image
+            src={visibilityIcon}
+            alt="password confirmation visibility icon"
+            width={24}
+            height={24}
+          />
+        </button>
       </div>
       <div className="flex items-center gap-x-2">
         <input
