@@ -1,11 +1,10 @@
-import getDashboards from '@/api/dashboard/getDashboards';
 import crown from '@/public/icons/crown_icon.svg';
 import { Dashboard } from '@/types/dashboard';
 import Image from 'next/image';
 
 export default async function SidebarDashboardList() {
-  const data = await getDashboards();
-  const { dashboards } = data;
+  const res = await fetch('http://localhost:3000/api/dashboard');
+  const { dashboards } = await res.json();
 
   return (
     <ul className="flex flex-col gap-[38px] md:gap-[27px]">
