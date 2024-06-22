@@ -1,6 +1,6 @@
 import { ACCESS_TOKEN, TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 
-export default async function getDashboardList() {
+export default async function getDashboards() {
   const params = new URLSearchParams({
     navigationMethod: 'pagination',
     page: '1',
