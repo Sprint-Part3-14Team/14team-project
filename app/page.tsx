@@ -1,3 +1,17 @@
+'use client';
+
+import React from 'react';
+
+import Buttons from './components/Buttons';
+
+const handleSignUpClick = () => {
+  console.log('Sign Up button clicked');
+};
+
+const handleDashboardClick = () => {
+  console.log('Dashboard button clicked');
+};
+
 export default function Home() {
   return (
     // NOTE - 테스트 코드 입니다. 프로젝트 진행 시 편하게 삭제하셔도 됩니다.
@@ -26,6 +40,22 @@ export default function Home() {
         <h1 className="font-bold">Hello World!</h1>
         <h1 className="font-extrabold">Hello World!</h1>
         <h1 className="font-black">Hello World!</h1>
+      </div>
+      <div>
+        <Buttons
+          variant="loginSignup"
+          className="bg-red-500"
+          onClick={handleSignUpClick}
+        >
+          Sign Up
+        </Buttons>
+        <Buttons
+          variant="dashboardFirst"
+          className="mt-4 bg-blue-500"
+          onClick={handleDashboardClick}
+        >
+          Dashboard
+        </Buttons>
       </div>
     </div>
   );
