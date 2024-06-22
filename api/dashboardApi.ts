@@ -10,7 +10,9 @@ export default async function getDashboardList() {
   const url = `${TEAM_BASE_URL}dashboards?${params.toString()}`;
 
   const res = await fetch(url, {
+    method: 'GET',
     headers: {
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${ACCESS_TOKEN}`,
     },
   });
