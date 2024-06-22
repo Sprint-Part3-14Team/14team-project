@@ -4,6 +4,7 @@ interface InputFieldProps {
   type: string;
   placeholder: string;
   register: any;
+  error: string;
 }
 
 export default function InputField({
@@ -12,6 +13,7 @@ export default function InputField({
   type,
   placeholder,
   register,
+  error,
 }: InputFieldProps) {
   return (
     <div className="mb-4 flex flex-col gap-y-2">
@@ -23,6 +25,7 @@ export default function InputField({
         id={id}
         className="h-[50px] rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
       />
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   );
 }

@@ -1,7 +1,9 @@
 'use client';
 
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 
 import InputField from './input-field';
 import PasswordInputField from './password-input-field';
@@ -11,13 +13,26 @@ interface Inputs {
   password: string;
 }
 
+const schema = yup.object().shape({
+  email: yup
+    .string()
+    .email('이메일 형식으로 작성해 주세요.')
+    .required('이메일을 입력해 주세요.'),
+  password: yup
+    .string()
+    .min(8, '8자 이상 입력해 주세요.')
+    .required('비밀번호를 입력해 주세요.'),
+});
+
 export default function SignInForm() {
   const {
     register,
     handleSubmit,
-    // NOTE - 로직 추가 시 구현
-    // formState: { errors },
-  } = useForm<Inputs>();
+    formState: { errors, isValid },
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+    mode: 'onChange',
+  });
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   const [passwordShown, setPasswordShown] = useState(false);
@@ -34,6 +49,7 @@ export default function SignInForm() {
         type="email"
         placeholder="이메일을 입력해 주세요"
         register={register}
+        error={errors.email?.message || ''}
       />
       <PasswordInputField
         id="password"
@@ -42,10 +58,12 @@ export default function SignInForm() {
         register={register}
         passwordShown={passwordShown}
         togglePasswordVisibility={togglePasswordVisibility}
+        error={errors.password?.message || ''}
       />
       <button
         type="submit"
-        className="mt-5 rounded-lg bg-violet-primary py-4 text-white"
+        className="mt-5 rounded-lg bg-violet-primary py-4 text-white disabled:cursor-not-allowed disabled:bg-gray-400"
+        disabled={!isValid}
       >
         로그인
       </button>
