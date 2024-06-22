@@ -1,5 +1,6 @@
 'use client';
 
+import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -16,6 +17,7 @@ interface Inputs {
   terms: boolean;
 }
 
+// TODO : schema 분리 필요 어디에 두어야 하는가?
 const schema = yup.object().shape({
   email: yup
     .string()
@@ -30,8 +32,23 @@ const schema = yup.object().shape({
     .string()
     .oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다.')
     .required('비밀번호를 입력해 주세요.'),
-  terms: yup.boolean().oneOf([true], '이용약관에 동의해 주세요.'),
+  terms: yup
+    .boolean()
+    .oneOf([true], '이용약관에 동의해 주세요.')
+    .required('이용약관에 동의해 주세요.'),
 });
+
+async function signUp(email: string, nickname: string, password: string) {
+  const response = await fetch(`${TEAM_BASE_URL}users`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, nickname, password }),
+  });
+
+  return response.json();
+}
 
 export default function SignUpForm() {
   const {
@@ -42,7 +59,12 @@ export default function SignUpForm() {
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const { email, nickname, password } = data;
+    const response = await signUp(email, nickname, password);
+
+    localStorage.setItem('token', response.accessToken);
+  };
 
   const [passwordShown, setPasswordShown] = useState(false);
   const [passwordConfirmationShown, setPasswordConfirmationShown] =
