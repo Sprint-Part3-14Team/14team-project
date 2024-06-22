@@ -1,6 +1,8 @@
 import logoSmall from '@/public/images/logo-small.svg';
 import Image from 'next/image';
 
+import SidebarDashboardList from './sidebar-dashboard-list';
+
 export default function Sidebar() {
   return (
     <aside className="fixed h-full w-67 border-r border-gray-300">
@@ -11,12 +13,7 @@ export default function Sidebar() {
         {/* // TODO - 프로필 section */}
         <section />
         {/* // NOTE - 대시보드 리스트 section */}
-        <section>
-          <ul>
-            <li>1</li>
-            <li>2</li>
-          </ul>
-        </section>
+        <SidebarDashboardList />
       </div>
     </aside>
   );

@@ -1,5 +1,3 @@
 export default function MyDashboard() {
-  return (
-    <>mydashboard 페이지</>
-  );
+  return <>mydashboard 페이지</>;
 }

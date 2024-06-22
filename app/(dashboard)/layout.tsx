@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Sidebar from '../components/sidebar';
+import Sidebar from '../components/sidebar/sidebar';
 
 export default function DashboardLayout({
   children,
@@ -9,8 +9,10 @@ export default function DashboardLayout({
 }) {
   return (
     <>
+      {/* // TODO - Navbar */}
       <Sidebar />
-      {children}
+      {/* // TODO - main 스타일 조정 */}
+      <main>{children}</main>
     </>
   );
 }
