@@ -9,8 +9,8 @@ import SidebarDashboardList from './sidebar-dashboard-list';
 export default function Sidebar() {
   return (
     <aside className="fixed h-full w-[67px] border-r border-gray-300 md:w-40 xl:w-[300px]">
-      <div className="my-5 flex flex-col items-center justify-center md:mx-[14px]">
-        <Link href="/dashboard" className="mb-[38px]">
+      <div className="my-5 flex flex-col items-center justify-center md:mx-[14px] xl:items-stretch">
+        <Link href="/dashboard" className="mb-[38px] md:mb-14 xl:mb-[60px]">
           <div className="flex items-center">
             <Image
               src={logoSmall}
@@ -29,9 +29,9 @@ export default function Sidebar() {
           <p className="flex hidden text-xs font-bold text-gray-500 md:block">
             Dash Boards
           </p>
-          <div className="relative h-5 w-5">
+          <button className="relative h-5 w-5" type="button">
             <Image src={addDashboard} alt="대시보드 추가 버튼" fill />
-          </div>
+          </button>
         </div>
         {/* // NOTE - 대시보드 리스트 section */}
         <SidebarDashboardList />
