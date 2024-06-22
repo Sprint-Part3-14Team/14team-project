@@ -5,11 +5,11 @@ import React from 'react';
 import Buttons from './components/Buttons';
 
 const handleSignUpClick = () => {
-  console.log('TEST');
+  console.log('TEST 1');
 };
 
 const handleDashboardClick = () => {
-  console.log('TEST');
+  console.log('TEST 2');
 };
 
 export default function Home() {
