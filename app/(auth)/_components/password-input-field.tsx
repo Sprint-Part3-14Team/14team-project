@@ -1,4 +1,5 @@
 import visibilityIcon from '@/public/icons/icon_visibility.png';
+import visibilityIconOff from '@/public/icons/icon_visibility_off.png';
 import Image from 'next/image';
 
 interface PasswordInputFieldProps {
@@ -36,12 +37,21 @@ export default function PasswordInputField({
           onClick={togglePasswordVisibility}
           type="button"
         >
-          <Image
-            src={visibilityIcon}
-            alt="password visibility icon"
-            width={24}
-            height={24}
-          />
+          {passwordShown ? (
+            <Image
+              src={visibilityIcon}
+              alt="password visibility icon"
+              width={24}
+              height={24}
+            />
+          ) : (
+            <Image
+              src={visibilityIconOff}
+              alt="password visibility icon"
+              width={24}
+              height={24}
+            />
+          )}
         </button>
       </div>
       {error && <p className="text-red-500">{error}</p>}
