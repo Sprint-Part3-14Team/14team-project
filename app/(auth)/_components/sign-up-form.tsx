@@ -1,11 +1,11 @@
 'use client';
 
-import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
+import signUp from '../signup/actions';
 import InputField from './input-field';
 import PasswordInputField from './password-input-field';
 
@@ -38,18 +38,6 @@ const schema = yup.object().shape({
     .required('이용약관에 동의해 주세요.'),
 });
 
-async function signUp(email: string, nickname: string, password: string) {
-  const response = await fetch(`${TEAM_BASE_URL}users`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, nickname, password }),
-  });
-
-  return response.json();
-}
-
 export default function SignUpForm() {
   const {
     register,
@@ -59,11 +47,10 @@ export default function SignUpForm() {
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { email, nickname, password } = data;
-    const response = await signUp(email, nickname, password);
-
-    localStorage.setItem('token', response.accessToken);
+    await signUp(email, nickname, password);
   };
 
   const [passwordShown, setPasswordShown] = useState(false);
