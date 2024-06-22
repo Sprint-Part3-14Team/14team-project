@@ -1,54 +1,26 @@
 'use client';
 
+import { signUpSchema } from '@/lib/schemas/auth';
+import { SignUpInput } from '@/types/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import * as yup from 'yup';
 
 import signUp from '../signup/actions';
 import InputField from './input-field';
 import PasswordInputField from './password-input-field';
-
-interface Inputs {
-  email: string;
-  nickname: string;
-  password: string;
-  passwordConfirmation: string;
-  terms: boolean;
-}
-
-// TODO : schema 분리 필요 어디에 두어야 하는가?
-const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email('이메일 형식으로 작성해 주세요.')
-    .required('이메일을 입력해 주세요.'),
-  nickname: yup.string().required('닉네임을 입력해 주세요.'),
-  password: yup
-    .string()
-    .min(8, '8자 이상 입력해 주세요.')
-    .required('비밀번호를 입력해 주세요.'),
-  passwordConfirmation: yup
-    .string()
-    .oneOf([yup.ref('password')], '비밀번호가 일치하지 않습니다.')
-    .required('비밀번호를 입력해 주세요.'),
-  terms: yup
-    .boolean()
-    .oneOf([true], '이용약관에 동의해 주세요.')
-    .required('이용약관에 동의해 주세요.'),
-});
 
 export default function SignUpForm() {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<Inputs>({
-    resolver: yupResolver(schema),
+  } = useForm<SignUpInput>({
+    resolver: yupResolver(signUpSchema),
     mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<SignUpInput> = async (data) => {
     const { email, nickname, password } = data;
     await signUp(email, nickname, password);
   };
