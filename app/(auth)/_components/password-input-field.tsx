@@ -21,9 +21,9 @@ export default function PasswordInputField({
   error,
 }: PasswordInputFieldProps) {
   return (
-    <>
-      <div className="relative mb-4 flex flex-col gap-y-2">
-        <label htmlFor={id}>{label}</label>
+    <div className="relative mb-4 flex flex-col gap-y-2">
+      <label htmlFor={id}>{label}</label>
+      <div className="relative flex flex-col">
         <input
           {...register(id)}
           type={passwordShown ? 'text' : 'password'}
@@ -44,8 +44,7 @@ export default function PasswordInputField({
           />
         </button>
       </div>
-      {/* TODO - 디자인 조정 필요 */}
       {error && <p className="text-red-500">{error}</p>}
-    </>
+    </div>
   );
 }
