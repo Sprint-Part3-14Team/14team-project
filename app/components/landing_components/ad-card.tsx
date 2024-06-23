@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 interface AdCardProps {
-  imgUrl: any;
+  imgUrl: string;
   yPadding: string;
   title: string;
   description: string;
@@ -24,16 +24,9 @@ export default function AdCard({
       <div
         className={`h-[236px] rounded-t-lg bg-gray-600 px-10 md:h-[260px] md:px-[39px] ${imgContainerYPadding[yPadding]}`}
       >
-        <Image
-          src={imgUrl}
-          alt={`${title} 구간 이미지`}
-          width={0}
-          height={0}
-          style={{
-            width: '100%',
-            height: 'auto',
-          }}
-        />
+        <div className="relative h-full w-full">
+          <Image fill src={imgUrl} alt={`${title} 구간 이미지`} />
+        </div>
       </div>
       <div className="h-[124px] rounded-b-lg bg-gray-800 py-[27px] pl-[32px] text-white md:py-[33px]">
         <p className="mb-[18px] text-lg font-bold">{title}</p>
