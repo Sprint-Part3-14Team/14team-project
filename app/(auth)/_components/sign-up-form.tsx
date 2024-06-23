@@ -1,27 +1,29 @@
 'use client';
 
+import { signUpSchema } from '@/lib/schemas/auth';
+import { SignUpInput } from '@/types/auth';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import signUp from '../signup/actions';
 import InputField from './input-field';
 import PasswordInputField from './password-input-field';
-
-interface Inputs {
-  email: string;
-  nickname: string;
-  password: string;
-  passwordConfirmation: string;
-  terms: boolean;
-}
 
 export default function SignUpForm() {
   const {
     register,
     handleSubmit,
-    // NOTE - 로직 추가 시 구현
-    // formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+    formState: { errors, isValid },
+  } = useForm<SignUpInput>({
+    resolver: yupResolver(signUpSchema),
+    mode: 'onChange',
+  });
+
+  const onSubmit: SubmitHandler<SignUpInput> = async (data) => {
+    const { email, nickname, password } = data;
+    await signUp(email, nickname, password);
+  };
 
   const [passwordShown, setPasswordShown] = useState(false);
   const [passwordConfirmationShown, setPasswordConfirmationShown] =
@@ -42,6 +44,7 @@ export default function SignUpForm() {
         type="email"
         placeholder="이메일을 입력해 주세요"
         register={register}
+        error={errors.email?.message || ''}
       />
       <InputField
         id="nickname"
@@ -49,6 +52,7 @@ export default function SignUpForm() {
         type="text"
         placeholder="닉네임을 입력해 주세요"
         register={register}
+        error={errors.nickname?.message || ''}
       />
       <PasswordInputField
         id="password"
@@ -57,6 +61,7 @@ export default function SignUpForm() {
         register={register}
         passwordShown={passwordShown}
         togglePasswordVisibility={togglePasswordVisibility}
+        error={errors.password?.message || ''}
       />
       <PasswordInputField
         id="passwordConfirmation"
@@ -65,6 +70,7 @@ export default function SignUpForm() {
         register={register}
         passwordShown={passwordConfirmationShown}
         togglePasswordVisibility={togglePasswordConfirmationVisibility}
+        error={errors.passwordConfirmation?.message || ''}
       />
       <div className="flex items-center gap-x-2">
         <input
@@ -74,10 +80,12 @@ export default function SignUpForm() {
           className="size-5"
         />
         <label htmlFor="terms">이용약관에 동의합니다.</label>
+        {errors.terms && <p className="text-red-500">{errors.terms.message}</p>}
       </div>
       <button
         type="submit"
-        className="mt-5 rounded-lg bg-violet-primary py-4 text-white"
+        className="mt-5 rounded-lg bg-violet-primary py-4 text-white disabled:cursor-not-allowed disabled:bg-gray-400"
+        disabled={!isValid}
       >
         회원가입
       </button>
