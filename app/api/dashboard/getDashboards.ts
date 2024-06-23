@@ -11,7 +11,6 @@ export default async function getDashboards() {
   const url = `${TEAM_BASE_URL}/dashboards?${params.toString()}`;
 
   const token = cookies().get('token')?.value;
-  console.log(token);
 
   try {
     const res = await fetch(url, {
