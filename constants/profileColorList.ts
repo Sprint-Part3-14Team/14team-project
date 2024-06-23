@@ -1,5 +1,5 @@
 export const PROFILE_COLOR_LIST = [
-  '#D6173A',
+  '#787486',
   '#7AC555',
   '#760DDE',
   '#FFA500',

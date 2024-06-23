@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import SidebarDashboardList from './sidebar-dashboard-list';
+import SidebarProfile from './sidebar-profile';
 
 export default function Sidebar() {
   return (
@@ -23,7 +24,7 @@ export default function Sidebar() {
             </div>
           </div>
         </Link>
-        {/* // TODO - 프로필 section */}
+        <SidebarProfile />
         <section />
         <div className="mb-[38px] flex items-center justify-between md:mb-[30px] md:w-full">
           <p className="flex hidden text-xs font-bold text-gray-500 md:block">

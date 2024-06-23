@@ -5,11 +5,15 @@ export default function SidebarProfile() {
   // TODO - 로그인 시 user 정보를 전역 상태에 저장?
   const nickname = '서영';
   const profileImageUrl = null;
+  const id = 3950;
 
   return (
     <section>
-      <ProfileImage nickname={nickname} profileImageUrl={profileImageUrl} />
-      
+      <ProfileImage
+        nickname={nickname}
+        profileImageUrl={profileImageUrl}
+        id={id}
+      />
     </section>
   );
 }
