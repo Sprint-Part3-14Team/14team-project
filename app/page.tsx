@@ -14,6 +14,9 @@ const handleDashboardClick = () => {
 
 export default function Home() {
   return (
+
+    <div className="flex flex-col items-center justify-center bg-gray-400">
+      랜딩페이지
     // NOTE - 테스트 코드
     <div className="flex h-screen items-center justify-center">
       <Buttons
