@@ -13,7 +13,7 @@ export default function DashboardLayout({
       <Sidebar />
       <div className="w-full">
         <Navbar />
-        <main className="h-full overflow-auto bg-gray-300">{children}</main>
+        <main className="h-full overflow-auto bg-gray-100">{children}</main>
       </div>
     </div>
   );
