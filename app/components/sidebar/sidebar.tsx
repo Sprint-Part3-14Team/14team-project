@@ -8,7 +8,7 @@ import SidebarDashboardList from './sidebar-dashboard-list';
 
 export default function Sidebar() {
   return (
-    <aside className="fixed h-full w-[67px] border-r border-gray-300 md:w-40 xl:w-[300px]">
+    <aside className="flex h-full w-[67px] flex-shrink-0 flex-col border-r border-gray-300 md:w-40 xl:w-[300px]">
       <div className="my-5 flex flex-col items-center justify-center md:mx-[14px] xl:items-stretch">
         <Link href="/dashboard" className="mb-[38px] md:mb-14 xl:mb-[60px]">
           <div className="flex items-center">

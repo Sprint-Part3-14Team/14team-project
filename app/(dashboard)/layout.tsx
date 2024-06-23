@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Navbar from '../components/navbar/navbar';
 import Sidebar from '../components/sidebar/sidebar';
 
 export default function DashboardLayout({
@@ -8,11 +9,12 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <>
-      {/* // TODO - Navbar */}
+    <div className="flex h-screen w-screen overflow-hidden">
       <Sidebar />
-      {/* // TODO - main 스타일 조정 */}
-      <main>{children}</main>
-    </>
+      <div className="w-full">
+        <Navbar />
+        <main className="h-full overflow-auto bg-gray-300">{children}</main>
+      </div>
+    </div>
   );
 }
