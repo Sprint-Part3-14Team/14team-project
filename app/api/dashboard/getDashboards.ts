@@ -1,8 +1,6 @@
 import { ACCESS_TOKEN, TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
-import { NextResponse } from 'next/server';
 
-// NOTE - 보류
-export default async function GET() {
+export default async function getDashboards() {
   const params = new URLSearchParams({
     navigationMethod: 'pagination',
     page: '1',
@@ -24,10 +22,9 @@ export default async function GET() {
       throw new Error('데이터를 가져오는데 실패했습니다');
     }
 
-    const data = await res.json();
-    return NextResponse.json(data);
+    return await res.json();
   } catch (error) {
-    // console.error('대시보드를 가져오는 중 오류 발생:', error);
-    return NextResponse.json({ error: '내부 서버 오류' }, { status: 500 });
+    console.error('Error fetching dashboards:', error);
+    throw error;
   }
 }
