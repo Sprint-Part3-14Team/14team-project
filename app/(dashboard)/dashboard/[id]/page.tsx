@@ -87,6 +87,7 @@ export default function Dashboard({ params }: { params: { id: number } }) {
     <div className="px-3">
       {/* NOTE - params 테스트 코드입니다. */}
       <p className="text-xl font-bold">params 값입니다 : {params.id}</p>
+      {/* NOTE - 임시 데이터 매핑 */}
       {dummyCards?.map((card) => <DashboardCard key={card.id} {...card} />)}
     </div>
   );
