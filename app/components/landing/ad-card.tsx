@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 interface AdCardProps {
   imgUrl: string;
-  yPadding: string;
+  yPadding: 'dashboard' | 'invite' | 'member';
   title: string;
   description: string;
 }
