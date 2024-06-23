@@ -7,7 +7,7 @@ export default async function signUp(
   nickname: string,
   password: string
 ) {
-  const response = await fetch(`${TEAM_BASE_URL}users`, {
+  const response = await fetch(`${TEAM_BASE_URL}/users`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
