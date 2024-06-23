@@ -1,4 +1,5 @@
-import { ACCESS_TOKEN, TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { cookies } from 'next/headers';
 
 export default async function getDashboards() {
   const params = new URLSearchParams({
@@ -9,12 +10,15 @@ export default async function getDashboards() {
 
   const url = `${TEAM_BASE_URL}/dashboards?${params.toString()}`;
 
+  const token = cookies().get('token')?.value;
+  console.log(token);
+
   try {
     const res = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${ACCESS_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
