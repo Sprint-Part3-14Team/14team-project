@@ -1,5 +1,7 @@
 import Image from 'next/image';
 
+import Tag from './tag';
+
 export default function DashboardCard({
   title,
   tags,
@@ -28,25 +30,31 @@ export default function DashboardCard({
         <p className="font-medium">{title}</p>
         <div className="w-full md:flex xl:flex-col">
           <div className="my-[6px] flex gap-x-[6px] md:my-0 xl:my-[10px]">
-            {tags?.map((tag) => <p key={tag}>{tag}</p>)}
+            {tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}
           </div>
-          <div className="flex w-full justify-between">
+          <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-x-[6px] md:ml-4 xl:ml-0">
-              <Image
-                src="/icons/icon_calendar.svg"
-                width={16}
-                height={16}
-                alt="calendar"
-              />
-              <p>{createdAt.toLocaleDateString()}</p>
+              <div className="relative size-[14px] md:size-[18px]">
+                <Image
+                  src="/icons/icon_calendar.svg"
+                  fill
+                  sizes="100vw"
+                  alt="calendar"
+                />
+              </div>
+              <p className="text-[10px] md:text-xs">
+                {createdAt.toLocaleDateString()}
+              </p>
             </div>
             <div className="flex items-center gap-x-[6px]">
-              <Image
-                src={assignee.profileImageUrl}
-                width={16}
-                height={16}
-                alt="assignee"
-              />
+              <div className="relative size-[22px] md:size-6">
+                <Image
+                  src={assignee.profileImageUrl}
+                  fill
+                  sizes="100vw"
+                  alt="assignee"
+                />
+              </div>
             </div>
           </div>
         </div>
