@@ -29,7 +29,7 @@ export default function DashboardCard({
       <div className="mt-[10px] flex w-full flex-col md:mt-0 md:gap-y-[10px] xl:mt-3 xl:gap-y-0">
         <p className="font-medium">{title}</p>
         <div className="w-full md:flex xl:flex-col">
-          <div className="my-[6px] flex flex-wrap gap-x-[6px] gap-y-2 md:my-0 xl:my-[10px]">
+          <div className="my-[6px] flex flex-wrap gap-x-[6px] gap-y-2 md:my-0 md:w-[350px] lg:w-full xl:my-[10px]">
             {tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}
           </div>
           <div className="flex w-full items-center justify-between">
