@@ -19,11 +19,11 @@ export interface Assignee {
 }
 
 // NOTE - 임시 데이터 입니다.
-const dummyCards: Cards[] = [
+const dummyCardsOne: Cards[] = [
   {
     id: 2,
     title: 'Card 2',
-    tags: ['tag3', 'tag4'],
+    tags: ['tag3'],
     assignee: {
       profileImageUrl: '',
       nickname: 'User2',
@@ -36,7 +36,7 @@ const dummyCards: Cards[] = [
   {
     id: 4,
     title: 'Card 4',
-    tags: ['tag7', 'tag8'],
+    tags: ['tag7', 'tag8', 'tag9'],
     assignee: {
       profileImageUrl: '',
       nickname: 'User4',
@@ -85,6 +85,85 @@ const dummyCards: Cards[] = [
   },
 ];
 
+const dummyCardsTwo: Cards[] = [
+  {
+    id: 2,
+    title: 'Card 2',
+    tags: ['tag344', 'tag4124'],
+    assignee: {
+      profileImageUrl: '',
+      nickname: 'User2',
+      id: 2,
+    },
+    imageUrl:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+    createdAt: new Date(),
+  },
+  {
+    id: 6,
+    title: 'Card 6',
+    tags: ['tag11', 'tag12'],
+    assignee: {
+      profileImageUrl: '',
+      nickname: 'User6',
+      id: 6,
+    },
+    imageUrl: '',
+    createdAt: new Date(),
+  },
+  {
+    id: 10,
+    title: 'Card 10',
+    tags: ['tag19', 'tag20'],
+    assignee: {
+      profileImageUrl: '',
+      nickname: 'User10',
+      id: 10,
+    },
+    imageUrl:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
+    createdAt: new Date(),
+  },
+];
+
+const dummyCardsThree: Cards[] = [
+  {
+    id: 2,
+    title: 'Card 2',
+    tags: [
+      'tag344',
+      'tag4124',
+      'tag234236',
+      'tag3463575',
+      'tag2435246',
+      'tag3456345',
+      'tag347475467',
+      'tag898234',
+    ],
+    assignee: {
+      profileImageUrl: '',
+      nickname: 'User2',
+      id: 2,
+    },
+    imageUrl:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png',
+    createdAt: new Date(),
+  },
+  {
+    id: 10,
+    title: 'Card 10',
+    tags: ['tag19', 'tag20'],
+    assignee: {
+      profileImageUrl: '',
+      nickname: 'User10',
+      id: 10,
+    },
+    imageUrl:
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png',
+    createdAt: new Date(),
+  },
+];
+
 function AddColumn() {
   return (
     <div className="border-gray-300 px-[15px] py-3 md:p-5 lg:pt-[68px] xl:border-l">
@@ -121,9 +200,9 @@ function Column({ params, data }: { params: { id: number }; data: Cards[] }) {
 export default function Dashboard({ params }: { params: { id: number } }) {
   return (
     <div className="flex flex-col xl:flex-row">
-      <Column params={params} data={dummyCards} />
-      <Column params={params} data={dummyCards} />
-      <Column params={params} data={dummyCards} />
+      <Column params={params} data={dummyCardsOne} />
+      <Column params={params} data={dummyCardsTwo} />
+      <Column params={params} data={dummyCardsThree} />
       <AddColumn />
     </div>
   );
