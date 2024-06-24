@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React, { ReactNode } from 'react';
 
 interface ButtonProps {
@@ -14,6 +15,9 @@ interface ButtonProps {
   children: ReactNode;
   onClick?: () => void;
   className?: string;
+  type?: 'button' | 'submit';
+  disabled?: boolean;
+  href?: string;
 }
 
 export default function Buttons({
@@ -21,6 +25,9 @@ export default function Buttons({
   children,
   className,
   onClick,
+  type,
+  disabled = false,
+  href = '#',
 }: ButtonProps) {
   const baseClasses = 'inline-flex items-center justify-center rounded-lg';
 
@@ -34,13 +41,20 @@ export default function Buttons({
     inviteModal: 'w-[120px] h-[48px]',
   };
 
-  // TODO - 아이콘 버튼 추가 예정
+  if (variant === 'landingLogin') {
+    return (
+      <div className={`${baseClasses} ${sizeClasses[variant]} ${className}`}>
+        <Link href={href}>{children}</Link>
+      </div>
+    );
+  }
 
   return (
     <button
-      type="button"
+      type={type === 'submit' ? 'submit' : 'button'}
       className={`${baseClasses} ${sizeClasses[variant]} ${className}`}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>
@@ -50,4 +64,7 @@ export default function Buttons({
 Buttons.defaultProps = {
   onClick: () => {},
   className: '',
+  type: 'button',
+  disabled: false,
+  href: '#',
 };
