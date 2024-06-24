@@ -84,7 +84,7 @@ const dummyCards: Cards[] = [
 
 export default function Dashboard({ params }: { params: { id: number } }) {
   return (
-    <main className="h-screen overflow-auto bg-gray-100 px-3">
+    <main className="overflow-auto px-3 pb-3">
       {/* NOTE - params 테스트 코드입니다. */}
       <p className="text-xl font-bold">params 값입니다 : {params.id}</p>
       {/* NOTE - 임시 데이터 매핑 */}
