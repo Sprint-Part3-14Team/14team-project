@@ -43,14 +43,11 @@ export default function Buttons({
 
   if (variant === 'landingLogin') {
     return (
-      <Link href={href}>
-        <a
-          className={`${baseClasses} ${sizeClasses[variant]} ${className}`}
-          href={href}
-        >
+      <div className={`${baseClasses} ${sizeClasses[variant]} ${className}`>
+        <Link href={href}>
           {children}
-        </a>
-      </Link>
+        </Link>
+      </div>
     );
   }
 
