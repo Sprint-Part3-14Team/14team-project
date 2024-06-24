@@ -3,13 +3,13 @@ import Image from 'next/image';
 export default function DashboardCard({
   title,
   tags,
-  imageUrl = '',
+  imageUrl,
   createdAt,
   assignee,
 }: {
   title: string;
   tags: string[];
-  imageUrl: string;
+  imageUrl?: string;
   createdAt: Date;
   assignee: {
     profileImageUrl: string;
@@ -21,7 +21,7 @@ export default function DashboardCard({
     <div className="mt-[10px] flex flex-col rounded-md border border-gray-300 bg-white p-3 md:flex-row md:items-center md:gap-x-5 xl:w-[314px] xl:flex-col">
       {imageUrl && (
         <div className="relative h-[150px] rounded-md bg-gray-100 md:h-[53px] md:w-[90px] xl:h-[160px] xl:w-full">
-          <Image src={imageUrl} alt="card-image" fill />
+          <Image src={imageUrl} alt="card-image" fill objectFit="contain" />
         </div>
       )}
       <div className="mt-[10px] flex w-full flex-col md:mt-0 md:gap-y-[10px] xl:mt-3 xl:gap-y-0">
