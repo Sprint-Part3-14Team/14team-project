@@ -18,18 +18,16 @@ export default function ProfileImage({
   return (
     <div>
       {profileImageUrl ? (
-        <div className={`relative size-[${size}px] rounded-full`}>
-          <Image
-            src={profileImageUrl}
-            alt="프로필 이미지"
-            layout="fill"
-            className="rounded-full"
-          />
+        <div
+          className="relative size-[34px] rounded-full"
+          style={{ width: size, height: size }}
+        >
+          <Image src={profileImageUrl} alt="프로필 이미지" fill />
         </div>
       ) : (
         <div
-          className={`flex size-[${size}px] items-center justify-center rounded-full text-sm font-semibold text-white`}
-          style={{ backgroundColor: profileColor }}
+          className="flex size-[34px] items-center justify-center rounded-full text-sm font-semibold text-white"
+          style={{ backgroundColor: profileColor, width: size, height: size }}
         >
           {nickname.charAt(0)}
         </div>

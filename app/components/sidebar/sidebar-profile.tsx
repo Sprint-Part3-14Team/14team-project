@@ -13,7 +13,7 @@ export default function SidebarProfile() {
         nickname={nickname}
         profileImageUrl={profileImageUrl}
         id={id}
-        size="34"
+        size="34px"
       />
     </section>
   );
