@@ -5,18 +5,20 @@ interface ProfileImageProps {
   profileImageUrl: string | null;
   nickname: string;
   id: number;
+  size: string;
 }
 
 export default function ProfileImage({
   profileImageUrl,
   nickname,
   id,
+  size,
 }: ProfileImageProps) {
   const profileColor = useProfileColor(id);
   return (
     <div>
       {profileImageUrl ? (
-        <div className="relative size-[34px] rounded-full">
+        <div className={`relative size-[${size}px] rounded-full`}>
           <Image
             src={profileImageUrl}
             alt="프로필 이미지"
@@ -26,7 +28,7 @@ export default function ProfileImage({
         </div>
       ) : (
         <div
-          className="flex size-[34px] items-center justify-center rounded-full text-sm font-semibold text-white"
+          className={`flex size-[${size}px] items-center justify-center rounded-full text-sm font-semibold text-white`}
           style={{ backgroundColor: profileColor }}
         >
           {nickname.charAt(0)}
