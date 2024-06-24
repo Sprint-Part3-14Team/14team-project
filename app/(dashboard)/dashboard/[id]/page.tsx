@@ -1,3 +1,6 @@
+import Image from 'next/image';
+import Link from 'next/link';
+
 import DashboardCard from '../../_components/dashboard-card';
 
 export interface Cards {
@@ -82,13 +85,44 @@ const dummyCards: Cards[] = [
   },
 ];
 
-export default function Dashboard({ params }: { params: { id: number } }) {
+function AddColumn() {
   return (
-    <div className="px-3">
+    // TODO - href 설정할 것 #!는 eslint 우회를 위한 임시 코드입니다.
+    <Link
+      href="#!"
+      className="mx-[15px] my-3 flex h-[60px] items-center justify-center gap-x-3 rounded-lg border border-gray-300 bg-white py-6 font-bold"
+    >
+      새로운 컬럼 추가하기
+      <div className="relative size-5 md:size-[22px]">
+        <Image
+          src="/icons/icon_add_column.svg"
+          alt="새로운 컬럼 추가하기"
+          fill
+          sizes="100vw"
+        />
+      </div>
+    </Link>
+  );
+}
+
+function Column({ params, data }: { params: { id: number }; data: Cards[] }) {
+  return (
+    <div className="border-b border-gray-300 p-5">
       {/* NOTE - params 테스트 코드입니다. */}
       <p className="text-xl font-bold">params 값입니다 : {params.id}</p>
       {/* NOTE - 임시 데이터 매핑 */}
-      {dummyCards?.map((card) => <DashboardCard key={card.id} {...card} />)}
+      {data?.map((card) => <DashboardCard key={card.id} {...card} />)}
+    </div>
+  );
+}
+
+export default function Dashboard({ params }: { params: { id: number } }) {
+  return (
+    <div>
+      <Column params={params} data={dummyCards} />
+      <Column params={params} data={dummyCards} />
+      <Column params={params} data={dummyCards} />
+      <AddColumn />
     </div>
   );
 }

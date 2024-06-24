@@ -9,7 +9,8 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex h-screen w-screen overflow-hidden">
+    // NOTE - 임시 pb-[70px] 제거 후 수정 필요 + pb를 할 경우 사이드 바에 border-r 이 사라지는 현상 발견
+    <div className="flex h-screen w-screen overflow-hidden pb-[70px]">
       <Sidebar />
       <div className="w-full">
         <Navbar />
