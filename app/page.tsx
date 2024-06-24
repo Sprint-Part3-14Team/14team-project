@@ -7,6 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
+import Buttons from './components/buttons';
 import AdCard from './components/landing/ad-card';
 import PointCard from './components/landing/point-card';
 import SnsLinkIcon from './components/landing/sns-link-icon';
@@ -55,7 +56,15 @@ export default function Home() {
           <p className="mt-5 text-center md:mt-11">
             스마트하게 나의 일정을 관리해보자!
           </p>
-          <div className="my-[80px]">{/* TODO: 버튼 컴포넌트 삽입 */}</div>
+          <div className="my-[80px] text-center">
+            <Buttons
+              variant="landingLogin"
+              href="/signin"
+              className="bg-violet-primary text-white"
+            >
+              로그인하기
+            </Buttons>
+          </div>
         </section>
 
         <section>
