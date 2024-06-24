@@ -166,11 +166,11 @@ const dummyCardsThree: Cards[] = [
 
 function AddColumn() {
   return (
-    <div className="border-gray-300 px-[15px] py-3 md:p-5 lg:pt-[68px] xl:border-l">
+    <div className="border-gray-300 px-[15px] py-3 md:p-5 xl:border-l xl:pt-[68px]">
       {/* TODO - href 설정할 것 #!는 eslint 우회를 위한 임시 코드입니다. */}
       <Link
         href="#!"
-        className="flex h-[60px] items-center justify-center gap-x-3 rounded-lg border border-gray-300 bg-white py-6 font-bold lg:w-[354px]"
+        className="flex h-[60px] items-center justify-center gap-x-3 rounded-lg border border-gray-300 bg-white py-6 font-bold xl:w-[354px]"
       >
         새로운 컬럼 추가하기
         <div className="relative size-5 md:size-[22px]">
