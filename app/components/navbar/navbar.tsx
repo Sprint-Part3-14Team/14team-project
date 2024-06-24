@@ -13,7 +13,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-10 h-[60px] border-b border-gray-300 bg-white md:h-[70px]">
-      <div className="flex items-center justify-between px-3 py-[13px]">
+      <div className="flex items-center justify-between px-3 py-[13px] md:px-10 md:py-4">
         <Link href="/mydashboard">
           <div className="flex items-center">
             <div className="relative h-[34px] w-[29px]">
@@ -24,13 +24,15 @@ export default function Navbar() {
             </div>
           </div>
         </Link>
-        <ProfileImage
-          nickname={nickname}
-          profileImageUrl={profileImageUrl}
-          id={id}
-          size="34px"
-        />
-        <p className="hidden">{nickname}</p>
+        <div className="flex items-center gap-3 text-base font-medium">
+          <ProfileImage
+            nickname={nickname}
+            profileImageUrl={profileImageUrl}
+            id={id}
+            size="34px"
+          />
+          <p className="hidden text-gray-700 md:block">{nickname}</p>
+        </div>
       </div>
     </header>
   );
