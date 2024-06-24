@@ -87,27 +87,29 @@ const dummyCards: Cards[] = [
 
 function AddColumn() {
   return (
-    // TODO - href 설정할 것 #!는 eslint 우회를 위한 임시 코드입니다.
-    <Link
-      href="#!"
-      className="mx-[15px] my-3 flex h-[60px] items-center justify-center gap-x-3 rounded-lg border border-gray-300 bg-white py-6 font-bold"
-    >
-      새로운 컬럼 추가하기
-      <div className="relative size-5 md:size-[22px]">
-        <Image
-          src="/icons/icon_add_column.svg"
-          alt="새로운 컬럼 추가하기"
-          fill
-          sizes="100vw"
-        />
-      </div>
-    </Link>
+    <div className="border-gray-300 px-[15px] py-3 md:p-5 lg:pt-[68px] xl:border-l">
+      {/* TODO - href 설정할 것 #!는 eslint 우회를 위한 임시 코드입니다. */}
+      <Link
+        href="#!"
+        className="flex h-[60px] items-center justify-center gap-x-3 rounded-lg border border-gray-300 bg-white py-6 font-bold lg:w-[354px]"
+      >
+        새로운 컬럼 추가하기
+        <div className="relative size-5 md:size-[22px]">
+          <Image
+            src="/icons/icon_add_column.svg"
+            alt="새로운 컬럼 추가하기"
+            fill
+            sizes="100vw"
+          />
+        </div>
+      </Link>
+    </div>
   );
 }
 
 function Column({ params, data }: { params: { id: number }; data: Cards[] }) {
   return (
-    <div className="border-b border-gray-300 p-5">
+    <div className="border-b border-gray-300 p-5 xl:border-b-0 xl:border-l">
       {/* NOTE - params 테스트 코드입니다. */}
       <p className="text-xl font-bold">params 값입니다 : {params.id}</p>
       {/* NOTE - 임시 데이터 매핑 */}
@@ -118,7 +120,7 @@ function Column({ params, data }: { params: { id: number }; data: Cards[] }) {
 
 export default function Dashboard({ params }: { params: { id: number } }) {
   return (
-    <div>
+    <div className="flex flex-col xl:flex-row">
       <Column params={params} data={dummyCards} />
       <Column params={params} data={dummyCards} />
       <Column params={params} data={dummyCards} />
