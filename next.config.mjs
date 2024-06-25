@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    // TODO - 추후 제거 필요
-    remotePatterns: [{ hostname: 'raw.githubusercontent.com' }],
+    remotePatterns: [
+      { hostname: 'sprint-fe-project.s3.ap-northeast-2.amazonaws.com' },
+    ],
   },
 };
 

@@ -1,15 +1,22 @@
+import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import DashboardCard from '../../_components/dashboard-card';
 
-export interface Cards {
+export interface CardData {
   id: number;
   title: string;
+  description: string;
   tags: string[];
+  dueDate: string;
   assignee: Assignee;
   imageUrl: string;
+  teamId: string;
+  columnId: number;
   createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Assignee {
@@ -18,151 +25,51 @@ export interface Assignee {
   id: number;
 }
 
-// NOTE - 임시 데이터 입니다.
-const dummyCardsOne: Cards[] = [
-  {
-    id: 2,
-    title: 'Card 2',
-    tags: ['tag3'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User2',
-      id: 2,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png',
-    createdAt: new Date(),
-  },
-  {
-    id: 4,
-    title: 'Card 4',
-    tags: ['tag7', 'tag8', 'tag9'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User4',
-      id: 4,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
-    createdAt: new Date(),
-  },
-  {
-    id: 6,
-    title: 'Card 6',
-    tags: ['tag11', 'tag12'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User6',
-      id: 6,
-    },
-    imageUrl: '',
-    createdAt: new Date(),
-  },
-  {
-    id: 8,
-    title: 'Card 8',
-    tags: ['tag15', 'tag16'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User8',
-      id: 8,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png',
-    createdAt: new Date(),
-  },
-  {
-    id: 10,
-    title: 'Card 10',
-    tags: ['tag19', 'tag20'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User10',
-      id: 10,
-    },
-    imageUrl: '',
-    createdAt: new Date(),
-  },
-];
+export interface ColumnData {
+  id: number;
+  title: string;
+  teamId: string;
+  dashboardId: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
 
-const dummyCardsTwo: Cards[] = [
-  {
-    id: 2,
-    title: 'Card 2',
-    tags: ['tag344', 'tag4124'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User2',
-      id: 2,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
-    createdAt: new Date(),
-  },
-  {
-    id: 6,
-    title: 'Card 6',
-    tags: ['tag11', 'tag12'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User6',
-      id: 6,
-    },
-    imageUrl: '',
-    createdAt: new Date(),
-  },
-  {
-    id: 10,
-    title: 'Card 10',
-    tags: ['tag19', 'tag20'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User10',
-      id: 10,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
-    createdAt: new Date(),
-  },
-];
+async function getCards(columnId: number) {
+  const token = cookies().get('token')?.value;
 
-const dummyCardsThree: Cards[] = [
-  {
-    id: 2,
-    title: 'Card 2',
-    tags: [
-      'tag344',
-      'tag4124',
-      'tag234236',
-      'tag3463575',
-      'tag2435246',
-      'tag3456345',
-      'tag347475467',
-      'tag898234',
-    ],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User2',
-      id: 2,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png',
-    createdAt: new Date(),
-  },
-  {
-    id: 10,
-    title: 'Card 10',
-    tags: ['tag19', 'tag20'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User10',
-      id: 10,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png',
-    createdAt: new Date(),
-  },
-];
+  // TODO - size 무한 스크롤로 설정할 것
+  const res = await fetch(
+    `${TEAM_BASE_URL}/cards?size=10000&columnId=${columnId}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await res.json();
+
+  return data;
+}
+
+async function getColumns(dashboardId: number) {
+  const token = cookies().get('token')?.value;
+
+  const res = await fetch(
+    `${TEAM_BASE_URL}/columns?dashboardId=${dashboardId}`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  const data = await res.json();
+
+  return data;
+}
 
 function AddColumn() {
   return (
@@ -186,23 +93,29 @@ function AddColumn() {
   );
 }
 
-function Column({ params, data }: { params: { id: number }; data: Cards[] }) {
+async function Column({ data }: { data: ColumnData }) {
+  const { cards } = await getCards(data.id);
   return (
     <main className="overflow-auto px-3 pb-3">
-      {/* NOTE - params 테스트 코드입니다. */}
-      <p className="text-xl font-bold">params 값입니다 : {params.id}</p>
-      {/* NOTE - 임시 데이터 매핑 */}
-      {data?.map((card) => <DashboardCard key={card.id} {...card} />)}
+      <p>{data.title}</p>
+      {cards?.map((card: CardData) => (
+        <DashboardCard key={card.id} {...card} />
+      ))}
     </main>
   );
 }
 
-export default function Dashboard({ params }: { params: { id: number } }) {
+export default async function Dashboard({
+  params,
+}: {
+  params: { id: number };
+}) {
+  const { data } = await getColumns(params.id);
   return (
     <div className="flex flex-col xl:flex-row">
-      <Column params={params} data={dummyCardsOne} />
-      <Column params={params} data={dummyCardsTwo} />
-      <Column params={params} data={dummyCardsThree} />
+      {data?.map((column: ColumnData) => (
+        <Column key={column.id} data={column} />
+      ))}
       <AddColumn />
     </div>
   );
