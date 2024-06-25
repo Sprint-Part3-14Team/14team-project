@@ -10,7 +10,9 @@ export default function DashboardIdLayout({
   return (
     <>
       <DashboardNavbar />
-      {children}
+      <div className="h-[calc(100vh-120px)] overflow-auto md:h-[calc(100vh-130px)]">
+        {children}
+      </div>
     </>
   );
 }
