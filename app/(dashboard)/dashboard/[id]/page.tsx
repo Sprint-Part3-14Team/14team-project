@@ -192,9 +192,10 @@ function Column({ params, data }: { params: { id: number }; data: Cards[] }) {
       {/* NOTE - params 테스트 코드입니다. */}
       <p className="text-xl font-bold">params 값입니다 : {params.id}</p>
       {/* NOTE - 임시 데이터 매핑 */}
-      {dummyCards?.map((card) => <DashboardCard key={card.id} {...card} />)}
+      {data?.map((card) => <DashboardCard key={card.id} {...card} />)}
     </main>
-
+  );
+}
 
 export default function Dashboard({ params }: { params: { id: number } }) {
   return (
