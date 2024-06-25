@@ -1,4 +1,4 @@
-import getFetcher from '@/lib/schemas/api/getFetcher';
+import getFetcher from '@/lib/api/getFetcher';
 import crown from '@/public/icons/crown_icon.svg';
 import { Dashboard } from '@/types/dashboard';
 import Image from 'next/image';

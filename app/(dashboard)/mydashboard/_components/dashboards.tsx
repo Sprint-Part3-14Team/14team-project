@@ -1,4 +1,4 @@
-import getFetcher from '@/lib/schemas/api/getFetcher';
+import getFetcher from '@/lib/api/getFetcher';
 import { Dashboard } from '@/types/dashboard';
 
 export default async function DashBoards() {
