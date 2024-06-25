@@ -33,56 +33,69 @@ const dummyCardsOne: Cards[] = [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png',
     createdAt: new Date(),
   },
-  {
-    id: 4,
-    title: 'Card 4',
-    tags: ['tag7', 'tag8', 'tag9'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User4',
-      id: 4,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
-    createdAt: new Date(),
-  },
-  {
-    id: 6,
-    title: 'Card 6',
-    tags: ['tag11', 'tag12'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User6',
-      id: 6,
-    },
-    imageUrl: '',
-    createdAt: new Date(),
-  },
-  {
-    id: 8,
-    title: 'Card 8',
-    tags: ['tag15', 'tag16'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User8',
-      id: 8,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png',
-    createdAt: new Date(),
-  },
-  {
-    id: 10,
-    title: 'Card 10',
-    tags: ['tag19', 'tag20'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User10',
-      id: 10,
-    },
-    imageUrl: '',
-    createdAt: new Date(),
-  },
+  // {
+  //   id: 4,
+  //   title: 'Card 4',
+  //   tags: ['tag7', 'tag8', 'tag9'],
+  //   assignee: {
+  //     profileImageUrl: '',
+  //     nickname: 'User4',
+  //     id: 4,
+  //   },
+  //   imageUrl:
+  //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/4.png',
+  //   createdAt: new Date(),
+  // },
+  // {
+  //   id: 6,
+  //   title: 'Card 6',
+  //   tags: ['tag11', 'tag12'],
+  //   assignee: {
+  //     profileImageUrl: '',
+  //     nickname: 'User6',
+  //     id: 6,
+  //   },
+  //   imageUrl: '',
+  //   createdAt: new Date(),
+  // },
+  // {
+  //   id: 8,
+  //   title: 'Card 8',
+  //   tags: ['tag15', 'tag16'],
+  //   assignee: {
+  //     profileImageUrl: '',
+  //     nickname: 'User8',
+  //     id: 8,
+  //   },
+  //   imageUrl:
+  //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/389.png',
+  //   createdAt: new Date(),
+  // },
+  // {
+  //   id: 10,
+  //   title: 'Card 10',
+  //   tags: ['tag19', 'tag20'],
+  //   assignee: {
+  //     profileImageUrl: '',
+  //     nickname: 'User10',
+  //     id: 10,
+  //   },
+  //   imageUrl: '',
+  //   createdAt: new Date(),
+  // },
+  // {
+  //   id: 10,
+  //   title: 'Card 10',
+  //   tags: ['tag19', 'tag20'],
+  //   assignee: {
+  //     profileImageUrl: '',
+  //     nickname: 'User10',
+  //     id: 10,
+  //   },
+  //   imageUrl:
+  //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
+  //   createdAt: new Date(),
+  // },
 ];
 
 const dummyCardsTwo: Cards[] = [
@@ -99,31 +112,44 @@ const dummyCardsTwo: Cards[] = [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
     createdAt: new Date(),
   },
-  {
-    id: 6,
-    title: 'Card 6',
-    tags: ['tag11', 'tag12'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User6',
-      id: 6,
-    },
-    imageUrl: '',
-    createdAt: new Date(),
-  },
-  {
-    id: 10,
-    title: 'Card 10',
-    tags: ['tag19', 'tag20'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User10',
-      id: 10,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
-    createdAt: new Date(),
-  },
+  // {
+  //   id: 6,
+  //   title: 'Card 6',
+  //   tags: ['tag11', 'tag12'],
+  //   assignee: {
+  //     profileImageUrl: '',
+  //     nickname: 'User6',
+  //     id: 6,
+  //   },
+  //   imageUrl: '',
+  //   createdAt: new Date(),
+  // },
+  // {
+  //   id: 10,
+  //   title: 'Card 10',
+  //   tags: ['tag19', 'tag20'],
+  //   assignee: {
+  //     profileImageUrl: '',
+  //     nickname: 'User10',
+  //     id: 10,
+  //   },
+  //   imageUrl:
+  //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
+  //   createdAt: new Date(),
+  // },
+  // {
+  //   id: 10,
+  //   title: 'Card 10',
+  //   tags: ['tag19', 'tag20'],
+  //   assignee: {
+  //     profileImageUrl: '',
+  //     nickname: 'User10',
+  //     id: 10,
+  //   },
+  //   imageUrl:
+  //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/2.png',
+  //   createdAt: new Date(),
+  // },
 ];
 
 const dummyCardsThree: Cards[] = [
@@ -149,19 +175,19 @@ const dummyCardsThree: Cards[] = [
       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/7.png',
     createdAt: new Date(),
   },
-  {
-    id: 10,
-    title: 'Card 10',
-    tags: ['tag19', 'tag20'],
-    assignee: {
-      profileImageUrl: '',
-      nickname: 'User10',
-      id: 10,
-    },
-    imageUrl:
-      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png',
-    createdAt: new Date(),
-  },
+  // {
+  //   id: 10,
+  //   title: 'Card 10',
+  //   tags: ['tag19', 'tag20'],
+  //   assignee: {
+  //     profileImageUrl: '',
+  //     nickname: 'User10',
+  //     id: 10,
+  //   },
+  //   imageUrl:
+  //     'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/9.png',
+  //   createdAt: new Date(),
+  // },
 ];
 
 function AddColumn() {
@@ -188,22 +214,22 @@ function AddColumn() {
 
 function Column({ params, data }: { params: { id: number }; data: Cards[] }) {
   return (
-    <main className="overflow-auto px-3 pb-3">
+    <div className="border-b border-gray-300 p-5 xl:border-b-0 xl:border-l">
       {/* NOTE - params 테스트 코드입니다. */}
       <p className="text-xl font-bold">params 값입니다 : {params.id}</p>
       {/* NOTE - 임시 데이터 매핑 */}
       {data?.map((card) => <DashboardCard key={card.id} {...card} />)}
-    </main>
+    </div>
   );
 }
 
 export default function Dashboard({ params }: { params: { id: number } }) {
   return (
-    <div className="flex flex-col xl:flex-row">
+    <main className="flex h-max w-full flex-col xl:flex-row">
       <Column params={params} data={dummyCardsOne} />
       <Column params={params} data={dummyCardsTwo} />
       <Column params={params} data={dummyCardsThree} />
       <AddColumn />
-    </div>
+    </main>
   );
 }
