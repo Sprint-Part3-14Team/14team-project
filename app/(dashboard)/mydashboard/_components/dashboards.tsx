@@ -5,7 +5,7 @@ export default async function DashBoards() {
   const params = new URLSearchParams({
     navigationMethod: 'pagination',
     page: '1',
-    size: '8',
+    size: '6',
   });
 
   const data = await getFetcher(`/dashboards?${params.toString()}`);
@@ -13,7 +13,7 @@ export default async function DashBoards() {
 
   return (
     <section>
-      <ul className="grid">
+      <ul className="">
         {dashboards.map((dashboard: Dashboard) => (
           <li>
             <p>{dashboard.title}</p>

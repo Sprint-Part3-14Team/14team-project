@@ -23,6 +23,8 @@ export default async function getFetcher(url: string) {
         throw new Error(data.message);
       case 404:
         throw new Error(data.message);
+      default:
+        throw new Error('서버 오류가 발생했습니다');
     }
   }
 
