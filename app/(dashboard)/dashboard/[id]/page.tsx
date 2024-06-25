@@ -188,22 +188,22 @@ function AddColumn() {
 
 function Column({ params, data }: { params: { id: number }; data: Cards[] }) {
   return (
-    <main className="overflow-auto px-3 pb-3">
+    <div className="border-b border-gray-300 p-5 xl:border-b-0 xl:border-l">
       {/* NOTE - params 테스트 코드입니다. */}
       <p className="text-xl font-bold">params 값입니다 : {params.id}</p>
       {/* NOTE - 임시 데이터 매핑 */}
       {data?.map((card) => <DashboardCard key={card.id} {...card} />)}
-    </main>
+    </div>
   );
 }
 
 export default function Dashboard({ params }: { params: { id: number } }) {
   return (
-    <div className="flex flex-col xl:flex-row">
+    <main className="flex h-full w-full flex-col overflow-auto pb-3 xl:flex-row">
       <Column params={params} data={dummyCardsOne} />
       <Column params={params} data={dummyCardsTwo} />
       <Column params={params} data={dummyCardsThree} />
       <AddColumn />
-    </div>
+    </main>
   );
 }
