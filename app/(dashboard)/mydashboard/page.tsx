@@ -1,17 +1,12 @@
+import DashBoards from './_components/dashboards';
+import Invitaions from './_components/invitations';
+
 export default function MyDashboard() {
   return (
-    <div className="h-40">
-      mydashboard 페이지<div className="h-40">mydashboard 페이지</div>
-      <div className="h-40">mydashboard 페이지</div>
-      <div className="h-40">mydashboard 페이지</div>
-      <div className="h-40">mydashboard 페이지</div>
-      <div className="h-40">mydashboard 페이지</div>
-      <div className="h-40">mydashboard 페이지</div>
-      <div className="h-40">mydashboard 페이지</div>
-      <div className="h-40">mydashboard 페이지</div>
-      <div className="h-40">mydashboard 페이지</div>
-      <div className="h-40">mydashboard 페이지</div>
-      <div className="h-40">mydashboard 페이지</div>
-    </div>
+    <main className="">
+      mydashboard 페이지
+      <DashBoards />
+      <Invitaions />
+    </main>
   );
 }
