@@ -188,14 +188,13 @@ function AddColumn() {
 
 function Column({ params, data }: { params: { id: number }; data: Cards[] }) {
   return (
-    <div className="border-b border-gray-300 p-5 xl:border-b-0 xl:border-l">
+    <main className="overflow-auto px-3 pb-3">
       {/* NOTE - params 테스트 코드입니다. */}
       <p className="text-xl font-bold">params 값입니다 : {params.id}</p>
       {/* NOTE - 임시 데이터 매핑 */}
-      {data?.map((card) => <DashboardCard key={card.id} {...card} />)}
-    </div>
-  );
-}
+      {dummyCards?.map((card) => <DashboardCard key={card.id} {...card} />)}
+    </main>
+
 
 export default function Dashboard({ params }: { params: { id: number } }) {
   return (
