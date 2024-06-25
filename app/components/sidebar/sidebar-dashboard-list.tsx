@@ -1,10 +1,16 @@
-import getDashboards from '@/app/api/dashboard/getDashboards';
+import getFetcher from '@/lib/api/getFetcher';
 import crown from '@/public/icons/crown_icon.svg';
 import { Dashboard } from '@/types/dashboard';
 import Image from 'next/image';
 
 export default async function SidebarDashboardList() {
-  const data = await getDashboards();
+  const params = new URLSearchParams({
+    navigationMethod: 'pagination',
+    page: '1',
+    size: '10',
+  });
+
+  const data = await getFetcher(`/dashboards?${params.toString()}`);
   const { dashboards } = data;
 
   return (
