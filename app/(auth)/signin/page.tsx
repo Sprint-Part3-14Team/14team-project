@@ -1,5 +1,6 @@
 'use client';
 
+import Modals from '@/app/components/modals';
 import Link from 'next/link';
 import React, { useState } from 'react';
 
@@ -8,9 +9,13 @@ import SignInForm from '../_components/sign-in-form';
 
 export default function SignIn() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [isTestModalOpen, setTestModalOpen] = useState(false);
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
+
+  const openTestModal = () => setTestModalOpen(true);
+  const closeTestModal = () => setTestModalOpen(false);
 
   return (
     <div className="flex w-full flex-col items-center justify-center px-3 md:px-28 xl:mx-auto xl:w-[520px] xl:px-0">
@@ -33,6 +38,17 @@ export default function SignIn() {
           variant="passwordError"
         />
       </div>
+
+      <button type="button" onClick={openTestModal}>
+        모달 열기
+      </button>
+      <Modals
+        isOpen={isTestModalOpen}
+        onClose={closeTestModal}
+        className="h-[220px] w-[327px]"
+      >
+        <h2>안녕하세용</h2>
+      </Modals>
     </div>
   );
 }
