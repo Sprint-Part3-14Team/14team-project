@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import Buttons from './components/buttons';
+import Buttons from './components/button';
 import AdCard from './components/landing/ad-card';
 import PointCard from './components/landing/point-card';
 import SnsLinkIcon from './components/landing/sns-link-icon';

@@ -9,7 +9,7 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-export default function Modals({
+export default function Modal({
   isOpen,
   onClose,
   className = '',

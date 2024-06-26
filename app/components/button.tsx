@@ -20,7 +20,7 @@ interface ButtonProps {
   href?: string;
 }
 
-export default function Buttons({
+export default function Button({
   variant,
   children,
   className,

@@ -1,7 +1,7 @@
 'use client';
 
-import Buttons from '@/app/components/buttons';
-import Modal from '@/app/components/modals';
+import Button from '@/app/components/button';
+import Modal from '@/app/components/modal';
 import React from 'react';
 
 interface SignModalProps {
@@ -38,13 +38,13 @@ export default function SignModal({
     >
       <h2 className="text-center text-base md:text-lg">{getMessage()}</h2>
       <div className="absolute bottom-7 right-24 md:right-7">
-        <Buttons
+        <Button
           onClick={onClose}
           variant="mobile138x42"
           className="bg-violet-primary text-sm text-white md:text-base"
         >
           확인
-        </Buttons>
+        </Button>
       </div>
     </Modal>
   );
