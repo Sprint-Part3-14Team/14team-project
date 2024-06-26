@@ -30,7 +30,7 @@ export default function Buttons({
   href = '#',
 }: ButtonProps) {
   const baseClasses = 'inline-flex items-center justify-center rounded-lg';
-
+  // NOTE - 모바일기준으로 가로 세로 픽셀입니다.
   const sizeClasses = {
     mobile351x50: 'w-[351px] h-[50px] md:w-[520px] md:h-[50px]',
     mobile138x42: 'w-[138px] h-[42px] md:w-[120px] md:h-[48px]',
