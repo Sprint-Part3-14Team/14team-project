@@ -100,8 +100,3 @@ export default function IconButtons({
     </button>
   );
 }
-
-IconButtons.defaultProps = {
-  onClick: () => {},
-  className: '',
-};

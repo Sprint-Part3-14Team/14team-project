@@ -40,7 +40,7 @@ export default function SignModal({
       <div className="absolute bottom-7 right-24 md:right-7">
         <Buttons
           onClick={onClose}
-          variant="dashboardFirst"
+          variant="mobile138x42"
           className="bg-violet-primary text-sm text-white md:text-base"
         >
           확인
