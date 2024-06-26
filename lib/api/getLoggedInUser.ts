@@ -2,7 +2,7 @@ import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { User } from '@/types/user';
 import { cookies } from 'next/headers';
 
-export default async function getUserMeFetcher(): Promise<User> {
+export default async function getLoggedInUser(): Promise<User> {
   const token = cookies().get('token')?.value;
 
   const res = await fetch(`${TEAM_BASE_URL}/users/me`, {

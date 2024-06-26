@@ -1,5 +1,5 @@
 import getFetcher from '@/lib/api/getFetcher';
-import getUserMeFetcher from '@/lib/api/getUserMeFetcher';
+import getLoggedInUser from '@/lib/api/getLoggedInUser';
 import { Dashboard } from '@/types/dashboard';
 
 import DashboardCard from './dashboard-card';
@@ -15,7 +15,7 @@ export default async function DashBoards() {
   const { dashboards, totalCount } = data;
 
   // NOTE - 사용자 정보 GET
-  const user = await getUserMeFetcher();
+  const user = await getLoggedInUser();
 
   return (
     <section>
