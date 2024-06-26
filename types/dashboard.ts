@@ -1,10 +1,10 @@
 export interface Dashboard {
-  title: 'string';
+  title: string;
+  color: string;
   id: number;
 }
 
 export interface DashboardDetail extends Dashboard {
-  color: string;
   userId: number;
   createdAt: Date;
   updatedAt: Date;
