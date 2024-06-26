@@ -21,12 +21,14 @@ export default async function DashBoards() {
       <p>{user.id}</p>
       <ul className="flex flex-col gap-2">
         {dashboards.map((dashboard: Dashboard) => (
-          <li className="h-20[90px] relative flex rounded-lg border border-gray-300 bg-white py-5 pl-5">
+          <li className="h-20[90px] relative flex items-center justify-between rounded-lg border border-gray-300 bg-white px-5 py-5">
             <div
               className="absolute left-0 top-[50%] h-7 w-1 translate-y-[-50%] rounded-r-lg"
               style={{ backgroundColor: dashboard.color }}
             />
-            <p>{dashboard.title}</p>
+            <p className="text-sm font-semibold text-gray-700">
+              {dashboard.title}
+            </p>
             {dashboard.createdByMe && (
               <ProfileImage
                 nickname={user.nickname}
