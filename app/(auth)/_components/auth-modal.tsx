@@ -1,5 +1,6 @@
 'use client';
 
+import Buttons from '@/app/components/buttons';
 import Modal from '@/app/components/modals';
 import React from 'react';
 
@@ -37,13 +38,13 @@ export default function SignModal({
     >
       <h2 className="text-center text-base md:text-lg">{getMessage()}</h2>
       <div className="absolute bottom-7 right-24 md:right-7">
-        <button
+        <Buttons
           onClick={onClose}
-          type="button"
-          className="h-[42px] w-[138px] rounded-md bg-violet-primary text-base text-white md:h-[48px] md:w-[120px]"
+          variant="dashboardFirst"
+          className="bg-violet-primary text-sm text-white md:text-base"
         >
           확인
-        </button>
+        </Buttons>
       </div>
     </Modal>
   );
