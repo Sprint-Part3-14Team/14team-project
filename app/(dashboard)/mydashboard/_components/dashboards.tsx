@@ -1,8 +1,7 @@
+import ProfileImage from '@/app/components/profile/profile-image';
 import getFetcher from '@/lib/api/getFetcher';
 import getUserMeFetcher from '@/lib/api/getUserMeFetcher';
-import crown from '@/public/icons/crown_icon.svg';
 import { Dashboard } from '@/types/dashboard';
-import Image from 'next/image';
 
 export default async function DashBoards() {
   const params = new URLSearchParams({
@@ -28,11 +27,13 @@ export default async function DashBoards() {
               style={{ backgroundColor: dashboard.color }}
             />
             <p>{dashboard.title}</p>
-            {/* // NOTE - 만든 사람 프로필 넣기 불가능함 내가 만든 대시보드일 경우 왕관 OR 프로필 이미지(없으면 기본 프로필 이미지) */}
             {dashboard.createdByMe && (
-              <div className="relative h-3 w-4">
-                <Image src={crown} alt="내가 만든 대시보드 왕관" fill />
-              </div>
+              <ProfileImage
+                nickname={user.nickname}
+                profileImageUrl={user.profileImageUrl}
+                id={user.id}
+                size="20px"
+              />
             )}
           </li>
         ))}
