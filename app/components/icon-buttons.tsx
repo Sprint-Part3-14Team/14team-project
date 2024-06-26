@@ -40,7 +40,7 @@ export default function IconButtons({
 
     case 'invite':
       buttonClasses =
-        'w-[86px] h-[28px] md:w-[105px] md:h-[32px] rounded-lg bg-violet-primary border';
+        'w-[86px] h-[28px] md:w-[105px] md:h-[32px] rounded bg-violet-primary border';
       iconStyles = 'mt-0 ml-2 md:mt-0 md:ml-3.5';
       textStyles =
         'text-xs text-white font-medium mt-0 ml-2 md:text-sm md:ml-2.5 xl:ml-3';
