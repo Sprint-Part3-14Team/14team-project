@@ -2,17 +2,17 @@ import Image from 'next/image';
 
 import Tag from './tag';
 
-export default function DashboardCard({
+export default function ToDoCard({
   title,
   tags,
   imageUrl,
-  createdAt,
+  // createdAt,
   assignee,
 }: {
   title: string;
   tags: string[];
   imageUrl?: string;
-  createdAt: Date;
+  // createdAt: Date;
   assignee: {
     profileImageUrl: string;
     nickname: string;
@@ -43,17 +43,20 @@ export default function DashboardCard({
                 />
               </div>
               <p className="text-[10px] md:text-xs">
-                {createdAt.toLocaleDateString()}
+                {/* {createdAt} */}
+                {/* {createdAt} */}
               </p>
             </div>
             <div className="flex items-center gap-x-[6px]">
               <div className="relative size-[22px] md:size-6">
-                <Image
-                  src={assignee.profileImageUrl}
-                  fill
-                  sizes="100vw"
-                  alt="assignee"
-                />
+                {assignee.profileImageUrl && (
+                  <Image
+                    src={assignee.profileImageUrl}
+                    fill
+                    sizes="100vw"
+                    alt="assignee"
+                  />
+                )}
               </div>
             </div>
           </div>
