@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import DashboardCard from '../../_components/dashboard-card';
+import ToDoCard from '../../_components/todo-card';
 
 export interface CardData {
   id: number;
@@ -98,9 +98,7 @@ async function Column({ data }: { data: ColumnData }) {
   return (
     <div className="min-h-full border-b border-gray-300 p-5 xl:border-b-0 xl:border-l">
       <p>{data.title}</p>
-      {cards?.map((card: CardData) => (
-        <DashboardCard key={card.id} {...card} />
-      ))}
+      {cards?.map((card: CardData) => <ToDoCard key={card.id} {...card} />)}
     </div>
   );
 }

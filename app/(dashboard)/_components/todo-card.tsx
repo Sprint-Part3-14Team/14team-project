@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import Tag from './tag';
 
-export default function DashboardCard({
+export default function ToDoCard({
   title,
   tags,
   imageUrl,
