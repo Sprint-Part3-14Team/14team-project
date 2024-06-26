@@ -23,11 +23,11 @@ export default async function DashboardNavbar({ id }: { id: number }) {
     <section className="sticky top-[60px] z-[9] flex h-[60px] items-center justify-between border-b border-gray-300 bg-white px-3 py-1 md:top-[70px] md:px-10">
       <div className="flex items-center gap-1">
         <h2 className="text-lg font-bold">{data.title}</h2>
-        {/* TODO - 관리버튼 추가 */}
-        {data.createdByMe && <IconButtons variant="setting" />}{' '}
+        {data.createdByMe && <IconButtons variant="setting" />}
       </div>
       <div className="flex items-center gap-1">
-        {/* TODO - 참여 멤버 컴포넌트 우선 위치 잡기 위해 넣어둔 겁니다 ! */}
+        {/* TODO - 참여 멤버 컴포넌트 생성 */}
+        {/* NOTE -  우선 위치 잡기 위해 넣어둔 겁니다 ! */}
         <div className="flex">
           <div className="size-[26px] rounded-full bg-red-400">서</div>
           <div className="size-[26px] rounded-full bg-red-400">서</div>
