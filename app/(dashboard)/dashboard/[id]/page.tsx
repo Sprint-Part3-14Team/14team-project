@@ -96,12 +96,12 @@ function AddColumn() {
 async function Column({ data }: { data: ColumnData }) {
   const { cards } = await getCards(data.id);
   return (
-    <main className="overflow-auto px-3 pb-3">
+    <div className="min-h-full border-b border-gray-300 p-5 xl:border-b-0 xl:border-l">
       <p>{data.title}</p>
       {cards?.map((card: CardData) => (
         <DashboardCard key={card.id} {...card} />
       ))}
-    </main>
+    </div>
   );
 }
 
@@ -112,11 +112,11 @@ export default async function Dashboard({
 }) {
   const { data } = await getColumns(params.id);
   return (
-    <div className="flex flex-col xl:flex-row">
+    <main className="flex min-h-full w-full flex-col xl:flex-row">
       {data?.map((column: ColumnData) => (
         <Column key={column.id} data={column} />
       ))}
       <AddColumn />
-    </div>
+    </main>
   );
 }
