@@ -2,7 +2,7 @@ import { useProfileColor } from '@/hooks/useProfileColor';
 import Image from 'next/image';
 
 interface ProfileImageProps {
-  profileImageUrl: string | null;
+  profileImageUrl?: string | null;
   nickname: string;
   id: number;
   size: string;
