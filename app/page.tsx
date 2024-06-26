@@ -58,7 +58,7 @@ export default function Home() {
           </p>
           <div className="my-[80px] text-center">
             <Buttons
-              variant="landingLogin"
+              variant="mobile235x42"
               href="/signin"
               className="bg-violet-primary text-white"
             >
