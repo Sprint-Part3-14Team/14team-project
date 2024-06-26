@@ -7,7 +7,7 @@ import ProfileImage from '../profile/profile-image';
 
 export default function Navbar() {
   // NOTE - 테스트 유저 정보
-  const nickname = '서영';
+  const nickname = '김서영';
   const profileImageUrl = null;
   const id = 3950;
 
