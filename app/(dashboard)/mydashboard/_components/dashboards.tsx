@@ -18,12 +18,12 @@ export default async function DashBoards() {
   const user = await getLoggedInUser();
 
   return (
-    <section>
+    <section className="">
       <div className="mb-3 flex items-center gap-1 text-xs">
         <h2 className="text-xl font-bold">Dashboard</h2>
         <p>{totalCount}</p>
       </div>
-      <ul className="flex flex-col gap-2">
+      <ul className="grid grid-flow-row gap-2 md:grid-cols-2 xl:grid-cols-3">
         {dashboards.map((dashboard: Dashboard) => (
           <DashboardCard dashboard={dashboard} user={user} />
         ))}
