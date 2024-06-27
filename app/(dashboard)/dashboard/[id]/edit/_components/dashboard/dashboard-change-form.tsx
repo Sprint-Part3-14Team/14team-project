@@ -3,7 +3,7 @@
 import { Dashboard } from '@/types/dashboard';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { changeDashboardAction } from '../../edit-actions';
+import changeDashboardAction from '../../actions';
 import ColorList from './color-list';
 
 export default function DashboardChangeForm({
