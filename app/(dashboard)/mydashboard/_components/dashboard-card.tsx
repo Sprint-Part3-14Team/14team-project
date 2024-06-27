@@ -1,9 +1,9 @@
 import ProfileImage from '@/app/components/profile/profile-image';
-import { Dashboard } from '@/types/dashboard';
+import { DashboardDetail } from '@/types/dashboard';
 import { User } from '@/types/user';
 
 interface DashboardProps {
-  dashboard: Dashboard;
+  dashboard: DashboardDetail;
   user: User;
 }
 
