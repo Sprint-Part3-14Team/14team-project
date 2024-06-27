@@ -1,5 +1,8 @@
+'use client';
+
 import ProfileImage from '@/app/components/profile/profile-image';
 import { DashboardMembers } from '@/types/members';
+import { useMediaQuery } from 'react-responsive';
 
 interface DashboardMembersProps {
   members: DashboardMembers[];
@@ -10,7 +13,8 @@ export default function DashboardMemberList({
   members,
   totalCount,
 }: DashboardMembersProps) {
-  const displayMembers = members.slice(0, 2);
+  const isPC = useMediaQuery({ minWidth: 1280 });
+  const displayMembers = isPC ? members.slice(0, 4) : members.slice(0, 2);
   const remainCount = totalCount - displayMembers.length;
 
   return (
@@ -26,7 +30,7 @@ export default function DashboardMemberList({
         </div>
       ))}
       {remainCount > 0 && (
-        <div className="ml-[-8px] flex size-[26px] items-center justify-center rounded-full bg-pink-500 text-sm text-white">
+        <div className="ml-[-8px] flex size-[26px] items-center justify-center rounded-full bg-[#F4D7DA] text-sm text-white">
           +{remainCount}
         </div>
       )}
