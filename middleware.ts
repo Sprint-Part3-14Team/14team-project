@@ -6,10 +6,12 @@ export default function middleware(request: NextRequest) {
   // path 확인
   const { pathname } = request.nextUrl;
 
-  // 로그인이 됐을 때 login과 signup에 접근하면 /mydashboard로 redirect
+  // 로그인이 됐을 때 랜딩페이지, login과 signup에 접근하면 /mydashboard로 redirect
   if (
     isLoggedIn &&
-    (pathname.startsWith('/login') || pathname.startsWith('/signup'))
+    (pathname.startsWith('/login') ||
+      pathname.startsWith('/signup') ||
+      pathname === '/')
   ) {
     return NextResponse.redirect(new URL('/mydashboard', request.url));
   }
