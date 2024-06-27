@@ -19,14 +19,14 @@ export default function ProfileImage({
     <div>
       {profileImageUrl ? (
         <div
-          className="relative size-[34px] rounded-full"
+          className="relative size-[34px] rounded-full border-2 border-white"
           style={{ width: size, height: size }}
         >
           <Image src={profileImageUrl} alt="프로필 이미지" fill />
         </div>
       ) : (
         <div
-          className="flex size-[34px] items-center justify-center rounded-full text-sm font-semibold text-white"
+          className="flex size-[34px] items-center justify-center rounded-full border-2 border-white text-sm font-semibold text-white"
           style={{ backgroundColor: profileColor, width: size, height: size }}
         >
           {nickname.charAt(0)}

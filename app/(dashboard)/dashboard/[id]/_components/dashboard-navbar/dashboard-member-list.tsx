@@ -30,7 +30,7 @@ export default function DashboardMemberList({
         </div>
       ))}
       {remainCount > 0 && (
-        <div className="ml-[-8px] flex size-[26px] items-center justify-center rounded-full bg-[#F4D7DA] text-sm text-white">
+        <div className="ml-[-8px] flex size-[26px] items-center justify-center rounded-full border-2 border-white bg-[#F4D7DA] text-sm text-white">
           +{remainCount}
         </div>
       )}
