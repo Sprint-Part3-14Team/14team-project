@@ -1,11 +1,11 @@
 import IconButtons from '@/app/components/icon-buttons';
 import getFetcher from '@/lib/api/getFetcher';
-import { Dashboard } from '@/types/dashboard';
+import { DashboardDetail } from '@/types/dashboard';
 
 import DashboardMemberList from './dashboard-member-list';
 
 export default async function DashboardNavbar({ id }: { id: number }) {
-  const data = (await getFetcher(`/dashboards/${id}`)) as Dashboard;
+  const data = (await getFetcher(`/dashboards/${id}`)) as DashboardDetail;
 
   const params = new URLSearchParams({
     dashboardId: id.toString(),
