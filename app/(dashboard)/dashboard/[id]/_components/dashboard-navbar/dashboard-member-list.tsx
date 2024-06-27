@@ -24,7 +24,7 @@ export default function DashboardMemberList({
           <ProfileImage
             profileImageUrl={member.profileImageUrl}
             nickname={member.nickname}
-            id={member.id}
+            id={member.userId}
             size="26px"
           />
         </div>
