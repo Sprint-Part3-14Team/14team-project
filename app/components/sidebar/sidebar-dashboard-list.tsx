@@ -1,6 +1,6 @@
 import getFetcher from '@/lib/api/getFetcher';
 import crown from '@/public/icons/crown_icon.svg';
-import { Dashboard } from '@/types/dashboard';
+import { DashboardDetail } from '@/types/dashboard';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -16,7 +16,7 @@ export default async function SidebarDashboardList() {
 
   return (
     <ul className="flex flex-col gap-[38px] md:gap-[27px]">
-      {dashboards.map((dashboard: Dashboard) => (
+      {dashboards.map((dashboard: DashboardDetail) => (
         <li key={dashboard.id} className="flex items-center">
           <p
             className="h-2 w-2 rounded-full"

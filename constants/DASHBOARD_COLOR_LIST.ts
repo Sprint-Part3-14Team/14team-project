@@ -1,0 +1,8 @@
+export const DASHBOARD_COLOR_LIST = {
+  RED: '#D6173A',
+  GREEN: '#7AC555',
+  PURPLE: '#760DDE',
+  ORANGE: '#FFA500',
+  SKY: '#76A5EA',
+  PINK: '#E876EA',
+};
