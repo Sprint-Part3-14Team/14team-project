@@ -8,7 +8,7 @@ export default async function SidebarDashboardList() {
   const params = new URLSearchParams({
     navigationMethod: 'pagination',
     page: '1',
-    size: '10',
+    size: '30',
   });
 
   const data = await getFetcher(`/dashboards?${params.toString()}`);
