@@ -1,5 +1,3 @@
-'use client';
-
 import Buttons from '@/app/components/button';
 import ColorList from '@/app/components/color-list';
 import Modal from '@/app/components/modal';
