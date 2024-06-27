@@ -1,3 +1,4 @@
+import getLoggedInUser from '@/lib/api/getLoggedInUser';
 import logoSmall from '@/public/images/logo_small.svg';
 import textLogo from '@/public/images/text_logo.svg';
 import Image from 'next/image';
@@ -5,11 +6,9 @@ import Link from 'next/link';
 
 import ProfileImage from '../profile/profile-image';
 
-export default function Navbar() {
-  // NOTE - 테스트 유저 정보
-  const nickname = '김서영';
-  const profileImageUrl = null;
-  const id = 3950;
+export default async function Navbar() {
+  // NOTE - 사용자 정보 GET
+  const user = await getLoggedInUser();
 
   return (
     <header className="sticky top-0 z-10 h-[60px] border-b border-gray-300 bg-white md:h-[70px]">
@@ -26,12 +25,12 @@ export default function Navbar() {
         </Link>
         <div className="flex items-center gap-3 text-base font-medium">
           <ProfileImage
-            nickname={nickname}
-            profileImageUrl={profileImageUrl}
-            id={id}
+            nickname={user.nickname}
+            profileImageUrl={user.profileImageUrl}
+            id={user.id}
             size="34px"
           />
-          <p className="hidden text-gray-700 md:block">{nickname}</p>
+          <p className="hidden text-gray-700 md:block">{user.nickname}</p>
         </div>
       </div>
     </header>
