@@ -11,12 +11,11 @@ export default function ColorRadio({
   cssColor,
   register,
 }: ColorRadioProps) {
-  const listClassName = `h-[30px] w-[30px] cursor-pointer rounded-full appearance-none checked:bg-black`;
   return (
     <label>
       <input
         {...register('color')}
-        className={`${listClassName} ${cssColor}`}
+        className={`h-[30px] w-[30px] cursor-pointer appearance-none rounded-full checked:bg-black ${cssColor}`}
         type="radio"
         name="color"
         value={value}
