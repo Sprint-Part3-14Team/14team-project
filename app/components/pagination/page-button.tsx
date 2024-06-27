@@ -1,6 +1,6 @@
 'use client';
 
-import forwardArrow from '@/public/icons/arrow_forward.svg';
+import forwardArrow from '@/public/icons/arrow_forward_gray.svg';
 import nextArrow from '@/public/icons/arrow_next.svg';
 import Image from 'next/image';
 import { MouseEventHandler } from 'react';

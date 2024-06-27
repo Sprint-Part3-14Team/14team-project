@@ -15,8 +15,7 @@ export default function DashboardChangeForm({
 
   const changeDashboardInfo: SubmitHandler<Dashboard> = async (data) => {
     const { title, color } = data;
-    const res = await changeDashboardAction(title, color, dashboardId);
-    console.log(res);
+    await changeDashboardAction(title, color, dashboardId);
   };
 
   return (
