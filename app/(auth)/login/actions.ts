@@ -2,6 +2,7 @@
 
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export default async function signIn(email: string, password: string) {
   const response = await fetch(`${TEAM_BASE_URL}/auth/login`, {
@@ -16,5 +17,5 @@ export default async function signIn(email: string, password: string) {
 
   cookies().set('token', data.accessToken);
 
-  return data;
+  redirect('/mydashboard');
 }
