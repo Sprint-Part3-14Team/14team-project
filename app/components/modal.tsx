@@ -9,7 +9,7 @@ interface ModalProps {
   children: React.ReactNode;
 }
 
-export default function Modals({
+export default function Modal({
   isOpen,
   onClose,
   className = '',
@@ -39,8 +39,10 @@ export default function Modals({
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className={`overflow-hidden rounded-lg bg-white ${className}`}>
-        <div className="modal-content">{children}</div>
+      <div
+        className={`modal-content overflow-hidden rounded-lg bg-white ${className}`}
+      >
+        {children}
       </div>
     </div>
   );

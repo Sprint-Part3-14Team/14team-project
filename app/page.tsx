@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-import Buttons from './components/buttons';
+import Buttons from './components/button';
 import AdCard from './components/landing/ad-card';
 import PointCard from './components/landing/point-card';
 import SnsLinkIcon from './components/landing/sns-link-icon';
@@ -58,9 +58,9 @@ export default function Home() {
           </p>
           <div className="my-[80px] text-center">
             <Buttons
-              variant="landingLogin"
-              href="/login"
-              className="bg-violet-primary text-white"
+              variant="mobile235x42"
+              href="/signin"
+              className="rounded-lg bg-violet-primary text-white"
             >
               로그인하기
             </Buttons>
