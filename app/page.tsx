@@ -28,7 +28,7 @@ export default function Home() {
           <span className="sr-only">Taskify</span>
         </h1>
         <div>
-          <Link className="mr-5 md:mr-9" href="/signin">
+          <Link className="mr-5 md:mr-9" href="/login">
             로그인
           </Link>
           <Link href="/signup">회원가입</Link>

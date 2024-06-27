@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import SignModal from '../_components/auth-modal';
 import SignInForm from '../_components/sign-in-form';
 
-export default function SignIn() {
+export default function Login() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [isTestModalOpen, setTestModalOpen] = useState(false);
 
