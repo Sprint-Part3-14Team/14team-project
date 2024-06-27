@@ -1,8 +1,10 @@
+import ProfileImage from '@/app/components/profile/profile-image';
+import formatDate from '@/utils/formatDate';
 import Image from 'next/image';
 
 import Tag from './tag';
 
-export default function DashboardCard({
+export default function ToDoCard({
   title,
   tags,
   imageUrl,
@@ -42,17 +44,16 @@ export default function DashboardCard({
                   alt="calendar"
                 />
               </div>
-              <p className="text-[10px] md:text-xs">
-                {createdAt.toLocaleDateString()}
-              </p>
+              <p className="text-[10px] md:text-xs">{formatDate(createdAt)}</p>
             </div>
             <div className="flex items-center gap-x-[6px]">
               <div className="relative size-[22px] md:size-6">
-                <Image
-                  src={assignee.profileImageUrl}
-                  fill
-                  sizes="100vw"
-                  alt="assignee"
+                {/* TODO 모바일일 때 size가 22px PC가 24px인데 어떻게 주어야 좋을까요 */}
+                <ProfileImage
+                  profileImageUrl={assignee.profileImageUrl}
+                  nickname={assignee.nickname}
+                  id={assignee.id}
+                  size="24px"
                 />
               </div>
             </div>
