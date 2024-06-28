@@ -1,6 +1,6 @@
 import Button from '@/app/components/button';
 import InputField from '@/app/components/input-field';
-import { editPasswordSchema } from '@/lib/schemas/profileUpdate';
+import editPasswordSchema from '@/lib/schemas/profileUpdate';
 import { EditPassword } from '@/types/profileUpdate';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
