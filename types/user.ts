@@ -6,5 +6,3 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
 }
-
-export type InviUser = Pick<User, 'id' | 'nickname' | 'email'>;
