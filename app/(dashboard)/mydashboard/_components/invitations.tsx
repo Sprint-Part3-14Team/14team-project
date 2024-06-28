@@ -28,7 +28,10 @@ export default async function Invitations() {
           <Image src={search} width={16} height={16} alt="검색" />
         </div>
       </div>
-      <InvitationList initialInvitations={invitations} cursorId={cursorId} />
+      <InvitationList
+        initialInvitations={invitations}
+        initialCursorId={cursorId}
+      />
     </section>
   );
 }
