@@ -1,6 +1,4 @@
-import addDashboard from '@/public/icons/add_dashboard.svg';
-import Image from 'next/image';
-
+import SidebarButton from './sidebar-button';
 import SidebarDashboardList from './sidebar-dashboard-list';
 
 export default function Sidebar() {
@@ -11,9 +9,7 @@ export default function Sidebar() {
           <p className="flex hidden text-xs font-bold text-gray-500 md:block">
             Dash Boards
           </p>
-          <button className="relative h-5 w-5" type="button">
-            <Image src={addDashboard} alt="대시보드 추가 버튼" fill />
-          </button>
+          <SidebarButton />
         </div>
         {/* // NOTE - 대시보드 리스트 section */}
         <SidebarDashboardList />

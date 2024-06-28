@@ -1,7 +1,10 @@
+'use client';
+
 import Buttons from '@/app/components/button';
 import ColorList from '@/app/components/color-list';
 import Modal from '@/app/components/modal';
-import postFetcher from '@/lib/api/postFetcher';
+import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 interface NewDashboardModalProps {
@@ -15,17 +18,29 @@ export default function NewDashboardModal({
 }: NewDashboardModalProps) {
   const [dashboardName, setDashboardName] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
+  const router = useRouter();
 
   const handleCreateDashboard = async () => {
     try {
-      const newDashboard = {
-        name: dashboardName,
-        color: selectedColor,
-      };
+      if (!dashboardName || !selectedColor) return;
 
-      const createdDashboard = await postFetcher('dashboard', newDashboard);
+      const res = await fetch(`${TEAM_BASE_URL}/dashboards`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // NOTE - 임시 토큰
+          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mzk1MCwidGVhbUlkIjoiNi0xNCIsImlhdCI6MTcxOTA2NjU1OCwiaXNzIjoic3AtdGFza2lmeSJ9.P1BK3gMqx09fVNkM93D45YjpxHfXTsg55IpQFNBKan0`,
+        },
+        body: JSON.stringify({ title: dashboardName, color: selectedColor }),
+      });
 
-      window.location.href = `/dashboard/${createdDashboard.id}`;
+      if (!res.ok) {
+        throw new Error('대시보드 생성 실패');
+      }
+
+      const createdDashboard = await res.json();
+      router.push(`/dashboard/${createdDashboard.id}`);
+      onClose();
     } catch (error: any) {
       console.error('대시보드 생성 오류:', error.message);
     }
@@ -79,7 +94,7 @@ export default function NewDashboardModal({
           <Buttons
             variant="mobile138x42"
             type="submit"
-            className={`ml-[12px] rounded-lg ${dashboardName && selectedColor ? 'bg-violet-primary text-white' : 'cursor-not-allowed bg-gray-300 text-gray-500'}`}
+            className={`ml-[12px] rounded-lg bg-violet-primary text-white md:mr-[28px] ${dashboardName && selectedColor ? 'cursor-default' : 'cursor-not-allowed'}`}
             disabled={!dashboardName || !selectedColor}
           >
             생성

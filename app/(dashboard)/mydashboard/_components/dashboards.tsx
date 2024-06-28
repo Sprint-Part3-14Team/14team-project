@@ -18,7 +18,7 @@ export default async function DashBoards() {
   const user = await getLoggedInUser();
 
   return (
-    <section className="">
+    <section>
       <div className="mb-3 flex items-center gap-1 text-xs">
         <h2 className="text-xl font-bold">Dashboard</h2>
         <p>{totalCount}</p>

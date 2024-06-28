@@ -39,7 +39,7 @@ export default function Button({
     mobile284x52: 'w-[284px] h-[52px] md:w-[320px] md:h-[62px]',
     mobile235x42: 'w-[235px] h-[42px] md:w-[280px] md:h-[50px]',
     mobile109x28:
-      'w-[109px] h-[28px] md:w-[72px] md:h-[30px] xl:w-[84px] xl:h-[32px]',
+      'min-w-[109px] w-full h-[28px] md:min-w-[72px] md:h-[30px] xl:min-w-[84px] xl:h-[32px]',
   };
 
   if (variant === 'mobile235x42') {

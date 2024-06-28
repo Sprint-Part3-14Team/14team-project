@@ -6,8 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import InputField from '../../components/input-field';
 import signUp from '../signup/actions';
-import InputField from './input-field';
 import PasswordInputField from './password-input-field';
 
 export default function SignUpForm() {

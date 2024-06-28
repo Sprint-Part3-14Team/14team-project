@@ -21,32 +21,12 @@ export default function IconButtons({
   let iconStyles = '';
   let textStyles = '';
 
-  switch (variant) {
-    case 'setting':
-      buttonClasses =
-        'w-[49px] h-[30px] md:w-[85px] md:h-[36px] xl:w-[88px] xl:h-[40px] rounded-lg bg-white border border-gray-300';
-      iconStyles = 'hidden md:block md:mt-0.5 md:ml-3.5';
-      textStyles =
-        'text-sm text-gray-500 font-medium mt-0 ml-3 md:ml-2.5 xl:text-base xl:ml-3';
-      break;
-
-    case 'dashboard':
-      buttonClasses =
-        'w-[73px] h-[30px] md:w-[109px] md:h-[36px] xl:w-[116px] xl:h-[40px] rounded-lg bg-white border border-gray-300';
-      iconStyles = 'hidden md:block md:mt-0 md:ml-3.5';
-      textStyles =
-        'text-sm text-gray-500 font-medium mt-0 ml-3 md:ml-2.5 xl:text-base xl:ml-3';
-      break;
-
-    case 'invite':
-      buttonClasses =
-        'w-[86px] h-[28px] md:w-[105px] md:h-[32px] rounded bg-violet-primary border';
-      iconStyles = 'mt-0 ml-2 md:mt-0 md:ml-3.5';
-      textStyles =
-        'text-xs text-white font-medium mt-0 ml-2 md:text-sm md:ml-2.5 xl:ml-3';
-      break;
-    default:
-      break;
+  if (variant === 'invite') {
+    buttonClasses =
+      'w-[86px] h-[28px] md:w-[105px] md:h-[32px] rounded bg-violet-primary border';
+    iconStyles = 'mt-0 ml-2 md:mt-0 md:ml-3.5';
+    textStyles =
+      'text-xs text-white font-medium mt-0 ml-2 md:text-sm md:ml-2.5 xl:ml-3';
   }
 
   buttonClasses += ` ${className}`;
@@ -64,7 +44,6 @@ export default function IconButtons({
             width={20}
             height={20}
           />
-          <span className={textStyles}>관리</span>
         </div>
       )}
 
@@ -79,7 +58,6 @@ export default function IconButtons({
             width={20}
             height={20}
           />
-          <span className={textStyles}>초대하기</span>
         </div>
       )}
 
