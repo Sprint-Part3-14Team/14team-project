@@ -4,6 +4,11 @@ export interface Dashboard {
   id: number;
 }
 
+export interface DashboardBasic {
+  title: string;
+  id: number;
+}
+
 export interface DashboardDetail extends Dashboard {
   userId: number;
   createdAt: Date;
