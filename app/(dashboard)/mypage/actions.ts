@@ -48,7 +48,7 @@ export async function editProfile(formData?: FormData, nickname?: string) {
   // 프로필 업데이트 함수
   async function updateProfile(uploadedImageUrl?: string, nick?: string) {
     const body: { nickname?: string; profileImageUrl?: string } = {};
-    if (nick !== undefined) body.nickname = nick;
+    if (nick !== undefined && nick !== '') body.nickname = nick;
     if (uploadedImageUrl !== undefined) body.profileImageUrl = uploadedImageUrl;
 
     const response = await fetch(`${TEAM_BASE_URL}/users/me`, {
