@@ -1,6 +1,7 @@
 import IconButtons from '@/app/components/icon-buttons';
 import getFetcher from '@/lib/api/getFetcher';
 import { DashboardDetail } from '@/types/dashboard';
+import Link from 'next/link';
 
 import DashboardMemberList from './dashboard-member-list';
 
@@ -22,7 +23,11 @@ export default async function DashboardNavbar({ id }: { id: number }) {
     <section className="sticky top-[60px] z-[9] flex h-[60px] items-center justify-between border-b border-gray-300 bg-white px-3 py-1 md:top-[70px] md:px-10">
       <div className="flex items-center gap-1">
         <h2 className="text-lg font-bold">{data.title}</h2>
-        {data.createdByMe && <IconButtons variant="setting" />}
+        {data.createdByMe && (
+          <Link href={`/dashboard/${id}/edit`} className="flex items-center">
+            <IconButtons variant="setting" />
+          </Link>
+        )}
       </div>
       <div className="flex items-center gap-1">
         <DashboardMemberList members={members} totalCount={totalCount} />
