@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import DashboardInfoChange from './_components/dashboard/dashboard-info-change';
+import DataListContainer from './_components/list/list-container';
 
 export default function DashboardEdit({ params }: { params: { id: number } }) {
   return (
@@ -16,6 +17,13 @@ export default function DashboardEdit({ params }: { params: { id: number } }) {
       </Link>
 
       <DashboardInfoChange dashboardId={params.id} />
+
+      <DataListContainer title="구성원" listTitle="이름" listType="member" />
+      <DataListContainer
+        title="초대 내역"
+        listTitle="이메일"
+        listType="invitation"
+      />
     </main>
   );
 }
