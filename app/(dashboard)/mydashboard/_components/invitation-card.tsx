@@ -9,7 +9,7 @@ export default function InvitationCard({ invitation }: InvitationCardProps) {
   return (
     <li
       key={invitation.id}
-      className="flex flex-col border-b border-gray-200 px-4 py-4"
+      className="flex flex-col border-b border-gray-200 py-4"
     >
       <div className="flex flex-col gap-[10px]">
         <div className="flex gap-7">
