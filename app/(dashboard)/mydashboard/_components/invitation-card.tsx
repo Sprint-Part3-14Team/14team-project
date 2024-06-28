@@ -1,3 +1,4 @@
+import Button from '@/app/components/button';
 import { Invitation } from '@/types/invitations';
 
 interface InvitationCardProps {
@@ -23,6 +24,20 @@ export default function InvitationCard({ invitation }: InvitationCardProps) {
             {invitation.invitee.nickname}
           </p>
         </div>
+      </div>
+      <div className="mt-4 flex gap-[10px]">
+        <Button
+          variant="mobile109x28"
+          className="rounded bg-violet-primary text-xs font-medium text-white"
+        >
+          수락
+        </Button>
+        <Button
+          variant="mobile109x28"
+          className="rounded border border-gray-300 bg-white text-xs font-medium text-violet-primary"
+        >
+          거절
+        </Button>
       </div>
     </li>
   );
