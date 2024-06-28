@@ -1,4 +1,6 @@
-export default function Invitaions() {
+import InvitationList from './invitation-list';
+
+export default function Invitations() {
   return (
     <section className="mt-6 bg-white px-4 py-6 md:px-7 md:py-8">
       <h2 className="mb-5 text-xl font-bold text-gray-700">
@@ -9,6 +11,7 @@ export default function Invitaions() {
         className="h-9 w-full rounded-md border border-gray-300 py-[10px]"
         placeholder="검색"
       />
+      <InvitationList />
     </section>
   );
 }
