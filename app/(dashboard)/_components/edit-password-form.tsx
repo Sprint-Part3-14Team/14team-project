@@ -1,11 +1,11 @@
 import Button from '@/app/components/button';
 import InputField from '@/app/components/input-field';
-import editPasswordSchema from '@/lib/schemas/profileUpdate';
+import { editPasswordSchema } from '@/lib/schemas/profileUpdate';
 import { EditPassword } from '@/types/profileUpdate';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import editPassword from '../mypage/actions';
+import { editPassword } from '../mypage/actions';
 
 export default function EditPasswordForm() {
   const {
@@ -20,8 +20,8 @@ export default function EditPasswordForm() {
   const onSubmit: SubmitHandler<EditPassword> = async (data) => {
     const { password, newPassword } = data;
     const res = await editPassword(password, newPassword);
-    // NOTE - res.message로 상태를 나타낼 수 있게 하였습니다.
-    console.log(res.message);
+    // NOTE - 오류 메시지 출력
+    console.log(res);
   };
 
   return (
