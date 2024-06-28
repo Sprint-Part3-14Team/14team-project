@@ -6,15 +6,12 @@ export interface Participant {
   nickname: string;
 }
 
-export type Inviter = Participant;
-export type Invitee = Participant;
-
 export interface Invitation {
   id: number;
-  inviter: Inviter;
+  inviter: Participant;
   teamId: string;
   dashboard: DashboardBasic;
-  invitee: Invitee;
+  invitee: Participant;
   inviteAccepted: boolean | null;
   createdAt: Date;
   updatedAt: Date;
