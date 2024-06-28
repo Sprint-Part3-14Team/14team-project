@@ -17,6 +17,15 @@ export default async function InvitationList() {
 
   return (
     <div>
+      <div className="hidden md:mt-6 md:flex md:justify-between">
+        <div className="mr-[175px] flex w-full justify-between xl:mr-[270px]">
+          <p className="text-base font-normal text-gray-400">이름</p>
+          <p className="text-base font-normal text-gray-400">초대자</p>
+        </div>
+        <p className="whitespace-nowrap text-base font-normal text-gray-400">
+          수락여부
+        </p>
+      </div>
       <ul>
         {invitations.map((invitation: Invitation) => (
           <InvitationCard invitation={invitation} />
