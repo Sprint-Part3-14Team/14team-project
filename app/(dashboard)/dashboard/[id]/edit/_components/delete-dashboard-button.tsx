@@ -5,7 +5,7 @@ import { getCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 
 interface DeleteDashboardButtonProps {
-  dashboardId: number | string;
+  dashboardId: number;
 }
 
 export default function DeleteDashboardButton({
