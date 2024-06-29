@@ -47,7 +47,7 @@ export default function ImageInputField({
         // eslint-disable-next-line jsx-a11y/label-has-associated-control
         <label
           htmlFor={id}
-          className="inline-block size-[100px] md:size-[182px]"
+          className="relative inline-block size-[100px] md:size-[182px]"
         >
           <input
             id={id}
@@ -56,6 +56,14 @@ export default function ImageInputField({
             onChange={(e) => handleImageChange(e)}
             className="hidden"
           />
+          <div className="absolute left-1/2 top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 md:size-[30px]">
+            <Image
+              src="/icons/icon_purple_add.svg"
+              alt="Add Image"
+              sizes="(min-width: 768px) 100vw"
+              fill
+            />
+          </div>
           <div className="size-[100px] cursor-pointer rounded-md bg-gray-200 md:size-[182px]" />
         </label>
       )}

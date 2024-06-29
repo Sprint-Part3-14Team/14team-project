@@ -7,6 +7,7 @@ import { editProfileSchema } from '@/lib/schemas/profileUpdate';
 import { EditProfile } from '@/types/profileUpdate';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { editProfile } from '../mypage/actions';
 
@@ -35,8 +36,8 @@ export default function EditProfileForm() {
     formData.append('image', profileImageUrl!);
 
     const res = await editProfile(formData, nickname);
-    // NOTE - 오류 메시지 출력
-    console.log(res);
+    // NOTE - 성공 메시지 출력
+    toast.success(res.message);
   };
 
   return (
