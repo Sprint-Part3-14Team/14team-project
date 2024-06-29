@@ -3,7 +3,7 @@ import search from '@/public/icons/search.svg';
 import { InvitationResponse } from '@/types/invitations';
 import Image from 'next/image';
 
-import getInvitations from '../actions';
+import { getInvitations } from '../actions';
 import InvitationList from './invitation-list';
 
 export default async function Invitations() {
