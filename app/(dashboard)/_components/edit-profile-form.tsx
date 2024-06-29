@@ -52,7 +52,7 @@ export default function EditProfileForm() {
             id="email"
             label="이메일"
             type="email"
-            placeholder="현재 이메일"
+            placeholder="이메일"
             register={register}
             disabled
           />
