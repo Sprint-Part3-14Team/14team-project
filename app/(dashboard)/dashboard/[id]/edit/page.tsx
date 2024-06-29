@@ -3,7 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import DashboardInfoChange from './_components/dashboard/dashboard-info-change';
+import DeleteDashboardButton from './_components/delete-dashboard-button';
 import DataListContainer from './_components/list/list-container';
+
 
 export default function DashboardEdit({ params }: { params: { id: number } }) {
   return (
@@ -24,6 +26,9 @@ export default function DashboardEdit({ params }: { params: { id: number } }) {
         listTitle="이메일"
         listType="invitation"
       />
+      
+      <DeleteDashboardButton dashboardId={params.id} />
+
     </main>
   );
 }
