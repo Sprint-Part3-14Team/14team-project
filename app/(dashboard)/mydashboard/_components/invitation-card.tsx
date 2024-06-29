@@ -1,11 +1,20 @@
-import Button from '@/app/components/button';
+'use client';
+
 import { Invitation } from '@/types/invitations';
+
+import InvitationResponseButton from './invitation-response-button';
 
 interface InvitationCardProps {
   invitation: Invitation;
+  setInvitationList: (invitations: Invitation[]) => void;
+  setApiCursorId: (cursorId: number | null) => void;
 }
 
-export default function InvitationCard({ invitation }: InvitationCardProps) {
+export default function InvitationCard({
+  invitation,
+  setInvitationList,
+  setApiCursorId,
+}: InvitationCardProps) {
   return (
     <li
       key={invitation.id}
@@ -25,20 +34,11 @@ export default function InvitationCard({ invitation }: InvitationCardProps) {
           </p>
         </div>
       </div>
-      <div className="mt-4 flex gap-[10px] md:mt-0">
-        <Button
-          variant="mobile109x28"
-          className="rounded bg-violet-primary text-xs font-medium text-white"
-        >
-          수락
-        </Button>
-        <Button
-          variant="mobile109x28"
-          className="rounded border border-gray-300 bg-white text-xs font-medium text-violet-primary"
-        >
-          거절
-        </Button>
-      </div>
+      <InvitationResponseButton
+        setInvitationList={setInvitationList}
+        setApiCursorId={setApiCursorId}
+        invitationId={invitation.id}
+      />
     </li>
   );
 }

@@ -5,7 +5,7 @@ import { Invitation, InvitationResponse } from '@/types/invitations';
 import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import getInvitations from '../actions';
+import { getInvitations } from '../actions';
 import InvitationCard from './invitation-card';
 
 interface InvitationListProps {
@@ -25,6 +25,7 @@ export default function InvitationList({
   async function loadMore() {
     // NOTE - 더 이상 로드할 데이터가 없는 경우
     if (apiCursorId === null) return;
+
     const data: InvitationResponse = await getInvitations(
       INITIAL_NUMBER_OF_USERS,
       apiCursorId ?? undefined
@@ -58,7 +59,12 @@ export default function InvitationList({
       </div>
       <ul>
         {invitationList.map((invitation: Invitation) => (
-          <InvitationCard invitation={invitation} />
+          <InvitationCard
+            invitation={invitation}
+            key={invitation.id}
+            setInvitationList={setInvitationList}
+            setApiCursorId={setApiCursorId}
+          />
         ))}
         <div ref={ref} />
       </ul>
