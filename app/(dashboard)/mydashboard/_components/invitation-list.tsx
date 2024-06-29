@@ -1,19 +1,49 @@
-import getFetcher from '@/lib/api/getFetcher';
-import { Invitation, Invitations } from '@/types/invitations';
+'use client';
 
+import { INITIAL_NUMBER_OF_USERS } from '@/constants/TEAM_BASE_URL';
+import { Invitation, InvitationResponse } from '@/types/invitations';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
+
+import getInvitations from '../actions';
 import InvitationCard from './invitation-card';
 
-export default async function InvitationList() {
-  // TODO - 무한 스크롤, 검색 cursorId,title
-  const params = new URLSearchParams({
-    size: '10',
-  });
+interface InvitationListProps {
+  initialInvitations: Invitation[];
+  initialCursorId: number | null;
+}
 
-  const data: Invitations = await getFetcher(
-    `/invitations?${params.toString()}`
-  );
-  const { invitations } = data;
-  // NOTE - inviteAccepted null인 경우만 조회됨
+export default function InvitationList({
+  initialInvitations,
+  initialCursorId,
+}: InvitationListProps) {
+  const [invitationList, setInvitationList] =
+    useState<Invitation[]>(initialInvitations);
+  const [apiCursorId, setApiCursorId] = useState(initialCursorId);
+  const { ref, inView } = useInView();
+
+  async function loadMore() {
+    // NOTE - 더 이상 로드할 데이터가 없는 경우
+    if (apiCursorId === null) return;
+    const data: InvitationResponse = await getInvitations(
+      INITIAL_NUMBER_OF_USERS,
+      apiCursorId ?? undefined
+    );
+    const { invitations, cursorId } = data;
+
+    // NOTE - 새 데이터를 기존 데이터에 추가하고 cursorId를 업데이트
+    setInvitationList((prevInvitations) => [
+      ...prevInvitations,
+      ...invitations,
+    ]);
+    setApiCursorId(cursorId);
+  }
+
+  useEffect(() => {
+    if (inView) {
+      loadMore();
+    }
+  }, [inView]);
 
   return (
     <div>
@@ -27,9 +57,10 @@ export default async function InvitationList() {
         </p>
       </div>
       <ul>
-        {invitations.map((invitation: Invitation) => (
+        {invitationList.map((invitation: Invitation) => (
           <InvitationCard invitation={invitation} />
         ))}
+        <div ref={ref} />
       </ul>
     </div>
   );

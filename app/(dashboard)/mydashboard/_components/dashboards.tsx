@@ -25,7 +25,7 @@ export default async function DashBoards() {
       </div>
       <ul className="grid grid-flow-row gap-2 md:grid-cols-2 xl:grid-cols-3">
         {dashboards.map((dashboard: DashboardDetail) => (
-          <DashboardCard dashboard={dashboard} user={user} />
+          <DashboardCard dashboard={dashboard} user={user} key={dashboard.id} />
         ))}
       </ul>
     </section>

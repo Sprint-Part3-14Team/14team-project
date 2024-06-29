@@ -17,7 +17,7 @@ export interface Invitation {
   updatedAt: Date;
 }
 
-export interface Invitations {
+export interface InvitationResponse {
   invitations: Invitation[];
   cursorId: null | number;
 }
