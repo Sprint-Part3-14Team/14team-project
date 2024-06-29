@@ -5,7 +5,7 @@ import ColorList from '@/app/components/color-list';
 import Modal from '@/app/components/modal';
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface NewDashboardModalProps {
   isOpen: boolean;
@@ -18,13 +18,16 @@ export default function NewDashboardModal({
 }: NewDashboardModalProps) {
   const [dashboardName, setDashboardName] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
-
+  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
 
-  const tokenCookie = document.cookie
-    .split(';')
-    .find((cookie) => cookie.trim().startsWith('token='));
-  const token = tokenCookie ? tokenCookie.split('=')[1] : null;
+  useEffect(() => {
+    const tokenCookie = document.cookie
+      .split(';')
+      .find((cookie) => cookie.trim().startsWith('token='));
+    const tokenValue = tokenCookie ? tokenCookie.split('=')[1] : null;
+    setToken(tokenValue);
+  }, []);
 
   const handleCreateDashboard = async () => {
     try {
