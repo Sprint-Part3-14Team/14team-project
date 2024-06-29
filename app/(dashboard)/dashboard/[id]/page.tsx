@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import ToDoCard from '../../_components/todo-card';
+import AddToDoButton from './_components/add-to-do/add-to-do-button';
 
 export interface CardData {
   id: number;
@@ -111,6 +112,7 @@ async function Column({ data }: { data: ColumnData }) {
           <Image src="/icons/setting_icon.svg" alt="설정" fill />
         </div>
       </div>
+      <AddToDoButton />
       {cards?.map((card: CardData) => <ToDoCard key={card.id} {...card} />)}
     </div>
   );
