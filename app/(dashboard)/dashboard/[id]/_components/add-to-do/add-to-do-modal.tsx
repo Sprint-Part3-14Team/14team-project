@@ -1,10 +1,12 @@
 /* eslint-disable */
 'use client';
 
+import Dropdown from '@/app/components/dropdown';
 import InputField from '@/app/components/input-field';
 import Modal from '@/app/components/modal';
 import calendar from '@/public/icons/icon_calendar.svg';
 import Image from 'next/image';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 /* eslint-disable */
@@ -25,6 +27,8 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm();
+  const [selectedItem, setSelectedItem] = useState<React.ReactNode>(null);
+  const defaultText = '이름을 입력해 주세요';
 
   return (
     <Modal
@@ -39,6 +43,19 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
         <div className="flex flex-grow flex-col gap-6 overflow-y-auto">
           <div className="flex flex-col gap-y-2">
             <label className={labelClassName}>담당자</label>
+            <div>
+              <Dropdown>
+                <Dropdown.Toggle />
+                <Dropdown.List>
+                  <Dropdown.Item>
+                    <p>서영</p>
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <p>서영22</p>
+                  </Dropdown.Item>
+                </Dropdown.List>
+              </Dropdown>
+            </div>
           </div>
           <InputField
             id="title"

@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use client';
 
 import Image from 'next/image';
@@ -9,6 +10,10 @@ import {
   useRef,
   useState,
 } from 'react';
+
+/* eslint-disable */
+
+/* eslint-disable */
 
 interface DropdownContextType {
   isOpen: boolean;
@@ -32,7 +37,6 @@ function Item({ children }: { children: React.ReactNode }) {
   const isSelected = selectedItem === children;
 
   return (
-    // eslint-disable-next-line
     <li
       onClick={handleClick}
       className={`flex h-[48px] w-full cursor-pointer items-center border-b px-4 first:rounded-t-md last:rounded-b-md last:border-b-0 ${isSelected ? 'bg-red-500' : ''}`}
@@ -47,7 +51,11 @@ function List({ children }: { children: React.ReactNode }) {
 
   return (
     <div>
-      {isOpen && <ul className="mt-2 rounded-md border">{children}</ul>}
+      {isOpen && (
+        <ul className="absolute z-10 mt-2 w-full rounded-md border bg-white">
+          {children}
+        </ul>
+      )}
     </div>
   );
 }
@@ -58,12 +66,11 @@ function Toggle() {
   ) as DropdownContextType;
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
     <div
       role="button"
       tabIndex={0}
       onClick={() => setIsOpen(!isOpen)}
-      className="flex h-[48px] w-full items-center justify-between rounded-md border px-4"
+      className="relative flex h-[48px] w-full items-center justify-between rounded-md border px-4"
     >
       {selectedItem || <p>표시할 아이템 + 스타일링</p>}
       <Image
@@ -80,12 +87,10 @@ function Dropdown({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<React.ReactNode>(null);
 
-  // 드롭다운 외부를 클릭하면 사라지는 Ref
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onClickOutside = (event: MouseEvent) => {
-      // ul 즉 아이템 리스트가 있고 리스트 안에 클릭한 게 없으면 닫힘
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
@@ -105,7 +110,9 @@ function Dropdown({ children }: { children: React.ReactNode }) {
 
   return (
     <DropdownContext.Provider value={value}>
-      <div ref={dropdownRef}>{children}</div>
+      <div ref={dropdownRef} className="relative">
+        {children}
+      </div>
     </DropdownContext.Provider>
   );
 }
