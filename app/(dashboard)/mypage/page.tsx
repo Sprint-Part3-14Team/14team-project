@@ -18,7 +18,7 @@ export default function MyPage() {
           className="relative size-[18px] md:size-5"
         >
           <Image
-            src="/icons/arrow_forward.svg"
+            src="/icons/arrow_forward_black.svg"
             alt="arrow_forward"
             fill
             className="fill-black"

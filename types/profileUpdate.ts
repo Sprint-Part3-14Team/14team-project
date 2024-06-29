@@ -3,3 +3,8 @@ export interface EditPassword {
   newPassword: string;
   newPasswordConfimation: string;
 }
+
+export interface EditProfile {
+  profileImageUrl?: string;
+  nickname?: string;
+}
