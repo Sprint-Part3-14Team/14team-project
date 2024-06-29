@@ -2,12 +2,73 @@
 'use client';
 
 import Dropdown from '@/app/components/dropdown';
+import ImageInputField from '@/app/components/image-input-field';
 import InputField from '@/app/components/input-field';
 import Modal from '@/app/components/modal';
 import calendar from '@/public/icons/icon_calendar.svg';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
 
 /* eslint-disable */
 
@@ -25,6 +86,7 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isValid },
   } = useForm();
   const [selectedItem, setSelectedItem] = useState<React.ReactNode>(null);
@@ -40,7 +102,7 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
         할 일 생성
       </h2>
       <form className="flex flex-grow flex-col overflow-hidden px-5 pb-5">
-        <div className="flex flex-grow flex-col gap-6 overflow-y-auto">
+        <div className="flex flex-grow flex-col gap-6 overflow-y-auto overflow-x-hidden">
           <div className="flex flex-col gap-y-2">
             <label className={labelClassName}>담당자</label>
             <div>
@@ -93,27 +155,32 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
               />
             </div>
           </div>
-          <InputField
-            id="tags"
-            name="tags"
-            label="태그"
-            type="text"
-            placeholder="입력 후 Enter"
-            register={register}
-            labelClassName={labelClassName}
-          />
+          <div className="mb-4 flex flex-col gap-y-2">
+            <label className={labelClassName}>태그</label>
+            <input
+              id="tags"
+              name="tags"
+              type="text"
+              placeholder="입력 후 Enter"
+              className="h-[50px] rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
+            />
+          </div>
+          <div className="mb-4 flex flex-col gap-y-2">
+            <p className={labelClassName}>이미지</p>
+            <ImageInputField id="imageUrl" setValue={setValue} />
+          </div>
         </div>
-        <div className="mt-5 flex w-full gap-[11px]">
+        <div className="mt-5 flex gap-[11px] md:ml-auto">
           <input
             value="취소"
             type="button"
-            className="flex h-[42px] min-w-[138px] rounded border border-gray-300 bg-white text-center text-sm font-medium text-gray-500"
+            className="flex h-[42px] w-full rounded border border-gray-300 bg-white text-center text-sm font-medium text-gray-500 md:w-[120px] md:text-base"
             onClick={onClose}
           />
           <input
             value="생성"
             type="submit"
-            className="h-[42px] min-w-[138px] rounded bg-violet-primary text-center text-sm font-medium text-white"
+            className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white md:w-[120px] md:text-base"
           />
         </div>
       </form>
