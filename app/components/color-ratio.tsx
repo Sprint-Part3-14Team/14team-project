@@ -2,7 +2,7 @@ interface ColorRadioProps {
   color: 'red' | 'green' | 'purple' | 'orange' | 'sky' | 'pink';
   value: string;
   cssColor: string;
-  register: any;
+  register: (color: string) => void;
 }
 
 export default function ColorRadio({
@@ -14,11 +14,11 @@ export default function ColorRadio({
   return (
     <label>
       <input
-        {...register('color')}
         className={`h-[30px] w-[30px] cursor-pointer appearance-none rounded-full checked:bg-black ${cssColor}`}
         type="radio"
         name="color"
         value={value}
+        onChange={() => register(value)}
       />
       <span className="sr-only">{color}</span>
     </label>
