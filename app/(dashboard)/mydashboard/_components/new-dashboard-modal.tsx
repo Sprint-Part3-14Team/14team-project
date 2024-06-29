@@ -18,18 +18,22 @@ export default function NewDashboardModal({
 }: NewDashboardModalProps) {
   const [dashboardName, setDashboardName] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
+
   const router = useRouter();
+
+  const tokenCookie = document.cookie
+    .split(';')
+    .find((cookie) => cookie.trim().startsWith('token='));
+  const token = tokenCookie ? tokenCookie.split('=')[1] : null;
 
   const handleCreateDashboard = async () => {
     try {
       if (!dashboardName || !selectedColor) return;
-
       const res = await fetch(`${TEAM_BASE_URL}/dashboards`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // NOTE - 토큰 추가 예정
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mzk1MCwidGVhbUlkIjoiNi0xNCIsImlhdCI6MTcxOTA2NjU1OCwiaXNzIjoic3AtdGFza2lmeSJ9.P1BK3gMqx09fVNkM93D45YjpxHfXTsg55IpQFNBKan0`,
+          Authorization: `bearer ${token}`,
         },
         body: JSON.stringify({ title: dashboardName, color: selectedColor }),
       });
