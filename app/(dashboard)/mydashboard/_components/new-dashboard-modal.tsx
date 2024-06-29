@@ -4,6 +4,7 @@ import Buttons from '@/app/components/button';
 import ColorList from '@/app/components/color-list';
 import Modal from '@/app/components/modal';
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -24,12 +25,17 @@ export default function NewDashboardModal({
     try {
       if (!dashboardName || !selectedColor) return;
 
+      const token = Cookies.get('token');
+
+      if (!token) {
+        throw new Error('토큰이 존재하지 않습니다.');
+      }
+
       const res = await fetch(`${TEAM_BASE_URL}/dashboards`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // NOTE - 임시 토큰
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mzk1MCwidGVhbUlkIjoiNi0xNCIsImlhdCI6MTcxOTA2NjU1OCwiaXNzIjoic3AtdGFza2lmeSJ9.P1BK3gMqx09fVNkM93D45YjpxHfXTsg55IpQFNBKan0`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ title: dashboardName, color: selectedColor }),
       });
