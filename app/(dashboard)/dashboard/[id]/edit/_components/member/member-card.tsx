@@ -28,7 +28,12 @@ export default function MemberCard({ member, memberId }: MemberCardProps) {
       key={member.id}
       className="flex items-center justify-between gap-2 border-b border-solid border-gray-200 px-5 py-4 last:border-0 md:px-7 md:py-5"
     >
-      <ProfileImage nickname={member.nickname} id={member.userId} size="34" />
+      <ProfileImage
+        profileImageUrl={member.profileImageUrl}
+        nickname={member.nickname}
+        id={member.userId}
+        size="34"
+      />
       <p className="grow text-left text-sm md:text-base">{member.nickname}</p>
       <Button
         variant="mobile52x28"

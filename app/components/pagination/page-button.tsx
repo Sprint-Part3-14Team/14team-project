@@ -14,7 +14,7 @@ export default function PageButton({ goToForward, goToNext }: PageButtonProps) {
   const buttonStyle = 'border border-solid border-gray-300 bg-white p-3';
 
   return (
-    <div>
+    <>
       <button
         className={`${buttonStyle} rounded-l`}
         type="button"
@@ -39,6 +39,6 @@ export default function PageButton({ goToForward, goToNext }: PageButtonProps) {
           alt="오른쪽을 향하는 꺽쇠 화살표"
         />
       </button>
-    </div>
+    </>
   );
 }

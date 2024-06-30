@@ -51,7 +51,10 @@ export default function MemberList({
         ))}
       </ul>
 
-      <div className="absolute right-5 top-6">
+      <div className="absolute right-9 top-8">
+        <span className="mr-4 text-sm">
+          {Math.ceil(total / EDIT_PAGE_DATA_SIZE)} 페이지 중 {page}
+        </span>
         <PageButton goToForward={handleForward} goToNext={handleNext} />
       </div>
     </>
