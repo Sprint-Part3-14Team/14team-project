@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import DashboardInfoChange from './_components/dashboard/dashboard-info-change';
 import DeleteDashboardButton from './_components/delete-dashboard-button';
+import Invitation from './_components/invitation/invitation';
 import Member from './_components/member/member';
 
 export default function DashboardEdit({ params }: { params: { id: number } }) {
@@ -18,9 +19,8 @@ export default function DashboardEdit({ params }: { params: { id: number } }) {
       </Link>
 
       <DashboardInfoChange dashboardId={params.id} />
-
       <Member dashboardId={params.id} />
-
+      <Invitation dashboardId={params.id} />
       <DeleteDashboardButton dashboardId={params.id} />
     </main>
   );
