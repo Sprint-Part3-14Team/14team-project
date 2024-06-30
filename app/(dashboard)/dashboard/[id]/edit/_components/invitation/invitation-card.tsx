@@ -1,33 +1,24 @@
 'use client';
 
 import Button from '@/app/components/button';
-import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { Invitation } from '@/types/invitations';
-import { getCookie } from 'cookies-next';
+
+import { deleteInvitation } from '../../actions';
 
 interface InvitationCardProps {
   dashboardId: number;
   invitation: Invitation;
-  invitationId: number;
+  deleteHandler: (invitationId: number) => void;
 }
 
 export default function InvitationCard({
   dashboardId,
   invitation,
-  invitationId,
+  deleteHandler,
 }: InvitationCardProps) {
-  const token = getCookie('token');
-
-  const handleDeleteInvitation = async () => {
-    await fetch(
-      `${TEAM_BASE_URL}/dashboards/${dashboardId}/invitations/${invitationId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+  const buttonHandler = async () => {
+    await deleteInvitation(dashboardId, invitation.id);
+    deleteHandler(invitation.id);
   };
 
   return (
@@ -38,7 +29,7 @@ export default function InvitationCard({
       <Button
         variant="mobile52x28"
         className="rounded border border-gray-300 text-xs text-violet-primary md:text-sm"
-        onClick={handleDeleteInvitation}
+        onClick={buttonHandler}
       >
         취소
       </Button>

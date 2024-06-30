@@ -5,7 +5,7 @@ import { DashboardInvitationResponse } from '@/types/invitations';
 import { DashboardMembersResponse } from '@/types/members';
 import { cookies } from 'next/headers';
 
-export default async function changeDashboardAction(
+export default async function putDashboardInfo(
   title: string,
   color: string,
   dashboardId: number
@@ -63,4 +63,21 @@ export async function getInvitation(
   );
   const data = await res.json();
   return data;
+}
+
+export async function deleteInvitation(
+  dashboardId: number,
+  invitationId: number
+) {
+  const token = cookies().get('token')?.value;
+
+  await fetch(
+    `${TEAM_BASE_URL}/dashboards/${dashboardId}/invitations/${invitationId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
 }

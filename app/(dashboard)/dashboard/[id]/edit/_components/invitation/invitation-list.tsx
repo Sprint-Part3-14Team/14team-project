@@ -29,6 +29,13 @@ export default function InvitationList({
     setLastPage(Math.ceil(totalCount / EDIT_PAGE_DATA_SIZE));
   }
 
+  const deleteData = (invitationId: number) => {
+    const nextData: Invitation[] = dataList.filter(
+      (data) => data.id !== invitationId
+    );
+    setDataList(nextData);
+  };
+
   const handleForward = () => {
     setPage((prev) => Math.max(prev - 1, 1));
   };
@@ -49,7 +56,7 @@ export default function InvitationList({
             key={data.id}
             dashboardId={dashboardId}
             invitation={data}
-            invitationId={data.id}
+            deleteHandler={deleteData}
           />
         ))}
       </ul>
