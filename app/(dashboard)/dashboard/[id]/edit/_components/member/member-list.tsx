@@ -18,7 +18,7 @@ export default function MemberList({
   initialData,
 }: MemberListProps) {
   const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
+  const [lastPage, setLastPage] = useState(0);
   const [dataList, setDataList] = useState<DashboardMembers[]>(initialData);
 
   async function getData() {
@@ -26,7 +26,7 @@ export default function MemberList({
     const { members } = data;
     setDataList(members);
     const { totalCount } = data;
-    setTotal(totalCount);
+    setLastPage(Math.ceil(totalCount / EDIT_PAGE_DATA_SIZE));
   }
 
   const handleForward = () => {
@@ -34,9 +34,7 @@ export default function MemberList({
   };
 
   const handleNext = () => {
-    setPage((prev) =>
-      prev !== Math.ceil(total / EDIT_PAGE_DATA_SIZE) ? prev + 1 : prev
-    );
+    setPage((prev) => (prev !== lastPage ? prev + 1 : prev));
   };
 
   useEffect(() => {
@@ -53,9 +51,14 @@ export default function MemberList({
 
       <div className="absolute right-9 top-8">
         <span className="mr-4 text-sm">
-          {total ? Math.ceil(total / EDIT_PAGE_DATA_SIZE) : 1} 페이지 중 {page}
+          {lastPage || 1} 페이지 중 {page}
         </span>
-        <PageButton goToForward={handleForward} goToNext={handleNext} />
+        <PageButton
+          goToForward={handleForward}
+          goToNext={handleNext}
+          currentPage={page}
+          totalPage={lastPage}
+        />
       </div>
     </>
   );
