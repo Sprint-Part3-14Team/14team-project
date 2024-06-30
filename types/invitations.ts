@@ -21,3 +21,7 @@ export interface InvitationResponse {
   invitations: Invitation[];
   cursorId: null | number;
 }
+export interface DashboardInvitationResponse {
+  totalCount: number;
+  invitations: Invitation[];
+}
