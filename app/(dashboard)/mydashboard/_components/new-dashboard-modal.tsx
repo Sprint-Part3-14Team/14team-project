@@ -1,6 +1,6 @@
 'use client';
 
-import Buttons from '@/app/components/button';
+import Button from '@/app/components/button';
 import ColorList from '@/app/components/color-list';
 import Modal from '@/app/components/modal';
 import { useRouter } from 'next/navigation';
@@ -73,21 +73,21 @@ export default function NewDashboardModal({
           register={(color: string) => setSelectedColor(color)}
         />
         <div className="mt-[76px] flex justify-center md:mt-[86px] md:justify-end">
-          <Buttons
+          <Button
             variant="mobile138x42"
             onClick={onClose}
             className="rounded-lg border border-solid border-gray-300 bg-white text-black"
           >
             취소
-          </Buttons>
-          <Buttons
+          </Button>
+          <Button
             variant="mobile138x42"
             type="submit"
             className={`ml-[12px] rounded-lg bg-violet-primary text-white md:mr-[28px] ${dashboardName && selectedColor ? 'cursor-default' : 'cursor-not-allowed'}`}
             disabled={!dashboardName || !selectedColor}
           >
             생성
-          </Buttons>
+          </Button>
         </div>
       </form>
     </Modal>
