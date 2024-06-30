@@ -1,6 +1,7 @@
 'use client';
 
 import Dropdown from '@/app/components/dropdown';
+import ProfileImage from '@/app/components/profile/profile-image';
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardMembers } from '@/types/members';
 import { getCookie } from 'cookies-next';
@@ -47,7 +48,17 @@ export default function AssigneeUserDropdown() {
         <Dropdown.List>
           {members.map((member) => (
             <Dropdown.Item key={member.id}>
-              <p>{member.nickname}</p>
+              <div className="flex items-center gap-2">
+                <ProfileImage
+                  profileImageUrl={member.profileImageUrl}
+                  nickname={member.nickname}
+                  id={member.id}
+                  size="26px"
+                />
+                <p className="text-sm font-normal text-gray-700">
+                  {member.nickname}
+                </p>
+              </div>
             </Dropdown.Item>
           ))}
         </Dropdown.List>
