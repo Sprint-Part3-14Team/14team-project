@@ -2,25 +2,19 @@
 
 import Button from '@/app/components/button';
 import ProfileImage from '@/app/components/profile/profile-image';
-import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardMembers } from '@/types/members';
-import { getCookie } from 'cookies-next';
+
+import { deleteMember } from '../../actions';
 
 interface MemberCardProps {
   member: DashboardMembers;
-  memberId: number;
+  deleteHandler: (memberId: number) => void;
 }
 
-export default function MemberCard({ member, memberId }: MemberCardProps) {
-  const token = getCookie('token');
-
-  const handleDeleteMember = async () => {
-    await fetch(`${TEAM_BASE_URL}/members/${memberId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+export default function MemberCard({ member, deleteHandler }: MemberCardProps) {
+  const buttonHandler = async () => {
+    await deleteMember(member.id);
+    deleteHandler(member.id);
   };
 
   return (
@@ -38,7 +32,7 @@ export default function MemberCard({ member, memberId }: MemberCardProps) {
       <Button
         variant="mobile52x28"
         className="rounded border border-gray-300 text-xs text-violet-primary md:text-sm"
-        onClick={handleDeleteMember}
+        onClick={buttonHandler}
       >
         삭제
       </Button>

@@ -29,6 +29,13 @@ export default function MemberList({
     setLastPage(Math.ceil(totalCount / EDIT_PAGE_DATA_SIZE));
   }
 
+  const deleteData = (memberId: number) => {
+    const nextData: DashboardMembers[] = dataList.filter(
+      (data) => data.id !== memberId
+    );
+    setDataList(nextData);
+  };
+
   const handleForward = () => {
     setPage((prev) => Math.max(prev - 1, 1));
   };
@@ -45,7 +52,7 @@ export default function MemberList({
     <>
       <ul>
         {dataList?.map((data: DashboardMembers) => (
-          <MemberCard key={data.id} member={data} memberId={data.id} />
+          <MemberCard key={data.id} member={data} deleteHandler={deleteData} />
         ))}
       </ul>
 

@@ -45,6 +45,17 @@ export async function getMember(
   return data;
 }
 
+export async function deleteMember(memberId: number) {
+  const token = cookies().get('token')?.value;
+
+  await fetch(`${TEAM_BASE_URL}/members/${memberId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}
+
 export async function getInvitation(
   page: number,
   dashboardId: number
