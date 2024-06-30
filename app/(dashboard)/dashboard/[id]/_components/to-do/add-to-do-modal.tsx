@@ -20,8 +20,6 @@ interface AddToDoModalProps {
   onClose: () => void;
 }
 export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
-  const labelClassName = 'font-medium text-base md:text-lg';
-
   if (!isOpen) return null;
 
   const {
@@ -45,7 +43,7 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
       <form className="flex flex-grow flex-col overflow-hidden px-5 pb-5">
         <div className="flex flex-grow flex-col gap-6 overflow-y-auto overflow-x-hidden">
           <div className="flex flex-col gap-y-2">
-            <label className={labelClassName}>담당자</label>
+            <label className="text-base font-medium md:text-lg">담당자</label>
             <AssigneeUserDropdown />
           </div>
           <InputField
@@ -54,10 +52,13 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
             type="text"
             placeholder="제목을 입력해 주세요"
             register={register}
-            labelClassName={labelClassName}
+            labelClassName="'font-medium text-base md:text-lg'"
           />
           <div className="flex flex-col gap-y-2">
-            <label htmlFor="description" className={labelClassName}>
+            <label
+              htmlFor="description"
+              className="'font-medium md:text-lg' text-base"
+            >
               설명 *
             </label>
             <textarea
@@ -84,7 +85,7 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
             </div>
           </div>
           <div className="mb-4 flex flex-col gap-y-2">
-            <label className={labelClassName}>태그</label>
+            <label className="'font-medium md:text-lg' text-base">태그</label>
             <input
               id="tags"
               name="tags"
@@ -94,7 +95,7 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
             />
           </div>
           <div className="mb-4 flex flex-col gap-y-2">
-            <p className={labelClassName}>이미지</p>
+            <p className="'font-medium md:text-lg' text-base">이미지</p>
             <ImageInputField id="imageUrl" setValue={setValue} />
           </div>
         </div>
