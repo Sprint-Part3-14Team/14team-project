@@ -15,6 +15,8 @@ import {
 
 /* eslint-disable */
 
+/* eslint-disable */
+
 interface DropdownContextType {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -70,7 +72,7 @@ function Toggle() {
       role="button"
       tabIndex={0}
       onClick={() => setIsOpen(!isOpen)}
-      className="relative flex h-[48px] w-full items-center justify-between rounded-md border px-4"
+      className="flex h-[48px] w-full items-center justify-between rounded-md border px-4"
     >
       {selectedItem || <p>표시할 아이템 + 스타일링</p>}
       <Image
