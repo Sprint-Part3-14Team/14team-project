@@ -6,7 +6,7 @@ import Modal from '@/app/components/modal';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import Postdashboard from './actions';
+import Postdashboard from '../postActions';
 
 interface NewDashboardModalProps {
   isOpen: boolean;
