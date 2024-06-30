@@ -3,9 +3,10 @@
 import Buttons from '@/app/components/button';
 import ColorList from '@/app/components/color-list';
 import Modal from '@/app/components/modal';
-import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+
+import Postdashboard from '../postActions';
 
 interface NewDashboardModalProps {
   isOpen: boolean;
@@ -23,22 +24,10 @@ export default function NewDashboardModal({
   const handleCreateDashboard = async () => {
     try {
       if (!dashboardName || !selectedColor) return;
-
-      const res = await fetch(`${TEAM_BASE_URL}/dashboards`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          // NOTE - 토큰 추가 예정
-          Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mzk1MCwidGVhbUlkIjoiNi0xNCIsImlhdCI6MTcxOTA2NjU1OCwiaXNzIjoic3AtdGFza2lmeSJ9.P1BK3gMqx09fVNkM93D45YjpxHfXTsg55IpQFNBKan0`,
-        },
-        body: JSON.stringify({ title: dashboardName, color: selectedColor }),
-      });
-
-      if (!res.ok) {
-        throw new Error('대시보드 생성 실패');
-      }
-
-      const createdDashboard = await res.json();
+      const createdDashboard = await Postdashboard(
+        dashboardName,
+        selectedColor
+      );
       router.push(`/dashboard/${createdDashboard.id}`);
       onClose();
     } catch (error: any) {
