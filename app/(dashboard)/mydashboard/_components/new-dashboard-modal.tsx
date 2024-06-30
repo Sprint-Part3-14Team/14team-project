@@ -3,9 +3,10 @@
 import Buttons from '@/app/components/button';
 import ColorList from '@/app/components/color-list';
 import Modal from '@/app/components/modal';
-import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+
+import Postdashboard from './new-dashboard-actions';
 
 interface NewDashboardModalProps {
   isOpen: boolean;
@@ -18,34 +19,15 @@ export default function NewDashboardModal({
 }: NewDashboardModalProps) {
   const [dashboardName, setDashboardName] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
-  const [token, setToken] = useState<string | null>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    const tokenCookie = document.cookie
-      .split(';')
-      .find((cookie) => cookie.trim().startsWith('token='));
-    const tokenValue = tokenCookie ? tokenCookie.split('=')[1] : null;
-    setToken(tokenValue);
-  }, []);
 
   const handleCreateDashboard = async () => {
     try {
       if (!dashboardName || !selectedColor) return;
-      const res = await fetch(`${TEAM_BASE_URL}/dashboards`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `bearer ${token}`,
-        },
-        body: JSON.stringify({ title: dashboardName, color: selectedColor }),
-      });
-
-      if (!res.ok) {
-        throw new Error('대시보드 생성 실패');
-      }
-
-      const createdDashboard = await res.json();
+      const createdDashboard = await Postdashboard(
+        dashboardName,
+        selectedColor
+      );
       router.push(`/dashboard/${createdDashboard.id}`);
       onClose();
     } catch (error: any) {
