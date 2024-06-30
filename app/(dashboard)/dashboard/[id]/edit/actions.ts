@@ -1,6 +1,6 @@
 'use server';
 
-import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { EDIT_PAGE_DATA_SIZE, TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardInvitationResponse } from '@/types/invitations';
 import { DashboardMembersResponse } from '@/types/members';
 import { cookies } from 'next/headers';
@@ -32,7 +32,7 @@ export async function getMember(
   const token = cookies().get('token')?.value;
 
   const res = await fetch(
-    `${TEAM_BASE_URL}/members?page=${page}&size=5&dashboardId=${dashboardId}`,
+    `${TEAM_BASE_URL}/members?page=${page}&size=${EDIT_PAGE_DATA_SIZE}&dashboardId=${dashboardId}`,
     {
       method: 'GET',
       headers: {
@@ -52,7 +52,7 @@ export async function getInvitation(
   const token = cookies().get('token')?.value;
 
   const res = await fetch(
-    `${TEAM_BASE_URL}/dashboards/${dashboardId}/invitations?page=${page}&size=5`,
+    `${TEAM_BASE_URL}/dashboards/${dashboardId}/invitations?page=${page}&size=${EDIT_PAGE_DATA_SIZE}`,
     {
       method: 'GET',
       headers: {
