@@ -8,7 +8,6 @@ interface InputFieldProps {
   disabled?: boolean;
   className?: string;
   labelClassName?: string;
-  name?: string;
 }
 
 export default function InputField({
@@ -21,7 +20,6 @@ export default function InputField({
   disabled,
   className,
   labelClassName,
-  name,
 }: InputFieldProps) {
   const inputClassName =
     className ||
@@ -34,7 +32,6 @@ export default function InputField({
       <input
         {...register(id)}
         type={type}
-        name={name}
         placeholder={placeholder}
         id={id}
         className={inputClassName}
