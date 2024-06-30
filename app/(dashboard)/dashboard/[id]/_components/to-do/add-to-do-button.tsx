@@ -4,8 +4,14 @@ import { useState } from 'react';
 
 import AddToDoModal from './add-to-do-modal';
 
-export default function AddToDoButton() {
+interface AddToDoButtonProps {
+  columnId: number;
+}
+
+export default function AddToDoButton({ columnId }: AddToDoButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  // NOTE - ESLint 우회, 지우기
+  console.log(columnId);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);

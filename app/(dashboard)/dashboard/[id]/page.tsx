@@ -112,7 +112,7 @@ async function Column({ data }: { data: ColumnData }) {
           <Image src="/icons/setting_icon.svg" alt="설정" fill />
         </div>
       </div>
-      <AddToDoButton />
+      <AddToDoButton columnId={data.id} />
       {cards?.map((card: CardData) => <ToDoCard key={card.id} {...card} />)}
     </div>
   );
