@@ -1,7 +1,6 @@
 /* eslint-disable */
 'use client';
 
-import Dropdown from '@/app/components/dropdown';
 import ImageInputField from '@/app/components/image-input-field';
 import InputField from '@/app/components/input-field';
 import Modal from '@/app/components/modal';
@@ -10,9 +9,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
-/* eslint-disable */
-
-/* eslint-disable */
+import AssigneeUserDropdown from './assignee-user-dropdown';
 
 /* eslint-disable */
 
@@ -49,19 +46,7 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
         <div className="flex flex-grow flex-col gap-6 overflow-y-auto overflow-x-hidden">
           <div className="flex flex-col gap-y-2">
             <label className={labelClassName}>담당자</label>
-            <div>
-              <Dropdown>
-                <Dropdown.Toggle />
-                <Dropdown.List>
-                  <Dropdown.Item>
-                    <p>서영</p>
-                  </Dropdown.Item>
-                  <Dropdown.Item>
-                    <p>서영22</p>
-                  </Dropdown.Item>
-                </Dropdown.List>
-              </Dropdown>
-            </div>
+            <AssigneeUserDropdown />
           </div>
           <InputField
             id="title"

@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import ToDoCard from '../../_components/todo-card';
-import AddToDoButton from './_components/add-to-do/add-to-do-button';
+import AddToDoButton from './_components/to-do/add-to-do-button';
 
 export interface CardData {
   id: number;
