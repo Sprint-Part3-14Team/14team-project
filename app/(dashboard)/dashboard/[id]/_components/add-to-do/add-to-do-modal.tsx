@@ -14,6 +14,10 @@ import { useForm } from 'react-hook-form';
 
 /* eslint-disable */
 
+/* eslint-disable */
+
+/* eslint-disable */
+
 interface AddToDoModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -61,7 +65,6 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
           </div>
           <InputField
             id="title"
-            name="title"
             label="제목 *"
             type="text"
             placeholder="제목을 입력해 주세요"
