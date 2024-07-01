@@ -1,8 +1,12 @@
+'use client';
+
 import ProfileImage from '@/app/components/profile/profile-image';
 import formatDate from '@/utils/formatDate';
 import Image from 'next/image';
+import { useState } from 'react';
 
 import Tag from './tag';
+import ToDoModal from './todo-modal';
 
 export default function ToDoCard({
   title,
@@ -10,6 +14,8 @@ export default function ToDoCard({
   imageUrl,
   createdAt,
   assignee,
+  dueDate,
+  description,
 }: {
   title: string;
   tags: string[];
@@ -20,46 +26,75 @@ export default function ToDoCard({
     nickname: string;
     id: number;
   };
+  dueDate: string;
+  description: string;
 }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
   return (
-    <div className="mt-[10px] flex flex-col rounded-md border border-gray-300 bg-white p-3 md:flex-row md:items-center md:gap-x-5 xl:w-[314px] xl:flex-col">
-      {imageUrl && (
-        <div className="relative h-[150px] rounded-md bg-gray-100 md:h-[53px] md:w-[90px] xl:h-[160px] xl:w-full">
-          <Image src={imageUrl} alt="card-image" fill objectFit="contain" />
-        </div>
-      )}
-      <div className="mt-[10px] flex w-full flex-col md:mt-0 md:gap-y-[10px] xl:mt-3 xl:gap-y-0">
-        <p className="font-medium">{title}</p>
-        <div className="w-full md:flex xl:flex-col">
-          <div className="my-[6px] flex flex-wrap gap-x-[6px] gap-y-2 md:my-0 md:w-[350px] xl:my-[10px] xl:w-full">
-            {tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}
+    <>
+      {/* eslint-disable-next-line */}
+      <div
+        onClick={handleOpenModal}
+        className="mt-[10px] flex cursor-pointer flex-col rounded-md border border-gray-300 bg-white p-3 md:flex-row md:items-center md:gap-x-5 xl:w-[314px] xl:flex-col"
+      >
+        {imageUrl && (
+          <div className="relative h-[150px] rounded-md bg-gray-100 md:h-[53px] md:w-[90px] xl:h-[160px] xl:w-full">
+            <Image src={imageUrl} alt="card-image" fill objectFit="contain" />
           </div>
-          <div className="flex w-full items-center justify-between">
-            <div className="flex items-center gap-x-[6px] md:ml-4 xl:ml-0">
-              <div className="relative size-[14px] md:size-[18px]">
-                <Image
-                  src="/icons/icon_calendar.svg"
-                  fill
-                  sizes="100vw"
-                  alt="calendar"
-                />
-              </div>
-              <p className="text-[10px] md:text-xs">{formatDate(createdAt)}</p>
+        )}
+        <div className="mt-[10px] flex w-full flex-col md:mt-0 md:gap-y-[10px] xl:mt-3 xl:gap-y-0">
+          <p className="font-medium">{title}</p>
+          <div className="w-full md:flex xl:flex-col">
+            <div className="my-[6px] flex flex-wrap gap-x-[6px] gap-y-2 md:my-0 md:w-[350px] xl:my-[10px] xl:w-full">
+              {tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}
             </div>
-            <div className="flex items-center gap-x-[6px]">
-              <div className="relative size-[22px] md:size-6">
-                {/* TODO 모바일일 때 size가 22px PC가 24px인데 어떻게 주어야 좋을까요 */}
-                <ProfileImage
-                  profileImageUrl={assignee.profileImageUrl}
-                  nickname={assignee.nickname}
-                  id={assignee.id}
-                  size="24px"
-                />
+            <div className="flex w-full items-center justify-between">
+              <div className="flex items-center gap-x-[6px] md:ml-4 xl:ml-0">
+                <div className="relative size-[14px] md:size-[18px]">
+                  <Image
+                    src="/icons/icon_calendar.svg"
+                    fill
+                    sizes="100vw"
+                    alt="calendar"
+                  />
+                </div>
+                <p className="text-[10px] md:text-xs">
+                  {formatDate(createdAt)}
+                </p>
+              </div>
+              <div className="flex items-center gap-x-[6px]">
+                <div className="relative size-[22px] md:size-6">
+                  {/* TODO 모바일일 때 size가 22px PC가 24px인데 어떻게 주어야 좋을까요 */}
+                  <ProfileImage
+                    profileImageUrl={assignee.profileImageUrl}
+                    nickname={assignee.nickname}
+                    id={assignee.id}
+                    size="24px"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      <ToDoModal
+        title={title}
+        assignee={assignee}
+        dueDate={new Date(dueDate)}
+        tags={tags}
+        description={description}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
+    </>
   );
 }
