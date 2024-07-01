@@ -15,6 +15,7 @@ interface SingleInputModalProps {
   setInputValue: (value: string) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   placeholder: string;
+  error?: string;
 }
 
 export default function SingleInputModal({
@@ -29,6 +30,7 @@ export default function SingleInputModal({
   setInputValue,
   onSubmit,
   placeholder,
+  error,
 }: SingleInputModalProps) {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -60,6 +62,11 @@ export default function SingleInputModal({
             className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-300 pl-[16px] text-sm font-normal text-gray-700 md:h-[48px] md:w-[484px] md:text-base"
           />
         </div>
+        {error && (
+          <p className="ml-[20px] mt-[8px] text-sm font-normal text-red-primary md:ml-[28px]">
+            {error}
+          </p>
+        )}
         <div className="flex flex-col md:flex-row">
           {onDelete && (
             <button
