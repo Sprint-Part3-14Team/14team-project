@@ -15,6 +15,16 @@ import {
 
 /* eslint-disable */
 
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
 interface DropdownContextType {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -60,7 +70,7 @@ function List({ children }: { children: React.ReactNode }) {
   );
 }
 
-function Toggle() {
+function Toggle({ children }: { children: React.ReactNode }) {
   const { isOpen, setIsOpen, selectedItem } = useContext(
     DropdownContext
   ) as DropdownContextType;
@@ -72,7 +82,9 @@ function Toggle() {
       onClick={() => setIsOpen(!isOpen)}
       className="flex h-[48px] w-full items-center justify-between rounded-md border px-4"
     >
-      {selectedItem || <p>표시할 아이템 + 스타일링</p>}
+      {selectedItem || (
+        <p className="text-sm font-normal text-gray-400">{children}</p>
+      )}
       <Image
         src="/icons/arrow_down.svg"
         alt={isOpen ? '드롭다운 닫기' : '드롭다운 열기'}

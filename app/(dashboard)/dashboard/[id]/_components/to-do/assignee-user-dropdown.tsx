@@ -44,7 +44,7 @@ export default function AssigneeUserDropdown() {
   return (
     <div>
       <Dropdown>
-        <Dropdown.Toggle />
+        <Dropdown.Toggle>이름을 입력해 주세요</Dropdown.Toggle>
         <Dropdown.List>
           {members.map((member) => (
             <Dropdown.Item key={member.id}>
