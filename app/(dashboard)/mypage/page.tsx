@@ -10,13 +10,16 @@ export default function MyPage() {
   const router = useRouter();
 
   return (
-    <main className="p-5">
-      <div className="flex items-center gap-[6px]">
-        <button
-          type="button"
-          onClick={() => router.back()}
-          className="relative size-[18px] md:size-5"
-        >
+    <main className="p-5 xl:w-[620px]">
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+      <div
+        className="inline-flex cursor-pointer items-center gap-[6px]"
+        onClick={() => router.back()}
+        role="button"
+        tabIndex={0}
+        aria-label="돌아가기"
+      >
+        <button type="button" className="relative size-[18px] md:size-5">
           <Image
             src="/icons/arrow_forward_black.svg"
             alt="arrow_forward"

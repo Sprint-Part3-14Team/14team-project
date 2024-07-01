@@ -3,11 +3,13 @@
 import { signUpSchema } from '@/lib/schemas/auth';
 import { SignUpInput } from '@/types/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import InputField from '../../components/input-field';
 import signUp from '../signup/actions';
+import SignModal from './auth-modal';
 import PasswordInputField from './password-input-field';
 
 export default function SignUpForm() {
@@ -20,20 +22,41 @@ export default function SignUpForm() {
     mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<SignUpInput> = async (data) => {
-    const { email, nickname, password } = data;
-    await signUp(email, nickname, password);
-  };
+  const router = useRouter();
 
   const [passwordShown, setPasswordShown] = useState(false);
   const [passwordConfirmationShown, setPasswordConfirmationShown] =
     useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [message, setMessage] = useState('');
+  const [isSignUpSuccess, setIsSignUpSuccess] = useState(false);
+
+  const onSubmit: SubmitHandler<SignUpInput> = async (data) => {
+    const { email, nickname, password } = data;
+    const resData = await signUp(email, nickname, password);
+
+    setModalOpen(true);
+    if (resData.message) {
+      setMessage(resData.message);
+      setIsSignUpSuccess(false);
+    } else {
+      setMessage('가입이 완료되었습니다!');
+      setIsSignUpSuccess(true);
+    }
+  };
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
   };
   const togglePasswordConfirmationVisibility = () => {
     setPasswordConfirmationShown(!passwordConfirmationShown);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    if (isSignUpSuccess) {
+      router.push('/login');
+    }
   };
 
   return (
@@ -89,6 +112,13 @@ export default function SignUpForm() {
       >
         회원가입
       </button>
+      {modalOpen && (
+        <SignModal
+          isOpen={modalOpen}
+          onClose={handleCloseModal}
+          message={message}
+        />
+      )}
     </form>
   );
 }
