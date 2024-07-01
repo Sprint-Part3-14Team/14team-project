@@ -17,20 +17,32 @@ export default async function Invitedashboard(
     throw new Error('인증되지 않았습니다');
   }
 
-  const url = `${TEAM_BASE_URL}/${TEAM_BASE_URL}/dashboards/${dashboardId}/invitations`;
+  const url = `${TEAM_BASE_URL}/dashboards/${dashboardId}/invitations`;
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ email }),
-  });
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ email }),
+    });
 
-  if (!response.ok) {
-    throw new Error('초대를 실패했습니다');
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error(
+        `초대 실패: ${response.status} - ${response.statusText} - ${errorText}`
+      );
+      throw new Error(`초대 실패: ${response.status} - ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.log('초대 성공:', result);
+
+    return result;
+  } catch (error) {
+    console.error('서버 요청 중 오류 발생:', error);
+    throw new Error('서버 요청 중 오류 발생');
   }
-
-  return response.json();
 }

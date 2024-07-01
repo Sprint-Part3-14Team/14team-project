@@ -10,6 +10,8 @@ export default function InviteButton() {
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+  // 여기만 해결되면 됨
+  const currentDashboardId = 9996;
 
   return (
     <div>
@@ -18,7 +20,11 @@ export default function InviteButton() {
         className="flex items-center gap-1"
         onClick={openModal}
       />
-      <InviteModal isOpen={isModalOpen} onClose={closeModal} />
+      <InviteModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        dashboardId={currentDashboardId}
+      />
     </div>
   );
 }
