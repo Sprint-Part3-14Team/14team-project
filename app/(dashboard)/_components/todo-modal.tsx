@@ -79,20 +79,22 @@ export default function ToDoModal({
               <p className="text-xs md:text-sm">{formatDate(dueDate)}</p>
             </div>
           </div>
-          <div className="mt-4 w-full md:mt-0">
-            <div className="h-full w-full overflow-y-auto md:pr-6">
+          <div className="mt-4 w-full overflow-y-auto md:mt-0">
+            <div className="h-full w-full md:pr-6">
               <div className="flex gap-x-5">
                 <p>태그</p>
                 {tags?.length > 0 && <div className="border-l" />}
                 {tags?.map((tag) => <Tag>{tag}</Tag>)}
               </div>
               <p className="my-4">{description}</p>
+
               {imageUrl && (
-                <div className="relative h-[150px] w-full object-contain md:h-[250px]">
+                <div className="relative size-fit h-[300px] w-full md:h-[400px]">
                   <Image
                     src={imageUrl}
                     alt="modal-image"
-                    fill
+                    layout="fill"
+                    objectFit="cover"
                     className="rounded-md"
                   />
                 </div>
