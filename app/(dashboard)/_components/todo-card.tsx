@@ -92,6 +92,7 @@ export default function ToDoCard({
         dueDate={new Date(dueDate)}
         tags={tags}
         description={description}
+        imageUrl={imageUrl}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       />
