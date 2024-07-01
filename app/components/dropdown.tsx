@@ -15,6 +15,12 @@ import {
 
 /* eslint-disable */
 
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
 interface DropdownContextType {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -24,12 +30,19 @@ interface DropdownContextType {
 
 const DropdownContext = createContext<DropdownContextType | null>(null);
 
-function Item({ children }: { children: React.ReactNode }) {
+function Item({
+  children,
+  onClick,
+}: {
+  children: React.ReactNode;
+  onClick?: () => void;
+}) {
   const { setIsOpen, setSelectedItem, selectedItem } = useContext(
     DropdownContext
   ) as DropdownContextType;
 
   const handleClick = () => {
+    if (onClick) onClick();
     setIsOpen(false);
     setSelectedItem(children);
   };

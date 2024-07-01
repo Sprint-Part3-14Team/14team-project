@@ -11,7 +11,7 @@ interface AddToDoButtonProps {
 export default function AddToDoButton({ columnId }: AddToDoButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // NOTE - ESLint 우회, 지우기
-  console.log(columnId);
+  // console.log(columnId);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -29,8 +29,12 @@ export default function AddToDoButton({ columnId }: AddToDoButtonProps) {
             +
           </p>
         </div>
-        <AddToDoModal isOpen={isModalOpen} onClose={handleCloseModal} />
       </button>
+      <AddToDoModal
+        columnId={columnId}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 }

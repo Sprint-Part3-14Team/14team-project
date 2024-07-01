@@ -7,6 +7,7 @@ export const createTodoSchema = yup.object().shape({
     .required('제목을 입력해 주세요')
     .max(10, '제목은 최대 10글자까지 입력 가능합니다.'),
   description: yup.string().required('설명을 입력해 주세요'),
-  dueDate: yup.date().notRequired(),
-  tags: yup.array().of(yup.string()).notRequired(),
+  dueDate: yup.string(),
+  tags: yup.array(),
+  imageUrl: yup.string(),
 });
