@@ -30,21 +30,12 @@ export default function PageButton({
         onClick={goToForward}
         disabled={currentPage === 1}
       >
-        {currentPage === 1 ? (
-          <Image
-            width={16}
-            height={16}
-            src={forwardArrowGray}
-            alt="왼쪽을 향하는 꺽쇠 화살표"
-          />
-        ) : (
-          <Image
-            width={16}
-            height={16}
-            src={forwardArrowBlack}
-            alt="왼쪽을 향하는 꺽쇠 화살표"
-          />
-        )}
+        <Image
+          width={16}
+          height={16}
+          src={currentPage === 1 ? forwardArrowGray : forwardArrowBlack}
+          alt="왼쪽을 향하는 꺽쇠 화살표"
+        />
       </button>
       <button
         className={`${buttonStyle} rounded-r`}
@@ -52,21 +43,12 @@ export default function PageButton({
         onClick={goToNext}
         disabled={totalPage === currentPage}
       >
-        {totalPage === currentPage ? (
-          <Image
-            width={16}
-            height={16}
-            src={nextArrowGray}
-            alt="오른쪽을 향하는 꺽쇠 화살표"
-          />
-        ) : (
-          <Image
-            width={16}
-            height={16}
-            src={nextArrowBlack}
-            alt="오른쪽을 향하는 꺽쇠 화살표"
-          />
-        )}
+        <Image
+          width={16}
+          height={16}
+          src={totalPage === currentPage ? nextArrowGray : nextArrowBlack}
+          alt="오른쪽을 향하는 꺽쇠 화살표"
+        />
       </button>
     </>
   );
