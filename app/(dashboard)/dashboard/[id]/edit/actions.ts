@@ -1,7 +1,9 @@
 'use server';
 
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 export default async function changeDashboardAction(
   title: string,
@@ -11,7 +13,7 @@ export default async function changeDashboardAction(
   const token = cookies().get('token')?.value;
   const url = `${TEAM_BASE_URL}/dashboards/${dashboardId}`;
 
-  const res = await fetch(url, {
+  await fetch(url, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -20,5 +22,6 @@ export default async function changeDashboardAction(
     body: JSON.stringify({ title, color }),
   });
 
-  return res.json();
+  revalidatePath(`/dashboard/${dashboardId}`);
+  redirect(`/dashboard/${dashboardId}/edit`);
 }

@@ -11,12 +11,16 @@ export default async function DashboardInfoChange({
   dashboardId,
 }: DashboardInfoChangeProps) {
   const data = await getFetcher(`dashboards/${dashboardId}`);
-  const { title } = data;
+  const { title, color } = data;
 
   return (
-    <section className="relative w-full rounded-lg bg-white p-5 pt-7 md:h-64 md:p-7 xl:w-[620px]">
+    <section className="relative w-full rounded-lg bg-white p-5 pt-7 md:h-64 md:p-8 md:pt-11 xl:w-[620px]">
       <SectionTitle text={title} />
-      <DashboardChangeForm dashboardId={dashboardId} />
+      <DashboardChangeForm
+        dashboardId={dashboardId}
+        dashboardTitle={title}
+        dashboardColor={color}
+      />
     </section>
   );
 }
