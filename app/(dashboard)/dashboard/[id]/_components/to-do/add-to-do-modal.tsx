@@ -15,6 +15,14 @@ import AssigneeUserDropdown from './assignee-user-dropdown';
 
 /* eslint-disable */
 
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
 interface AddToDoModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -100,17 +108,18 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
           </div>
         </div>
         <div className="mt-5 flex gap-[11px] md:ml-auto">
-          <input
-            value="취소"
-            type="button"
-            className="flex h-[42px] w-full rounded border border-gray-300 bg-white text-center text-sm font-medium text-gray-500 md:w-[120px] md:text-base"
+          <button
+            className="h-[42px] w-full rounded border border-gray-300 bg-white text-center text-sm font-medium text-gray-500 md:w-[120px] md:text-base"
             onClick={onClose}
-          />
-          <input
-            value="생성"
+          >
+            취소
+          </button>
+          <button
             type="submit"
             className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white md:w-[120px] md:text-base"
-          />
+          >
+            생성
+          </button>
         </div>
       </form>
     </Modal>
