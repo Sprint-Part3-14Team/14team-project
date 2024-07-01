@@ -1,9 +1,12 @@
-interface TitleProps {
+interface SectionTitleProps {
   sectionTitle: string;
   listTitle?: string;
 }
 
-export default function Title({ sectionTitle, listTitle }: TitleProps) {
+export default function SectionTitle({
+  sectionTitle,
+  listTitle,
+}: SectionTitleProps) {
   return (
     <div>
       <h2 className="text-xl font-bold text-gray-700">{sectionTitle}</h2>
