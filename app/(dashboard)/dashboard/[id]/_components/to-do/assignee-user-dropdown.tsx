@@ -5,17 +5,21 @@ import ProfileImage from '@/app/components/profile/profile-image';
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardMembers } from '@/types/members';
 import { getCookie } from 'cookies-next';
-import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function AssigneeUserDropdown() {
-  const { id } = useParams<{ id: string }>();
+interface AssigneeUserDropdownProps {
+  dashboardId: string;
+}
+
+export default function AssigneeUserDropdown({
+  dashboardId,
+}: AssigneeUserDropdownProps) {
   const token = getCookie('token');
   const [members, setMembers] = useState<DashboardMembers[]>([]);
 
   // NOTE - 대시보드 참여 멤버 목록
   const params = new URLSearchParams({
-    dashboardId: id.toString(),
+    dashboardId: dashboardId.toString(),
     page: '1',
     size: '10',
   });
@@ -39,7 +43,7 @@ export default function AssigneeUserDropdown() {
 
   useEffect(() => {
     getMember();
-  }, [id]);
+  }, [dashboardId]);
 
   return (
     <div>

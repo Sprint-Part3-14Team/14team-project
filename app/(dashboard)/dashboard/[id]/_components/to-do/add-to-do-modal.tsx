@@ -1,4 +1,3 @@
-/* eslint-disable */
 'use client';
 
 import ImageInputField from '@/app/components/image-input-field';
@@ -6,38 +5,28 @@ import InputField from '@/app/components/input-field';
 import Modal from '@/app/components/modal';
 import calendar from '@/public/icons/icon_calendar.svg';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
 import AssigneeUserDropdown from './assignee-user-dropdown';
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
 
 interface AddToDoModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
-  if (!isOpen) return null;
-
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors, isValid },
   } = useForm();
-  const [selectedItem, setSelectedItem] = useState<React.ReactNode>(null);
-  const defaultText = '이름을 입력해 주세요';
+  const { id } = useParams<{ id: string }>();
+
+  // NOTE - ESLint 우회, 지우기
+  console.log(handleSubmit, errors, isValid);
+
+  if (!isOpen) return null;
 
   return (
     <Modal
@@ -51,8 +40,13 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
       <form className="flex flex-grow flex-col overflow-hidden px-5 pb-5">
         <div className="flex flex-grow flex-col gap-6 overflow-y-auto overflow-x-hidden">
           <div className="flex flex-col gap-y-2">
-            <label className="text-base font-medium md:text-lg">담당자</label>
-            <AssigneeUserDropdown />
+            <label
+              className="text-base font-medium md:text-lg"
+              htmlFor="assigneeUserId"
+            >
+              담당자
+            </label>
+            <AssigneeUserDropdown dashboardId={id} />
           </div>
           <InputField
             id="title"
@@ -74,7 +68,7 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
               name="description"
               className="h-[84px] resize-none rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
               placeholder="설명을 입력해 주세요"
-            ></textarea>
+             />
           </div>
           <div className="flex flex-col gap-y-2">
             <label htmlFor="dueDate">마감일</label>
@@ -93,7 +87,9 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
             </div>
           </div>
           <div className="mb-4 flex flex-col gap-y-2">
-            <label className="'font-medium md:text-lg' text-base">태그</label>
+            <label htmlFor="tags" className="text-base font-medium md:text-lg">
+              태그
+            </label>
             <input
               id="tags"
               name="tags"
@@ -103,12 +99,13 @@ export default function AddToDoModal({ isOpen, onClose }: AddToDoModalProps) {
             />
           </div>
           <div className="mb-4 flex flex-col gap-y-2">
-            <p className="'font-medium md:text-lg' text-base">이미지</p>
+            <p className="text-base font-medium md:text-lg">이미지</p>
             <ImageInputField id="imageUrl" setValue={setValue} />
           </div>
         </div>
         <div className="mt-5 flex gap-[11px] md:ml-auto">
           <button
+            type="button"
             className="h-[42px] w-full rounded border border-gray-300 bg-white text-center text-sm font-medium text-gray-500 md:w-[120px] md:text-base"
             onClick={onClose}
           >
