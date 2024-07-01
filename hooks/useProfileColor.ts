@@ -1,6 +1,6 @@
 import { PROFILE_COLOR_LIST } from '@/constants/profileColorList';
 
-export const useProfileColor = (id: number) => {
+export function useProfileColor(id: number) {
   const lastNumber = id % 10;
 
   if (lastNumber === 0 || lastNumber === 5) {
@@ -16,4 +16,4 @@ export const useProfileColor = (id: number) => {
   } else {
     return PROFILE_COLOR_LIST[5];
   }
-};
+}
