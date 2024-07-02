@@ -13,8 +13,9 @@ interface SingleInputModalProps {
   inputId: string;
   inputValue: string;
   setInputValue: (value: string) => void;
-  onSubmit: () => void;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   placeholder: string;
+  error?: string;
 }
 
 export default function SingleInputModal({
@@ -29,9 +30,18 @@ export default function SingleInputModal({
   setInputValue,
   onSubmit,
   placeholder,
+  error,
 }: SingleInputModalProps) {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className="w-[327px] md:w-[540px]">
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      className="z-50 w-[327px] md:w-[540px]"
+    >
       <h2 className="ml-[20px] mt-[28px] text-xl font-bold md:ml-[28px] md:mt-[32px] md:text-2xl">
         {title}
       </h2>
@@ -48,10 +58,15 @@ export default function SingleInputModal({
             type="text"
             value={inputValue}
             placeholder={placeholder}
-            onChange={(e) => setInputValue(e.target.value)}
+            onChange={handleInputChange}
             className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-300 pl-[16px] text-sm font-normal text-gray-700 md:h-[48px] md:w-[484px] md:text-base"
           />
         </div>
+        {error && (
+          <p className="ml-[20px] mt-[8px] text-sm font-normal text-red-primary md:ml-[28px]">
+            {error}
+          </p>
+        )}
         <div className="flex flex-col md:flex-row">
           {onDelete && (
             <button

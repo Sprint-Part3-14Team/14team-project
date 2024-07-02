@@ -4,6 +4,7 @@ import { DashboardDetail } from '@/types/dashboard';
 import Link from 'next/link';
 
 import DashboardMemberList from './dashboard-member-list';
+import InviteButton from './invite-button';
 
 export default async function DashboardNavbar({ id }: { id: number }) {
   const data = (await getFetcher(`/dashboards/${id}`)) as DashboardDetail;
@@ -31,7 +32,7 @@ export default async function DashboardNavbar({ id }: { id: number }) {
       </div>
       <div className="flex items-center gap-1">
         <DashboardMemberList members={members} totalCount={totalCount} />
-        <IconButtons variant="dashboard" />
+        <InviteButton />
       </div>
     </section>
   );
