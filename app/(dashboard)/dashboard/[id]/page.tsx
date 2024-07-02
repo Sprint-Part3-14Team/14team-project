@@ -113,7 +113,9 @@ async function Column({ data }: { data: ColumnData }) {
         </div>
       </div>
       <AddToDoButton columnId={data.id} />
-      {cards?.map((card: CardData) => <ToDoCard key={card.id} {...card} />)}
+      {cards?.map((card: CardData) => (
+        <ToDoCard key={card.id} {...card} columnTitle={data.title} />
+      ))}
     </div>
   );
 }

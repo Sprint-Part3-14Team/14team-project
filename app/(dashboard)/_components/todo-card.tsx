@@ -16,6 +16,7 @@ export default function ToDoCard({
   assignee,
   dueDate,
   description,
+  columnTitle,
 }: {
   title: string;
   tags: string[];
@@ -28,6 +29,7 @@ export default function ToDoCard({
   };
   dueDate: string;
   description: string;
+  columnTitle: string;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -95,6 +97,7 @@ export default function ToDoCard({
         imageUrl={imageUrl}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
+        columnTitle={columnTitle}
       />
     </>
   );
