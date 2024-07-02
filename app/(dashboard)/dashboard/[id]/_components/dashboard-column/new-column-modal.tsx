@@ -1,9 +1,10 @@
 'use client';
 
 import SingleInputModal from '@/app/components/single-input-modal';
-import React, { useState } from 'react';
+import ColumnNameSchema from '@/lib/schemas/columnName';
+import React, { useEffect, useState } from 'react';
 
-import CreateColumn from './actions';
+import { CreateColumn, getColumnNames } from './actions';
 
 interface NewColumnModalProps {
   isOpen: boolean;
@@ -17,26 +18,37 @@ export default function NewColumnModal({
   dashboardId,
 }: NewColumnModalProps) {
   const [newColumnTitle, setNewColumnTitle] = useState('');
+  const [existingColumnTitles, setExistingColumnTitles] = useState<string[]>(
+    []
+  );
+  const [columnError, setcolumnError] = useState<string>('');
+
+  const fetchExistingColumnTitles = async () => {
+    try {
+      const columnNames = await getColumnNames(dashboardId);
+      setExistingColumnTitles(columnNames);
+      setcolumnError('');
+    } catch (error: any) {
+      console.error('기존 칼럼 제목들을 불러오는 중 오류 발생:', error.message);
+      setcolumnError('기존 칼럼 제목을 불러오는 중 오류 발생');
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchExistingColumnTitles();
+    }
+  }, [isOpen]);
 
   const handleCreateColumn = async () => {
     try {
+      const schema = ColumnNameSchema(existingColumnTitles);
+      await schema.validate({ title: newColumnTitle });
+
       await CreateColumn(newColumnTitle, dashboardId);
       onClose();
-    } catch (error: any) {
-      if (error.response && error.response.status) {
-        switch (error.response.status) {
-          case 400:
-            console.error('title을 입력해주세요.');
-            break;
-          case 404:
-            console.error('대시보드가 존재하지 않습니다.');
-            break;
-          default:
-            console.error('오류 발생:', error.message);
-        }
-      } else {
-        console.error('오류 발생:', error.message);
-      }
+    } catch (validationError: any) {
+      setcolumnError(validationError.message);
     }
   };
 
@@ -52,6 +64,7 @@ export default function NewColumnModal({
       setInputValue={setNewColumnTitle}
       onSubmit={handleCreateColumn}
       placeholder="이름을 입력하세요"
+      error={columnError}
     />
   );
 }
