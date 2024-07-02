@@ -4,24 +4,21 @@ import Dropdown from '@/app/components/dropdown';
 import ProfileImage from '@/app/components/profile/profile-image';
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardMembers } from '@/types/members';
-import { toDoCardValue } from '@/types/toDoCard';
 import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
-import { UseFormRegister } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 interface AssigneeUserDropdownProps {
   dashboardId: string;
-  onSelectAssignee: (assigneeId: number) => void;
-  register: UseFormRegister<toDoCardValue>;
 }
 
 export default function AssigneeUserDropdown({
   dashboardId,
-  onSelectAssignee,
-  register,
 }: AssigneeUserDropdownProps) {
   const token = getCookie('token');
   const [members, setMembers] = useState<DashboardMembers[]>([]);
+
+  const { register, setValue } = useFormContext();
 
   // NOTE - 대시보드 참여 멤버 목록
   const params = new URLSearchParams({
@@ -47,14 +44,15 @@ export default function AssigneeUserDropdown({
     }
   }
 
+  const handleItemClick = (userId: number) => {
+    // 선택된 담당자 ID를 react-hook-form 필드에 설정
+    setValue('assigneeUserId', userId);
+    console.log('선택된 담당자 ID:', userId);
+  };
+
   useEffect(() => {
     getMember();
   }, [dashboardId]);
-
-  function handleAssigneeChange(userId: number) {
-    onSelectAssignee(userId); // 선택된 담당자 ID를 부모 컴포넌트로 전달
-    console.log('선택된 담당자 ID:', userId);
-  }
 
   return (
     <div>
@@ -62,13 +60,17 @@ export default function AssigneeUserDropdown({
         <Dropdown.Toggle>이름을 입력해 주세요</Dropdown.Toggle>
         <Dropdown.List>
           {members.map((member) => (
-            <Dropdown.Item
-              key={member.userId}
-              onClick={() => handleAssigneeChange(member.userId)}
-            >
-              <label
-                htmlFor={`assigneeUserId-${member.userId}`}
-                className="flex cursor-pointer items-center gap-2"
+            <Dropdown.Item key={member.userId}>
+              <div
+                className="flex h-full w-full cursor-pointer items-center gap-2"
+                onClick={() => handleItemClick(member.userId)}
+                tabIndex={0}
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleItemClick(member.userId);
+                  }
+                }}
               >
                 <input
                   className="appearance-none"
@@ -87,7 +89,7 @@ export default function AssigneeUserDropdown({
                 <p className="text-sm font-normal text-gray-700">
                   {member.nickname}
                 </p>
-              </label>
+              </div>
             </Dropdown.Item>
           ))}
         </Dropdown.List>

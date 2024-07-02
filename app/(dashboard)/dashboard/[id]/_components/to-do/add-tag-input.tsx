@@ -1,7 +1,10 @@
+/* eslint-disable */
 import { KeyboardEvent, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 export default function AddTagInput() {
   const [tags, setTags] = useState<string[]>([]);
+  const { register, setValue } = useFormContext();
 
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
