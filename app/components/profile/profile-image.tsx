@@ -19,10 +19,15 @@ export default function ProfileImage({
     <div>
       {profileImageUrl ? (
         <div
-          className="relative size-[34px] rounded-full border-2 border-white"
+          className="relative size-[34px] border-2 border-white"
           style={{ width: size, height: size }}
         >
-          <Image src={profileImageUrl} alt="프로필 이미지" fill />
+          <Image
+            src={profileImageUrl}
+            alt="프로필 이미지"
+            fill
+            className="rounded-full"
+          />
         </div>
       ) : (
         <div
