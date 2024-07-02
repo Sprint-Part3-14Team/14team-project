@@ -3,7 +3,7 @@
 import { Dashboard } from '@/types/dashboard';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import changeDashboardAction from '../../actions';
+import putDashboardInfo from '../../actions';
 import ColorList from './color-list';
 
 export default function DashboardChangeForm({
@@ -15,7 +15,7 @@ export default function DashboardChangeForm({
 
   const changeDashboardInfo: SubmitHandler<Dashboard> = async (data) => {
     const { title, color } = data;
-    await changeDashboardAction(title, color, dashboardId);
+    await putDashboardInfo(title, color, dashboardId);
   };
 
   return (
