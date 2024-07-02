@@ -13,14 +13,16 @@ export default function AddDueDateInput() {
 
   // NOTE - datepicker의 onChange
   // NOTE - (property) onChange: (date: Date | null) => void
-  setDateValue(null);
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      setDateValue(date);
       const formattedDate = formatDate(date, 'yyyy-MM-dd HH:mm');
       setValue('dueDate', formattedDate);
     } else {
       setValue('dueDate', '');
+    }
+    if (date !== dateValue) {
+      // 상태가 바뀌었을 때만 업데이트
+      setDateValue(date);
     }
   };
 

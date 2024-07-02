@@ -1,11 +1,12 @@
 /* eslint-disable */
-import { KeyboardEvent, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { KeyboardEvent } from 'react';
 
-export default function AddTagInput() {
-  const [tags, setTags] = useState<string[]>([]);
-  const { register, setValue } = useFormContext();
+interface AddTagInputProps {
+  tags: string[];
+  setTags: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
+export default function AddTagInput({ tags, setTags }: AddTagInputProps) {
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -18,8 +19,9 @@ export default function AddTagInput() {
   }
 
   function handleRemoveTag(index: number) {
-    tags.splice(index, 1);
-    setTags(tags);
+    const updatedTags = [...tags];
+    updatedTags.splice(index, 1);
+    setTags(updatedTags);
   }
 
   return (
@@ -34,7 +36,6 @@ export default function AddTagInput() {
         placeholder="입력 후 Enter"
         className="h-[50px] rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
         onKeyDown={handleKeyDown}
-        // {...register('tags')}
       />
       <div className="flex gap-1">
         {tags.map((tag: string, index: number) => (

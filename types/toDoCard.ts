@@ -3,6 +3,7 @@ export interface toDoCardValue {
   title: string;
   description: string;
   dueDate?: string;
-  tags?: string[];
-  imageUrl?: string;
+  imageUrl?: any;
 }
+
+// TODO - imageUrl 타입 any 변경
