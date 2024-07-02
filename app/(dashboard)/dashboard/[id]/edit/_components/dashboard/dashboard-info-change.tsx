@@ -15,7 +15,7 @@ export default async function DashboardInfoChange({
 
   return (
     <section className="relative w-full rounded-lg bg-white p-5 pt-7 md:h-64 md:p-8 md:pt-11 xl:w-[620px]">
-      <SectionTitle text={title} />
+      <SectionTitle sectionTitle={title} />
       <DashboardChangeForm
         dashboardId={dashboardId}
         dashboardTitle={title}

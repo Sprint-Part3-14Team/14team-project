@@ -3,9 +3,13 @@
 import Button from '@/app/components/button';
 import ImageInputField from '@/app/components/image-input-field';
 import InputField from '@/app/components/input-field';
+import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { editProfileSchema } from '@/lib/schemas/profileUpdate';
 import { EditProfile } from '@/types/profileUpdate';
+import { User } from '@/types/user';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { getCookie } from 'cookies-next';
+import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -22,6 +26,9 @@ export default function EditProfileForm() {
     resolver: yupResolver(editProfileSchema),
     mode: 'onChange',
   });
+
+  const token = getCookie('token');
+  const [user, setUser] = useState<User | null>(null);
 
   const profileImageUrlInput = watch('profileImageUrl');
   const nicknameInput = watch('nickname');
@@ -40,6 +47,21 @@ export default function EditProfileForm() {
     toast.success(res.message);
   };
 
+  useEffect(() => {
+    async function fetchUserMe() {
+      const res = await fetch(`${TEAM_BASE_URL}/users/me`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await res.json();
+      setUser(data);
+    }
+    fetchUserMe();
+  }, [token]);
+
   return (
     <div className="mt-6 rounded-lg bg-white p-5">
       <p className="text-xl font-bold md:text-2xl">프로필</p>
@@ -53,7 +75,7 @@ export default function EditProfileForm() {
             id="email"
             label="이메일"
             type="email"
-            placeholder="이메일"
+            placeholder={user?.email || ''}
             register={register}
             disabled
           />
@@ -61,7 +83,7 @@ export default function EditProfileForm() {
             id="nickname"
             label="닉네임"
             type="text"
-            placeholder="새 닉네임 입력"
+            placeholder={user?.nickname || ''}
             register={register}
             error={errors.nickname?.message || ''}
           />

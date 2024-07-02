@@ -18,7 +18,7 @@ export default function InvitationList({
   initialData,
 }: InvitationListProps) {
   const [page, setPage] = useState(1);
-  const [lastPage, setLastPage] = useState(0);
+  const [lastPage, setLastPage] = useState(1);
   const [dataList, setDataList] = useState<Invitation[]>(initialData);
 
   async function getData() {
@@ -26,7 +26,11 @@ export default function InvitationList({
     const { invitations } = data;
     setDataList(invitations);
     const { totalCount } = data;
-    setLastPage(Math.ceil(totalCount / EDIT_PAGE_DATA_SIZE));
+    setLastPage(
+      totalCount < EDIT_PAGE_DATA_SIZE
+        ? 1
+        : Math.ceil(totalCount / EDIT_PAGE_DATA_SIZE)
+    );
   }
 
   const deleteData = (invitationId: number) => {
@@ -61,7 +65,7 @@ export default function InvitationList({
         ))}
       </ul>
 
-      <div className="absolute right-9 top-8">
+      <div className="absolute right-[145px] top-8">
         <span className="mr-4 text-sm">
           {lastPage || 1} 페이지 중 {page}
         </span>
