@@ -3,7 +3,10 @@
 import { EDIT_PAGE_DATA_SIZE, TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardInvitationResponse } from '@/types/invitations';
 import { DashboardMembersResponse } from '@/types/members';
+
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+import { revalidatePath } from 'next/cache';
 
 export default async function putDashboardInfo(
   title: string,
@@ -13,7 +16,7 @@ export default async function putDashboardInfo(
   const token = cookies().get('token')?.value;
   const url = `${TEAM_BASE_URL}/dashboards/${dashboardId}`;
 
-  const res = await fetch(url, {
+  await fetch(url, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -22,7 +25,8 @@ export default async function putDashboardInfo(
     body: JSON.stringify({ title, color }),
   });
 
-  return res.json();
+  revalidatePath(`/dashboard/${dashboardId}`);
+  redirect(`/dashboard/${dashboardId}/edit`);
 }
 
 export async function getMember(
