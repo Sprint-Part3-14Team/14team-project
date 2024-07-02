@@ -5,13 +5,12 @@ import ImageInputField from '@/app/components/image-input-field';
 import InputField from '@/app/components/input-field';
 import Modal from '@/app/components/modal';
 import { createTodoSchema } from '@/lib/schemas/createToDo';
-import calendar from '@/public/icons/icon_calendar.svg';
 import { toDoCardValue } from '@/types/toDoCard';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
+import AddDueDateInput from './add-due-date-input';
 import AddTagInput from './add-tag-input';
 import AssigneeUserDropdown from './assignee-user-dropdown';
 
@@ -93,22 +92,7 @@ export default function AddToDoModal({
                 <p className="text-red-500">{errors.description.message}</p>
               )}
             </div>
-            <div className="flex flex-col gap-y-2">
-              <label htmlFor="dueDate">마감일</label>
-              <div className="relative">
-                <input
-                  id="dueDate"
-                  placeholder="날짜를 입력해 주세요"
-                  className="h-[50px] rounded-lg border border-gray-300 py-4 pl-[46px] pr-4 placeholder:text-gray-400"
-                  {...register('dueDate')}
-                />
-                <Image
-                  src={calendar}
-                  alt="마감일 달력"
-                  className="absolute left-[23px] top-[50%] translate-y-[-50%]"
-                />
-              </div>
-            </div>
+            <AddDueDateInput />
             <AddTagInput />
             <div className="mb-4 flex flex-col gap-y-2">
               <p className="text-base font-medium md:text-lg">이미지</p>
@@ -126,7 +110,7 @@ export default function AddToDoModal({
             <button
               type="submit"
               className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
-              // disabled={!isValid}
+              disabled={!isValid}
             >
               생성
             </button>
