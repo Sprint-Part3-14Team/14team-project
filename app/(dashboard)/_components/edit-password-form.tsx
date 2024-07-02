@@ -4,6 +4,7 @@ import { editPasswordSchema } from '@/lib/schemas/profileUpdate';
 import { EditPassword } from '@/types/profileUpdate';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { editPassword } from '../mypage/actions';
 
@@ -21,7 +22,7 @@ export default function EditPasswordForm() {
     const { password, newPassword } = data;
     const res = await editPassword(password, newPassword);
     // NOTE - 오류 메시지 출력
-    console.log(res);
+    toast.error(res.message);
   };
 
   return (
