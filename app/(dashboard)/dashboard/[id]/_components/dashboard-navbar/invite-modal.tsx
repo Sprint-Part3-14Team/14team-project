@@ -2,7 +2,7 @@ import SingleInputModal from '@/app/components/single-input-modal';
 import inviteEmailSchema from '@/lib/schemas/inviteEmail';
 import React, { useState } from 'react';
 
-import Invitedashboard from './postActions';
+import Invitedashboard from './actions';
 
 interface InviteModalProps {
   isOpen: boolean;
