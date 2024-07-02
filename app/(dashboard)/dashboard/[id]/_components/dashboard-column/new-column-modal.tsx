@@ -23,7 +23,20 @@ export default function NewColumnModal({
       await CreateColumn(newColumnTitle, dashboardId);
       onClose();
     } catch (error: any) {
-      console.error('칼럼 생성 오류:', error.message);
+      if (error.response && error.response.status) {
+        switch (error.response.status) {
+          case 400:
+            console.error('title을 입력해주세요.');
+            break;
+          case 404:
+            console.error('대시보드가 존재하지 않습니다.');
+            break;
+          default:
+            console.error('오류 발생:', error.message);
+        }
+      } else {
+        console.error('오류 발생:', error.message);
+      }
     }
   };
 
