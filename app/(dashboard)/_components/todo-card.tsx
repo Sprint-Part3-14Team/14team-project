@@ -9,6 +9,7 @@ import Tag from './tag';
 import ToDoModal from './todo-modal';
 
 export default function ToDoCard({
+  id,
   title,
   tags,
   imageUrl,
@@ -18,6 +19,7 @@ export default function ToDoCard({
   description,
   columnTitle,
 }: {
+  id: number;
   title: string;
   tags: string[];
   imageUrl?: string;
@@ -89,6 +91,7 @@ export default function ToDoCard({
         </div>
       </div>
       <ToDoModal
+        id={id}
         title={title}
         assignee={assignee}
         dueDate={new Date(dueDate)}
