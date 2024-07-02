@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { KeyboardEvent } from 'react';
 
 interface AddTagInputProps {
