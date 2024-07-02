@@ -3,11 +3,13 @@
 import { loginSchema } from '@/lib/schemas/auth';
 import { SignInInput } from '@/types/auth';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import InputField from '../../components/input-field';
 import signIn from '../login/actions';
+import SignModal from './auth-modal';
 import PasswordInputField from './password-input-field';
 
 export default function SignInForm() {
@@ -20,15 +22,29 @@ export default function SignInForm() {
     mode: 'onChange',
   });
 
+  const router = useRouter();
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [passwordShown, setPasswordShown] = useState(false);
+
   const onSubmit: SubmitHandler<SignInInput> = async (data) => {
     const { email, password } = data;
-    await signIn(email, password);
+    const resData = await signIn(email, password);
+    if (!resData.success) {
+      setModalOpen(true);
+      setErrorMessage(resData.data.message);
+    } else {
+      router.push(resData.redirect as string);
+    }
   };
-
-  const [passwordShown, setPasswordShown] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordShown(!passwordShown);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -57,6 +73,13 @@ export default function SignInForm() {
       >
         로그인
       </button>
+      {modalOpen && (
+        <SignModal
+          isOpen={modalOpen}
+          onClose={handleCloseModal}
+          message={errorMessage}
+        />
+      )}
     </form>
   );
 }

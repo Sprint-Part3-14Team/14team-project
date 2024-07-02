@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={pretendard.className}>
       <body>{children}</body>
+      <Toaster />
     </html>
   );
 }
