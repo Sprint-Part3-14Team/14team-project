@@ -20,9 +20,8 @@ export default function DashboardMemberList({
   return (
     <div className="flex">
       {displayMembers.map((member) => (
-        <div className="ml-[-8px]" key={member.id}>
+        <div className="ml-[-8px]" key={member.userId}>
           <ProfileImage
-            key={member.id}
             profileImageUrl={member.profileImageUrl}
             nickname={member.nickname}
             id={member.userId}
