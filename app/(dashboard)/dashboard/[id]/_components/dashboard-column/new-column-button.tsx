@@ -1,14 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 
 export default function NewColumnButton() {
   return (
     <div>
-      <Link
-        href="#!"
+      <button
+        type="button"
         className="flex h-[60px] items-center justify-center gap-x-3 rounded-lg border border-gray-300 bg-white py-6 font-bold xl:w-[354px]"
       >
         새로운 컬럼 추가하기
@@ -20,7 +19,7 @@ export default function NewColumnButton() {
             sizes="100vw"
           />
         </div>
-      </Link>
+      </button>
     </div>
   );
 }
