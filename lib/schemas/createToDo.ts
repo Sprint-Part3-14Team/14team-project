@@ -13,7 +13,7 @@ const imageFileValidation = (value: any) => {
   return false; // 그 외의 경우는 유효하지 않음
 };
 
-export const createTodoSchema = yup.object().shape({
+const createTodoSchema = yup.object().shape({
   assigneeUserId: yup.number().required('담당자를 선택해 주세요.'),
   title: yup
     .string()
@@ -25,3 +25,5 @@ export const createTodoSchema = yup.object().shape({
     .mixed()
     .test('fileFormat', '이미지 파일 형식이어야 합니다.', imageFileValidation),
 });
+
+export default createTodoSchema;

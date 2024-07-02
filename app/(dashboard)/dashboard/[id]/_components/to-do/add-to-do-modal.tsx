@@ -3,7 +3,7 @@
 import ImageInputField from '@/app/components/image-input-field';
 import InputField from '@/app/components/input-field';
 import Modal from '@/app/components/modal';
-import { createTodoSchema } from '@/lib/schemas/createToDo';
+import createTodoSchema from '@/lib/schemas/createToDo';
 import { toDoCardValue } from '@/types/toDoCard';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useParams } from 'next/navigation';
