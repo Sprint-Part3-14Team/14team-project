@@ -45,7 +45,7 @@ export default function AddTagInput({ tags, setTags }: AddTagInputProps) {
                 <p>{tag}</p>
                 <button
                   type="button"
-                  className="text-neutral-500"
+                  className="text-[#555555]"
                   onClick={() => handleRemoveTag(index)}
                 >
                   x
