@@ -3,7 +3,7 @@
 import ColumnTag from '@/app/components/column-tag';
 import Modal from '@/app/components/modal';
 import ProfileImage from '@/app/components/profile/profile-image';
-import TaskOption from '@/app/components/taskoption';
+import TaskOption from '@/app/components/task-option';
 import formatDate from '@/utils/formatDate';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
