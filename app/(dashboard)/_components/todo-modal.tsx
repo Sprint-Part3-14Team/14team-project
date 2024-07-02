@@ -79,7 +79,7 @@ export default function ToDoModal({
               <p className="text-xs md:text-sm">{formatDate(dueDate)}</p>
             </div>
           </div>
-          <div className="mt-4 w-full overflow-y-auto md:mt-0">
+          <div className="mb-[44px] mt-4 w-full overflow-y-auto md:mt-0">
             <div className="h-full w-full md:pr-6">
               <div className="flex gap-x-5">
                 <p>태그</p>
