@@ -5,17 +5,24 @@ import ProfileImage from '@/app/components/profile/profile-image';
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardMembers } from '@/types/members';
 import { getCookie } from 'cookies-next';
-import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
-export default function AssigneeUserDropdown() {
-  const { id } = useParams<{ id: string }>();
+interface AssigneeUserDropdownProps {
+  dashboardId: string;
+}
+
+export default function AssigneeUserDropdown({
+  dashboardId,
+}: AssigneeUserDropdownProps) {
   const token = getCookie('token');
   const [members, setMembers] = useState<DashboardMembers[]>([]);
 
+  const { register, setValue } = useFormContext();
+
   // NOTE - 대시보드 참여 멤버 목록
   const params = new URLSearchParams({
-    dashboardId: id.toString(),
+    dashboardId: dashboardId.toString(),
     page: '1',
     size: '10',
   });
@@ -37,9 +44,15 @@ export default function AssigneeUserDropdown() {
     }
   }
 
+  const handleItemClick = (userId: number) => {
+    // 선택된 담당자 ID를 react-hook-form 필드에 설정
+    setValue('assigneeUserId', userId);
+    console.log('선택된 담당자 ID:', userId);
+  };
+
   useEffect(() => {
     getMember();
-  }, [id]);
+  }, [dashboardId]);
 
   return (
     <div>
@@ -47,12 +60,30 @@ export default function AssigneeUserDropdown() {
         <Dropdown.Toggle>이름을 입력해 주세요</Dropdown.Toggle>
         <Dropdown.List>
           {members.map((member) => (
-            <Dropdown.Item key={member.id}>
-              <div className="flex items-center gap-2">
+            <Dropdown.Item key={member.userId}>
+              <div
+                className="flex h-full w-full cursor-pointer items-center gap-2"
+                onClick={() => handleItemClick(member.userId)}
+                tabIndex={0}
+                role="button"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleItemClick(member.userId);
+                  }
+                }}
+              >
+                <input
+                  className="appearance-none"
+                  type="radio"
+                  id={`assigneeUserId-${member.userId}`}
+                  value={member.userId}
+                  {...register('assigneeUserId')}
+                />
+
                 <ProfileImage
                   profileImageUrl={member.profileImageUrl}
                   nickname={member.nickname}
-                  id={member.id}
+                  id={member.userId}
                   size="26px"
                 />
                 <p className="text-sm font-normal text-gray-700">
