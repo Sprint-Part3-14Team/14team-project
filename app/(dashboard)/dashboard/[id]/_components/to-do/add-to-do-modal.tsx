@@ -23,7 +23,7 @@ interface AddToDoModalProps {
 export default function AddToDoModal({
   isOpen,
   onClose,
-  columnId, // columnId
+  columnId,
 }: AddToDoModalProps) {
   const methods = useForm<toDoCardValue>({
     resolver: yupResolver(createTodoSchema),
@@ -35,8 +35,8 @@ export default function AddToDoModal({
     setValue,
     formState: { errors, isValid },
   } = methods;
-  const [tags, setTags] = useState<string[]>([]); // tags
-  const { id } = useParams<{ id: string }>(); // dashboardId
+  const [tags, setTags] = useState<string[]>([]);
+  const { id } = useParams<{ id: string }>();
 
   const onSubmit: SubmitHandler<toDoCardValue> = async (data) => {
     const { assigneeUserId, title, description } = data;
