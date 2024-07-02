@@ -32,7 +32,11 @@ export default function ToDoCard({
         <p className="font-medium">{title}</p>
         <div className="w-full md:flex xl:flex-col">
           <div className="my-[6px] flex flex-wrap gap-x-[6px] gap-y-2 md:my-0 md:w-[350px] xl:my-[10px] xl:w-full">
-            {tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}
+            {tags?.map((tag) => (
+              <Tag tag={tag} key={tag}>
+                {tag}
+              </Tag>
+            ))}
           </div>
           <div className="flex w-full items-center justify-between">
             <div className="flex items-center gap-x-[6px] md:ml-4 xl:ml-0">
