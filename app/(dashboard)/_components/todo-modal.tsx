@@ -4,6 +4,7 @@ import ColumnTag from '@/app/components/column-tag';
 import Modal from '@/app/components/modal';
 import ProfileImage from '@/app/components/profile/profile-image';
 import TaskOption from '@/app/components/task-option';
+import { CardData } from '@/types/card';
 import formatDate from '@/utils/formatDate';
 import { getCookie } from 'cookies-next';
 import Image from 'next/image';
@@ -16,29 +17,13 @@ import TodoModalComment from './todo-modal-comment';
 export default function ToDoModal({
   isOpen,
   onClose,
-  id,
-  title,
-  tags,
-  imageUrl,
-  assignee,
-  dueDate,
-  description,
   columnTitle,
+  ...props
 }: {
   isOpen: boolean;
   onClose: () => void;
-  id: number;
-  title: string;
-  tags: string[];
-  imageUrl?: string;
-  assignee: {
-    profileImageUrl: string;
-    nickname: string;
-    id: number;
-  };
-  dueDate: Date;
-  description: string;
   columnTitle: string;
+  props: CardData;
 }) {
   const [isTaskOptionOpen, setIsTaskOptionOpen] = useState(false);
   const router = useRouter();
@@ -80,7 +65,7 @@ export default function ToDoModal({
     >
       <div className="h-full p-3 md:px-[28px] md:py-[32px]">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold md:text-2xl">{title}</h1>
+          <h1 className="text-xl font-bold md:text-2xl">{props.props.title}</h1>
           <div className="flex gap-x-6">
             <button
               type="button"
@@ -100,7 +85,7 @@ export default function ToDoModal({
                   {/* eslint-disable-next-line */}
                   <li
                     className="flex h-[30px] w-full items-center justify-center rounded-md hover:bg-violet-primary/10 md:h-[32px]"
-                    onClick={() => handleDeleteTask(id)}
+                    onClick={() => handleDeleteTask(props.props.id)}
                   >
                     삭제하기
                   </li>
@@ -127,33 +112,39 @@ export default function ToDoModal({
               <div className="flex items-center gap-x-2">
                 <div className="relative size-[26px] md:size-[34px]">
                   <ProfileImage
-                    profileImageUrl={assignee?.profileImageUrl}
-                    nickname={assignee.nickname}
-                    id={assignee.id}
+                    profileImageUrl={props.props.assignee.profileImageUrl}
+                    nickname={props.props.assignee.nickname}
+                    id={props.props.assignee.id}
                     size="24px"
                   />
                 </div>
-                <p>{assignee.nickname}</p>
+                <p>{props.props.assignee.nickname}</p>
               </div>
             </div>
             <div className="flex-flex-col w-full">
               <p className="text-[10px] font-semibold md:text-xs">마감일</p>
-              <p className="text-xs md:text-sm">{formatDate(dueDate)}</p>
+              <p className="text-xs md:text-sm">
+                {formatDate(new Date(props.props.dueDate))}
+              </p>
             </div>
           </div>
           <div className="mb-[44px] mt-4 w-full overflow-y-auto md:mt-0">
             <div className="h-full w-full md:pr-6">
               <div className="flex h-5 items-center gap-x-5">
                 <ColumnTag title={columnTitle} />
-                {tags?.length > 0 && <div className="h-full border-l" />}
-                {tags?.map((tag) => <Tag key={tag}>{tag}</Tag>)}
+                {props.props.tags?.length > 0 && (
+                  <div className="h-full border-l" />
+                )}
+                {props.props.tags?.map((tag: string) => (
+                  <Tag key={tag}>{tag}</Tag>
+                ))}
               </div>
-              <p className="my-4">{description}</p>
+              <p className="my-4">{props.props.description}</p>
 
-              {imageUrl && (
+              {props.props.imageUrl && (
                 <div className="relative size-fit h-[300px] w-full md:h-[400px]">
                   <Image
-                    src={imageUrl}
+                    src={props.props.imageUrl!}
                     alt="modal-image"
                     layout="fill"
                     objectFit="cover"
