@@ -1,9 +1,14 @@
+
+import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const pretendard = localFont({
+  src: '../public/fonts/PretendardVariable.woff2',
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -16,8 +21,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="ko" className={pretendard.className}>
+      <body>{children}</body>
+      <Toaster />
     </html>
   );
 }
