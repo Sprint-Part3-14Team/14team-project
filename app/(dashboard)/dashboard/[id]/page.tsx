@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import ToDoCard from '../../_components/todo-card';
+import EditColumnButton from './_components/dashboard-column/edit-column-button';
 import AddToDoButton from './_components/to-do/add-to-do-button';
 
 async function getCards(columnId: number) {
@@ -80,9 +81,7 @@ async function Column({ data }: { data: ColumnData }) {
             </div>
           </div>
         </div>
-        <div className="relative size-[22px] md:size-6">
-          <Image src="/icons/setting_icon.svg" alt="설정" fill />
-        </div>
+        <EditColumnButton />
       </div>
       <AddToDoButton columnId={data.id} />
       {cards?.map((card: CardData) => (
