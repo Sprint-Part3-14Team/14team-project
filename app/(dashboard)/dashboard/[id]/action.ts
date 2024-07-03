@@ -117,3 +117,21 @@ export async function deleteToDoCardComment(commentId: number) {
   }
   return false;
 }
+
+export async function editToDoCardComment(commentId: number, content: string) {
+  const token = cookies().get('token')?.value;
+
+  const response = await fetch(`${TEAM_BASE_URL}/comments/${commentId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ content }),
+  });
+
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
+}
