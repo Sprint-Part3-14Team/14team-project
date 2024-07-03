@@ -52,6 +52,7 @@ export default function AddToDoModal({
     formState: { errors, isValid, isDirty },
   } = methods;
   const [tags, setTags] = useState<string[]>(toDoValue?.tags || []);
+  const [column, setColumn] = useState(columnId);
   const { id } = useParams<{ id: string }>(); // 대시보드 id
   const [isEdit, setIsEdit] = useState(false);
 
@@ -82,7 +83,7 @@ export default function AddToDoModal({
     const formData = new FormData();
     formData.append('assigneeUserId', assigneeUserId.toString());
     formData.append('dashboardId', id.toString());
-    formData.append('columnId', columnId.toString());
+    formData.append('columnId', column.toString());
     formData.append('title', title);
     formData.append('description', description);
 
@@ -154,7 +155,11 @@ export default function AddToDoModal({
           <div className="flex flex-grow flex-col gap-6 overflow-y-auto overflow-x-hidden">
             <div className="flex flex-col gap-2 md:flex-row">
               {isEdit && (
-                <ColumnDropdown dashboardId={id} columnId={columnId} />
+                <ColumnDropdown
+                  dashboardId={id}
+                  columnId={column}
+                  setColumn={setColumn}
+                />
               )}
               <AssigneeUserDropdown
                 dashboardId={id}

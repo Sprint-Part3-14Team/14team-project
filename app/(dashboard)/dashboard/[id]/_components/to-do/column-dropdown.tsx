@@ -15,11 +15,13 @@ import { useEffect, useState } from 'react';
 interface ColumnDropdownProps {
   dashboardId: string;
   columnId: number;
+  setColumn: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function ColumnDropdown({
   dashboardId,
   columnId,
+  setColumn,
 }: ColumnDropdownProps) {
   const [columns, setColumns] = useState<ColumnData[]>([]);
   const token = getCookie('token');
@@ -41,18 +43,27 @@ export default function ColumnDropdown({
   }
 
   const handleItemClick = (id: number) => {
-    console.log('선택된 컬럼 ID:' + id);
+    setColumn(id);
   };
 
   useEffect(() => {
     getColumns();
-  }, [dashboardId]);
+  }, [getColumns]);
 
   return (
     <div className="flex flex-col gap-y-2 md:w-1/2">
       <p className="text-base font-medium md:text-lg">상태</p>
       <Dropdown>
-        <Dropdown.Toggle>상태</Dropdown.Toggle>
+        <Dropdown.Toggle>
+          <div className="flex h-full w-full cursor-pointer items-center">
+            <ColumnTag
+              title={
+                columns.find((column) => column.id === columnId)?.title ??
+                'Default Title'
+              }
+            />
+          </div>
+        </Dropdown.Toggle>
         <Dropdown.List>
           {columns.map((column) => (
             <Dropdown.Item key={column.id}>
