@@ -10,13 +10,20 @@ import { useFormContext } from 'react-hook-form';
 
 interface AssigneeUserDropdownProps {
   dashboardId: string;
+  isEdit?: boolean;
+  assigneeUserId?: number;
 }
 
 export default function AssigneeUserDropdown({
   dashboardId,
+  isEdit,
+  assigneeUserId,
 }: AssigneeUserDropdownProps) {
   const token = getCookie('token');
   const [members, setMembers] = useState<DashboardMembers[]>([]);
+  const [selectedMember, setSelectedMember] = useState<DashboardMembers | null>(
+    null
+  );
 
   const { register, setValue } = useFormContext();
 
@@ -39,6 +46,13 @@ export default function AssigneeUserDropdown({
     if (res.ok) {
       const data = await res.json();
       setMembers(data.members);
+      // NOTE - 수정하기인 경우 기본값
+      if (isEdit && assigneeUserId) {
+        const assignedMember = data.members.find(
+          (member: DashboardMembers) => member.userId === assigneeUserId
+        );
+        setSelectedMember(assignedMember || null);
+      }
     } else {
       console.error('Failed to fetch members:', res.statusText);
     }
@@ -57,7 +71,25 @@ export default function AssigneeUserDropdown({
   return (
     <div className="md:w-1/2">
       <Dropdown>
-        <Dropdown.Toggle>이름을 입력해 주세요</Dropdown.Toggle>
+        <Dropdown.Toggle>
+          {selectedMember ? (
+            <div className="flex h-full w-full cursor-pointer items-center gap-2">
+              <ProfileImage
+                profileImageUrl={selectedMember.profileImageUrl}
+                nickname={selectedMember.nickname}
+                id={selectedMember.userId}
+                size="26px"
+              />
+              <p className="text-sm font-normal text-gray-700">
+                {selectedMember.nickname}
+              </p>
+            </div>
+          ) : (
+            <p className="text-sm font-normal text-gray-400">
+              이름을 입력해 주세요
+            </p>
+          )}
+        </Dropdown.Toggle>
         <Dropdown.List>
           {members.map((member) => (
             <Dropdown.Item key={member.userId}>

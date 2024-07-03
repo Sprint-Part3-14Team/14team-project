@@ -1,14 +1,19 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ImageInputField({
   id,
   setValue,
+  imageUrlValue,
 }: {
   id: string;
   setValue: any;
+  imageUrlValue?: string | null;
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [initialImage, setInitialImage] = useState<string | null>(
+    imageUrlValue || null
+  );
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -23,12 +28,22 @@ export default function ImageInputField({
     setValue(id, null);
   };
 
+  useEffect(() => {
+    if (imageUrlValue) {
+      setInitialImage(imageUrlValue);
+    }
+  }, [imageUrlValue]);
+
   return (
     <div>
-      {selectedImage ? (
+      {initialImage || selectedImage ? (
         <div className="relative size-[100px] md:size-[182px]">
           <Image
-            src={URL.createObjectURL(selectedImage)}
+            src={
+              selectedImage
+                ? URL.createObjectURL(selectedImage)
+                : (initialImage as string)
+            }
             alt="Selected Image"
             sizes="(min-width: 768px) 100vw"
             fill

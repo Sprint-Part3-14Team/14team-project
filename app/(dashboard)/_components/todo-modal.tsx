@@ -1,5 +1,3 @@
-// NOTE - li태그에 onClick으로 인해 주석 추가
-
 /* eslint-disable */
 'use client';
 
@@ -18,11 +16,7 @@ import AddToDoModal from '../dashboard/[id]/_components/to-do/add-to-do-modal';
 import Tag from './tag';
 import TodoModalComment from './todo-modal-comment';
 
-// NOTE - li태그에 onClick으로 인해 주석 추가
-
 /* eslint-disable */
-
-// NOTE - li태그에 onClick으로 인해 주석 추가
 
 /* eslint-disable */
 
@@ -149,7 +143,8 @@ export default function ToDoModal({
               <div className="flex-flex-col w-full">
                 <p className="text-[10px] font-semibold md:text-xs">마감일</p>
                 <p className="text-xs md:text-sm">
-                  {formatDate(new Date(props.props.dueDate))}
+                  {props.props.dueDate &&
+                    formatDate(new Date(props.props.dueDate))}
                 </p>
               </div>
             </div>
@@ -187,6 +182,7 @@ export default function ToDoModal({
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
         columnId={props.props.columnId}
+        toDoValue={props.props}
       />
     </>
   );

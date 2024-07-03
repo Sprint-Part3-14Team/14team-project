@@ -4,10 +4,11 @@ import ImageInputField from '@/app/components/image-input-field';
 import InputField from '@/app/components/input-field';
 import Modal from '@/app/components/modal';
 import createTodoSchema from '@/lib/schemas/createToDo';
+import { CardData } from '@/types/card';
 import { toDoCardValue } from '@/types/toDoCard';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { postToDoCard } from '../../action';
@@ -19,15 +20,25 @@ interface AddToDoModalProps {
   isOpen: boolean;
   onClose: () => void;
   columnId: number;
+  toDoValue?: CardData;
 }
 export default function AddToDoModal({
   isOpen,
   onClose,
   columnId,
+  toDoValue,
 }: AddToDoModalProps) {
   const methods = useForm<toDoCardValue>({
     resolver: yupResolver(createTodoSchema),
     mode: 'onChange',
+    defaultValues: {
+      // NOTE - undefined가 맞나 .....?
+      assigneeUserId: toDoValue?.assignee.id || undefined,
+      title: toDoValue?.title || '',
+      description: toDoValue?.description || '',
+      dueDate: toDoValue?.dueDate || undefined,
+      imageUrl: toDoValue?.imageUrl || '',
+    },
   });
   const {
     register,
@@ -37,6 +48,7 @@ export default function AddToDoModal({
   } = methods;
   const [tags, setTags] = useState<string[]>([]);
   const { id } = useParams<{ id: string }>();
+  const [isEdit, setIsEdit] = useState(false);
 
   const onSubmit: SubmitHandler<toDoCardValue> = async (data) => {
     const { assigneeUserId, title, description } = data;
@@ -68,6 +80,13 @@ export default function AddToDoModal({
     console.log(res);
   };
 
+  useEffect(() => {
+    // NOTE - 수정하기인 경우
+    if (toDoValue && !isEdit) {
+      setIsEdit(true);
+    }
+  }, [isEdit, toDoValue]);
+
   if (!isOpen) return null;
 
   return (
@@ -77,7 +96,7 @@ export default function AddToDoModal({
       className="flex h-[70vh] w-[327px] flex-col text-left md:w-[506px] md:px-7 md:pb-7"
     >
       <h2 className="md:md-[32px] mb-[24px] px-5 pt-8 text-xl font-bold md:text-2xl">
-        할 일 생성
+        {isEdit ? '할 일 수정' : '할 일 생성'}
       </h2>
       <FormProvider {...methods}>
         <form
@@ -87,7 +106,11 @@ export default function AddToDoModal({
           <div className="flex flex-grow flex-col gap-6 overflow-y-auto overflow-x-hidden">
             <div className="flex flex-col gap-y-2">
               <p className="text-base font-medium md:text-lg">담당자</p>
-              <AssigneeUserDropdown dashboardId={id} />
+              <AssigneeUserDropdown
+                dashboardId={id}
+                isEdit={isEdit}
+                assigneeUserId={toDoValue?.assignee.id}
+              />
             </div>
             <InputField
               id="title"
@@ -115,11 +138,18 @@ export default function AddToDoModal({
                 <p className="text-red-500">{errors.description.message}</p>
               )}
             </div>
-            <AddDueDateInput />
+            <AddDueDateInput
+              dueDateValue={toDoValue?.dueDate}
+              isEdit={isEdit}
+            />
             <AddTagInput tags={tags} setTags={setTags} />
             <div className="mb-4 flex flex-col gap-y-2">
               <p className="text-base font-medium md:text-lg">이미지</p>
-              <ImageInputField id="imageUrl" setValue={setValue} />
+              <ImageInputField
+                id="imageUrl"
+                setValue={setValue}
+                imageUrlValue={toDoValue?.imageUrl}
+              />
             </div>
           </div>
           <div className="mt-5 flex gap-[11px] md:ml-auto">
