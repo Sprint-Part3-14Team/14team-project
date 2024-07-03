@@ -20,6 +20,16 @@ import TodoModalComment from './todo-modal-comment';
 
 /* eslint-disable */
 
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
 export default function ToDoModal({
   isOpen,
   onClose,
@@ -128,17 +138,20 @@ export default function ToDoModal({
             <div className="flex w-full items-center justify-between rounded-lg border p-4 md:h-[155px] md:w-[180px] md:flex-col lg:w-[200px]">
               <div className="flex w-full flex-col">
                 <p className="text-[10px] font-semibold md:text-xs">담당자</p>
-                <div className="flex items-center gap-x-2">
-                  <div className="relative size-[26px] md:size-[34px]">
-                    <ProfileImage
-                      profileImageUrl={props.props.assignee.profileImageUrl}
-                      nickname={props.props.assignee.nickname}
-                      id={props.props.assignee.id}
-                      size="24px"
-                    />
+                {/* NOTE - 담당자 없을 때도 있습니다 */}
+                {props.props.assignee && (
+                  <div className="flex items-center gap-x-2">
+                    <div className="relative size-[26px] md:size-[34px]">
+                      <ProfileImage
+                        profileImageUrl={props.props.assignee.profileImageUrl}
+                        nickname={props.props.assignee.nickname}
+                        id={props.props.assignee.id}
+                        size="24px"
+                      />
+                    </div>
+                    <p>{props.props.assignee.nickname}</p>
                   </div>
-                  <p>{props.props.assignee.nickname}</p>
-                </div>
+                )}
               </div>
               <div className="flex-flex-col w-full">
                 <p className="text-[10px] font-semibold md:text-xs">마감일</p>

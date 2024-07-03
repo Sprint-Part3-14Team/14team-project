@@ -1,5 +1,5 @@
 export interface toDoCardValue {
-  assigneeUserId: number;
+  assigneeUserId?: number;
   title: string;
   description: string;
   dueDate?: string;

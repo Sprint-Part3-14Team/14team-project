@@ -4,7 +4,7 @@ export interface CardData {
   description: string;
   tags: string[];
   dueDate: string | null;
-  assignee: Assignee;
+  assignee: Assignee | null;
   imageUrl: string | null;
   teamId: string;
   columnId: number;

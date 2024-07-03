@@ -35,7 +35,7 @@ export default function AddToDoModal({
     resolver: yupResolver(createTodoSchema),
     mode: 'onChange',
     defaultValues: {
-      assigneeUserId: toDoValue?.assignee.id || undefined,
+      assigneeUserId: toDoValue?.assignee?.id || undefined,
       title: toDoValue?.title || '',
       description: toDoValue?.description || '',
       dueDate: toDoValue?.dueDate || undefined,
@@ -70,7 +70,7 @@ export default function AddToDoModal({
     isValid ||
     JSON.stringify(watchFields) !==
       JSON.stringify({
-        assigneeUserId: toDoValue?.assignee.id || undefined,
+        assigneeUserId: toDoValue?.assignee?.id || undefined,
         title: toDoValue?.title || '',
         description: toDoValue?.description || '',
         dueDate: toDoValue?.dueDate || undefined,
@@ -81,11 +81,14 @@ export default function AddToDoModal({
     const { assigneeUserId, title, description } = data;
 
     const formData = new FormData();
-    formData.append('assigneeUserId', assigneeUserId.toString());
     formData.append('dashboardId', id.toString());
     formData.append('columnId', column.toString());
     formData.append('title', title);
     formData.append('description', description);
+
+    if (assigneeUserId) {
+      formData.append('assigneeUserId', assigneeUserId.toString());
+    }
 
     if (tags.length > 0) {
       formData.append('tags', JSON.stringify(tags));
@@ -124,7 +127,7 @@ export default function AddToDoModal({
     if (toDoValue && !isEdit) {
       setIsEdit(true);
       reset({
-        assigneeUserId: toDoValue.assignee.id,
+        assigneeUserId: toDoValue.assignee?.id,
         title: toDoValue.title,
         description: toDoValue.description,
         dueDate: toDoValue.dueDate || '',
