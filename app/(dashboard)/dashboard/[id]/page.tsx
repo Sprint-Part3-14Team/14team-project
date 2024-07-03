@@ -2,9 +2,9 @@ import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { CardData, ColumnData } from '@/types/card';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import ToDoCard from '../../_components/todo-card';
+import NewColumnButton from './_components/dashboard-column/new-column-button';
 import AddToDoButton from './_components/to-do/add-to-do-button';
 
 async function getCards(columnId: number) {
@@ -48,20 +48,7 @@ function AddColumn() {
   return (
     <div className="border-gray-300 px-[15px] py-3 md:p-5 xl:border-l xl:pt-[68px]">
       {/* TODO - href 설정할 것 #!는 eslint 우회를 위한 임시 코드입니다. */}
-      <Link
-        href="#!"
-        className="flex h-[60px] items-center justify-center gap-x-3 rounded-lg border border-gray-300 bg-white py-6 font-bold xl:w-[354px]"
-      >
-        새로운 컬럼 추가하기
-        <div className="relative size-5 md:size-[22px]">
-          <Image
-            src="/icons/icon_add_column.svg"
-            alt="새로운 컬럼 추가하기"
-            fill
-            sizes="100vw"
-          />
-        </div>
-      </Link>
+      <NewColumnButton />
     </div>
   );
 }
