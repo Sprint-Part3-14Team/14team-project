@@ -82,12 +82,11 @@ export async function updateToDoCard(formData: FormData, cardId: number) {
   let imageUrl;
   // NOTE - 이미지가 파일 객체로 제공될 경우에만 이미지 업로드 처리(이미지를 추가하거나 변경하는 경우)
   const imageUrlValue = formData.get('imageUrl');
-  if (typeof imageUrlValue === 'object' && imageUrlValue instanceof File) {
+  if (imageUrlValue instanceof File) {
     const imageFile = imageUrlValue as File;
     const columnId = parseInt(formData.get('columnId') as string, 10);
     imageUrl = await postToDoCardImage(imageFile, columnId);
     formData.set('imageUrl', imageUrl); // 업로드된 이미지 URL로 formData 업데이트
-    console.log(`이미지 url 생성 : ${imageUrl}`);
   }
 
   const token = cookies().get('token')?.value;

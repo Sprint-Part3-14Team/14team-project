@@ -1,13 +1,15 @@
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default function ImageInputField({
   id,
   setValue,
   imageUrlValue,
+  unregister,
 }: {
   id: string;
   setValue: any;
+  unregister?: any;
   imageUrlValue?: string | null;
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -24,15 +26,16 @@ export default function ImageInputField({
   };
 
   const handleImageDelete = () => {
+    unregister(id);
     setSelectedImage(null);
-    setValue(id, null);
+    setInitialImage(null);
   };
 
-  useEffect(() => {
-    if (imageUrlValue) {
-      setInitialImage(imageUrlValue);
-    }
-  }, [imageUrlValue]);
+  // useEffect(() => {
+  //   if (imageUrlValue) {
+  //     setInitialImage(imageUrlValue);
+  //   }
+  // }, [imageUrlValue]);
 
   return (
     <div>

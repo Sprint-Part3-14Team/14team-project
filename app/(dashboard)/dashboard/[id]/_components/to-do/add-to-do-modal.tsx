@@ -43,6 +43,7 @@ export default function AddToDoModal({
   });
   const {
     register,
+    unregister,
     handleSubmit,
     setValue,
     reset,
@@ -71,7 +72,7 @@ export default function AddToDoModal({
         title: toDoValue?.title || '',
         description: toDoValue?.description || '',
         dueDate: toDoValue?.dueDate || undefined,
-        imageUrl: toDoValue?.imageUrl || '',
+        imageUrl: toDoValue?.imageUrl || null,
       });
 
   const onSubmit: SubmitHandler<toDoCardValue> = async (data) => {
@@ -98,10 +99,9 @@ export default function AddToDoModal({
 
     if (isEdit && cardId) {
       try {
-        console.log('>>>>>>>>>>>>> 수정하기 테스트중');
+        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 수정하기 테스트중');
+        console.log('>>>>>>>>>>>>> 보낼 데이터');
         console.log(data);
-        console.log(tags);
-        console.log(toDoValue?.imageUrl);
         const res = await updateToDoCard(formData, cardId);
         if (res) {
           onClose();
@@ -129,7 +129,7 @@ export default function AddToDoModal({
         title: toDoValue.title,
         description: toDoValue.description,
         dueDate: toDoValue.dueDate || '',
-        imageUrl: toDoValue.imageUrl || '',
+        imageUrl: toDoValue?.imageUrl || null,
       });
     }
   }, [isEdit, reset, toDoValue]);
@@ -196,6 +196,7 @@ export default function AddToDoModal({
                 id="imageUrl"
                 setValue={setValue}
                 imageUrlValue={toDoValue?.imageUrl}
+                unregister={unregister}
               />
             </div>
           </div>
