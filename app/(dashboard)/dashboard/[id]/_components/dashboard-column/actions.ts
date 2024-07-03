@@ -32,6 +32,10 @@ export async function CreateColumn(title: string, dashboardId: number) {
 export async function getColumnNames(dashboardId: number) {
   const token = cookies().get('token')?.value;
 
+  if (!token) {
+    throw new Error('인증되지 않았습니다');
+  }
+
   const url = `${TEAM_BASE_URL}/columns?dashboardId=${dashboardId}`;
 
   const res = await fetch(url, {
@@ -58,4 +62,55 @@ export async function getColumnNames(dashboardId: number) {
   const columnTitles = data.map((column: any) => column.title);
 
   return columnTitles;
+}
+
+export async function ChangeColumn(columnId: number, title: string) {
+  const token = cookies().get('token')?.value;
+
+  if (!token) {
+    throw new Error('인증되지 않았습니다');
+  }
+
+  const url = `${TEAM_BASE_URL}/columns/${columnId}`;
+
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ title }),
+  });
+
+  if (!res.ok) {
+    const errorMessage = await res.text();
+    throw new Error(`변경을 실패했습니다: ${errorMessage}`);
+  }
+
+  return res.json();
+}
+
+export async function DeleteColumn(columnId: number) {
+  const token = cookies().get('token')?.value;
+
+  if (!token) {
+    throw new Error('인증되지 않았습니다');
+  }
+
+  const url = `${TEAM_BASE_URL}/columns/${columnId}`;
+
+  const res = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    const errorMessage = await res.text();
+    throw new Error(`삭제를 실패했습니다: ${errorMessage}`);
+  }
+
+  return res.json();
 }
