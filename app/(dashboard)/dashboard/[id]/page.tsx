@@ -1,39 +1,11 @@
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { CardData, ColumnData } from '@/types/card';
 import { cookies } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import ToDoCard from '../../_components/todo-card';
 import AddToDoButton from './_components/to-do/add-to-do-button';
-
-export interface CardData {
-  id: number;
-  title: string;
-  description: string;
-  tags: string[];
-  dueDate: string;
-  assignee: Assignee;
-  imageUrl: string;
-  teamId: string;
-  columnId: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface Assignee {
-  profileImageUrl: string;
-  nickname: string;
-  id: number;
-}
-
-export interface ColumnData {
-  id: number;
-  title: string;
-  teamId: string;
-  dashboardId: number;
-  createdAt: Date;
-  updatedAt: Date;
-}
 
 async function getCards(columnId: number) {
   const token = cookies().get('token')?.value;
@@ -113,7 +85,9 @@ async function Column({ data }: { data: ColumnData }) {
         </div>
       </div>
       <AddToDoButton columnId={data.id} />
-      {cards?.map((card: CardData) => <ToDoCard key={card.id} {...card} />)}
+      {cards?.map((card: CardData) => (
+        <ToDoCard key={card.id} {...card} columnTitle={data.title} />
+      ))}
     </div>
   );
 }
