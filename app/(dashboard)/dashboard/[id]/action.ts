@@ -37,7 +37,7 @@ export async function postToDoCard(formData: FormData) {
     const columnId = parseInt(formData.get('columnId') as string, 10);
     imageUrl = await postToDoCardImage(imageFile, columnId);
     formData.set('imageUrl', imageUrl);
-    console.log(`이미지 url 생성 : ${  imageUrl}`);
+    console.log(`이미지 url 생성 : ${imageUrl}`);
   }
 
   // NOTE - POST 요청
@@ -71,9 +71,33 @@ export async function postToDoCard(formData: FormData) {
     const data = await response.json();
     console.log('카드 생성 성공:', data);
     return data;
-  } 
-    const errorData = await response.json();
-    console.error('카드 생성 실패:', errorData);
-    return null;
-  
+  }
+  const errorData = await response.json();
+  console.error('카드 생성 실패:', errorData);
+  return null;
+}
+
+export async function postToDoCardComment(commentData: {
+  content: string;
+  cardId: number;
+  columnId: number;
+  dashboardId: number;
+}) {
+  const token = cookies().get('token')?.value;
+
+  const response = await fetch(`${TEAM_BASE_URL}/comments`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(commentData),
+  });
+
+  if (response.status === 201) {
+    const data = await response.json();
+
+    return data;
+  }
+  return null;
 }
