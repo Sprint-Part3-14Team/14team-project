@@ -101,9 +101,6 @@ export default function AddToDoModal({
 
     if (isEdit && cardId) {
       try {
-        console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 수정하기 테스트중');
-        console.log('>>>>>>>>>>>>> 보낼 데이터');
-        console.log(data);
         const res = await updateToDoCard(formData, cardId);
         if (res) {
           onClose();

@@ -1,6 +1,7 @@
 'use server';
 
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
 // NOTE - 이미지 업로드
@@ -117,7 +118,7 @@ export async function updateToDoCard(formData: FormData, cardId: number) {
 
   if (response.status === 200) {
     const data = await response.json();
-    console.log('카드 수정 성공:', data);
+    revalidatePath(`/dashboard/${formData.get('dashboardId')}`);
     return data;
   }
   const errorData = await response.json();
