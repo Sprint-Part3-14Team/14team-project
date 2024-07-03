@@ -62,7 +62,7 @@ export default function AssigneeUserDropdown({
           {members.map((member) => (
             <Dropdown.Item key={member.userId}>
               <div
-                className="flex h-full w-full cursor-pointer items-center gap-2"
+                className="flex h-full w-full cursor-pointer items-center gap-2 md:w-[50%]"
                 onClick={() => handleItemClick(member.userId)}
                 tabIndex={0}
                 role="button"
