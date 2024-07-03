@@ -11,7 +11,7 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import { postToDoCard } from '../../action';
+import { postToDoCard, updateToDoCard } from '../../action';
 import AddDueDateInput from './add-due-date-input';
 import AddTagInput from './add-tag-input';
 import AssigneeUserDropdown from './assignee-user-dropdown';
@@ -21,18 +21,19 @@ interface AddToDoModalProps {
   onClose: () => void;
   columnId: number;
   toDoValue?: CardData;
+  cardId?: number;
 }
 export default function AddToDoModal({
   isOpen,
   onClose,
   columnId,
   toDoValue,
+  cardId,
 }: AddToDoModalProps) {
   const methods = useForm<toDoCardValue>({
     resolver: yupResolver(createTodoSchema),
     mode: 'onChange',
     defaultValues: {
-      // NOTE - undefined가 맞나 .....?
       assigneeUserId: toDoValue?.assignee.id || undefined,
       title: toDoValue?.title || '',
       description: toDoValue?.description || '',
@@ -44,26 +45,45 @@ export default function AddToDoModal({
     register,
     handleSubmit,
     setValue,
-    formState: { errors, isValid },
+    reset,
+    watch,
+    formState: { errors, isValid, isDirty },
   } = methods;
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(toDoValue?.tags || []);
   const { id } = useParams<{ id: string }>();
   const [isEdit, setIsEdit] = useState(false);
 
+  // 감시할 필드들을 설정
+  const watchFields = watch([
+    'assigneeUserId',
+    'title',
+    'description',
+    'dueDate',
+    'imageUrl',
+  ]);
+
+  const isFormChanged =
+    isDirty ||
+    isValid ||
+    JSON.stringify(watchFields) !==
+      JSON.stringify({
+        assigneeUserId: toDoValue?.assignee.id || undefined,
+        title: toDoValue?.title || '',
+        description: toDoValue?.description || '',
+        dueDate: toDoValue?.dueDate || undefined,
+        imageUrl: toDoValue?.imageUrl || '',
+      });
+
   const onSubmit: SubmitHandler<toDoCardValue> = async (data) => {
     const { assigneeUserId, title, description } = data;
-    console.log(data);
-    console.log(tags);
 
     const formData = new FormData();
-    // NOTE - 필수값
     formData.append('assigneeUserId', assigneeUserId.toString());
     formData.append('dashboardId', id.toString());
     formData.append('columnId', columnId.toString());
     formData.append('title', title);
     formData.append('description', description);
 
-    // NOTE - 선택값
     if (tags.length > 0) {
       formData.append('tags', JSON.stringify(tags));
     }
@@ -76,16 +96,43 @@ export default function AddToDoModal({
       formData.append('imageUrl', data.imageUrl);
     }
 
-    const res = await postToDoCard(formData);
-    console.log(res);
+    if (isEdit && cardId) {
+      try {
+        console.log('>>>>>>>>>>>>> 수정하기 테스트중');
+        console.log(data);
+        console.log(tags);
+        console.log(toDoValue?.imageUrl);
+        const res = await updateToDoCard(formData, cardId);
+        if (res) {
+          onClose();
+        }
+      } catch (e) {
+        console.error('할 일 카드 수정 오류');
+      }
+    } else {
+      try {
+        const res = await postToDoCard(formData);
+        if (res) {
+          onClose();
+        }
+      } catch (e) {
+        console.error('할 일 카드 생성 오류');
+      }
+    }
   };
 
   useEffect(() => {
-    // NOTE - 수정하기인 경우
     if (toDoValue && !isEdit) {
       setIsEdit(true);
+      reset({
+        assigneeUserId: toDoValue.assignee.id,
+        title: toDoValue.title,
+        description: toDoValue.description,
+        dueDate: toDoValue.dueDate || '',
+        imageUrl: toDoValue.imageUrl || '',
+      });
     }
-  }, [isEdit, toDoValue]);
+  }, [isEdit, reset, toDoValue]);
 
   if (!isOpen) return null;
 
@@ -109,7 +156,7 @@ export default function AddToDoModal({
               <AssigneeUserDropdown
                 dashboardId={id}
                 isEdit={isEdit}
-                assigneeUserId={toDoValue?.assignee.id}
+                assigneeUserId={toDoValue?.assignee?.id}
               />
             </div>
             <InputField
@@ -160,13 +207,23 @@ export default function AddToDoModal({
             >
               취소
             </button>
-            <button
-              type="submit"
-              className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
-              disabled={!isValid}
-            >
-              생성
-            </button>
+            {isEdit ? (
+              <button
+                type="submit"
+                className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
+                disabled={!isFormChanged}
+              >
+                수정
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
+                disabled={!isValid}
+              >
+                생성
+              </button>
+            )}
           </div>
         </form>
       </FormProvider>
