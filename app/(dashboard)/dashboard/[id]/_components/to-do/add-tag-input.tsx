@@ -1,3 +1,4 @@
+import Tag from '@/app/(dashboard)/_components/tag';
 import { KeyboardEvent } from 'react';
 
 interface AddTagInputProps {
@@ -39,10 +40,18 @@ export default function AddTagInput({ tags, setTags }: AddTagInputProps) {
       <div className="flex gap-1">
         {tags.map((tag: string, index: number) => (
           <div key={tag} className="flex">
-            <p>{tag}</p>
-            <button type="button" onClick={() => handleRemoveTag(index)}>
-              x
-            </button>
+            <Tag tag={tag}>
+              <div className="flex items-center gap-1">
+                <p>{tag}</p>
+                <button
+                  type="button"
+                  className="text-[#555555]"
+                  onClick={() => handleRemoveTag(index)}
+                >
+                  x
+                </button>
+              </div>
+            </Tag>
           </div>
         ))}
       </div>

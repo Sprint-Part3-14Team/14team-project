@@ -20,6 +20,12 @@ import TodoModalComment from './todo-modal-comment';
 
 /* eslint-disable */
 
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
 export default function ToDoModal({
   isOpen,
   onClose,
@@ -156,7 +162,9 @@ export default function ToDoModal({
                     <div className="h-full border-l" />
                   )}
                   {props.props.tags?.map((tag: string) => (
-                    <Tag key={tag}>{tag}</Tag>
+                    <Tag tag={tag} key={tag}>
+                      {tag}
+                    </Tag>
                   ))}
                 </div>
                 <p className="my-4">{props.props.description}</p>
