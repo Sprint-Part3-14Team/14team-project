@@ -1,6 +1,7 @@
 'use server';
 
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
 // NOTE - 이미지 업로드
@@ -67,12 +68,19 @@ export async function postToDoCard(formData: FormData) {
     body: JSON.stringify(jsonObject),
   });
 
-  if (response.status === 201) {
-    const data = await response.json();
-    console.log('카드 생성 성공:', data);
-    return data;
+  const data = await response.json();
+
+  if (!response.ok) {
+    switch (response.status) {
+      case 400:
+        throw new Error(data.message);
+      case 404:
+        throw new Error(data.message);
+      default:
+        throw new Error('서버 오류가 발생했습니다');
+    }
   }
-  const errorData = await response.json();
-  console.error('카드 생성 실패:', errorData);
-  return null;
+
+  revalidatePath(`/dashboard/${formData.get('dashboardId')}`);
+  return data;
 }
