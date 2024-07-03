@@ -12,13 +12,15 @@ export default async function DashBoards() {
   const data = await getFetcher(`/dashboards?${params.toString()}`);
   const { dashboards, totalCount } = data;
 
+  const lastPage = Math.ceil(totalCount / 6);
+
   return (
     <section>
       <div className="mb-3 flex items-center gap-1 text-xs">
         <h2 className="text-xl font-bold">Dashboard</h2>
         <p>{totalCount}</p>
       </div>
-      <DashboardList initialData={dashboards} />
+      <DashboardList initialData={dashboards} lastPage={lastPage} />
     </section>
   );
 }

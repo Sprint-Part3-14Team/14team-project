@@ -1,39 +1,52 @@
 'use client';
 
 import PageButton from '@/app/components/pagination/page-button';
+import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardDetail } from '@/types/dashboard';
+import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 
-import { getDashboard } from '../actions';
 import DashboardCard from './dashboard-card';
 
 interface DashboardListProps {
   initialData: DashboardDetail[];
+  lastPage: number;
 }
 
-export default function DashboardList({ initialData }: DashboardListProps) {
+export default function DashboardList({
+  initialData,
+  lastPage,
+}: DashboardListProps) {
   const [page, setPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
   const [dashboardList, setDashboardList] =
     useState<DashboardDetail[]>(initialData);
+
+  async function getData() {
+    const token = getCookie('token');
+    const url = `${TEAM_BASE_URL}/dashboards?navigationMethod=pagination&page=${page}&size=6`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+    const { dashboards } = data;
+    setDashboardList(dashboards);
+  }
 
   const handleForward = () => {
     setPage((prev) => Math.max(prev - 1, 1));
   };
 
-  // TODO: 마지막 페이지에서 앞으로 이동 시 리스트 추가되는 거 고칠 것
   const handleNext = () => {
-    setPage((prev) => (prev !== lastPage ? prev + 1 : prev));
+    setPage((prev) => (prev < lastPage ? prev + 1 : prev));
   };
 
   useEffect(() => {
-    async function getData() {
-      const data = await getDashboard(page);
-      const { dashboards, totalCount } = data;
-      setDashboardList(dashboards);
-      setLastPage(totalCount <= 6 ? 1 : Math.ceil(totalCount / 6));
-    }
-
     getData();
   }, [page]);
 

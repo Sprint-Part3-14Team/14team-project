@@ -1,10 +1,10 @@
 import ProfileImage from '@/app/components/profile/profile-image';
+import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardDetail } from '@/types/dashboard';
 import { DashboardMembers } from '@/types/members';
+import { getCookie } from 'cookies-next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-
-import { getDashboardMember } from '../actions';
 
 interface DashboardProps {
   dashboard: DashboardDetail;
@@ -15,7 +15,19 @@ export default function DashboardCard({ dashboard }: DashboardProps) {
 
   useEffect(() => {
     async function fetchData() {
-      const { members } = await getDashboardMember(dashboard.id);
+      const token = getCookie('token');
+      const url = `${TEAM_BASE_URL}/members?dashboardId=${dashboard.id}`;
+
+      const res = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const data = await res.json();
+      const { members } = data;
       const owner = members.find(
         (member: DashboardMembers) => member.isOwner
       ) as DashboardMembers;
