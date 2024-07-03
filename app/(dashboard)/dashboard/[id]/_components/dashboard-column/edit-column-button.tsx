@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 
 import EditColumnModal from './edit-column-modal';
@@ -13,6 +14,9 @@ export default function EditColumnButton({ columnId }: EditColumnButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
+
+  const params = useParams();
+  const dashboardId = parseInt(params.id as string, 10);
 
   return (
     <div>
@@ -28,6 +32,7 @@ export default function EditColumnButton({ columnId }: EditColumnButtonProps) {
         isOpen={isModalOpen}
         onClose={closeModal}
         columnId={columnId}
+        dashboardId={dashboardId}
       />
     </div>
   );

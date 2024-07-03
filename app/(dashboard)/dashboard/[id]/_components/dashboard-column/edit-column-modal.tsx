@@ -1,37 +1,60 @@
 'use client';
 
 import SingleInputModal from '@/app/components/single-input-modal';
+import ColumnNameSchema from '@/lib/schemas/columnName';
 import React, { useEffect, useState } from 'react';
 
-import { ChangeColumn, DeleteColumn } from './actions';
+import { ChangeColumn, DeleteColumn, GetColumnNames } from './actions';
 import WarnimgModal from './delete-warning-modal';
 
 interface EditColumnModalProps {
   isOpen: boolean;
   onClose: () => void;
   columnId: number;
+  dashboardId: number;
 }
 
 export default function EditColumnModal({
   isOpen,
   onClose,
   columnId,
+  dashboardId,
 }: EditColumnModalProps) {
   const [changeColumnTitle, setChangeColumnTitle] = useState('');
   const [columnError, setColumnError] = useState<string>('');
   const [isWarningOpen, setIsWarningOpen] = useState<boolean>(false);
+  const [existingColumnTitles, setExistingColumnTitles] = useState<string[]>(
+    []
+  );
+
+  const fetchExistingColumnTitles = async () => {
+    try {
+      const columnNames = await GetColumnNames(dashboardId);
+      setExistingColumnTitles(columnNames);
+      setColumnError('');
+    } catch (error: any) {
+      console.error('기존 칼럼 제목들을 불러오는 중 오류 발생:', error.message);
+      setColumnError('기존 칼럼 제목을 불러오는 중 오류 발생');
+    }
+  };
 
   useEffect(() => {
+    if (isOpen) {
+      fetchExistingColumnTitles();
+    }
     setChangeColumnTitle('');
     setColumnError('');
   }, [isOpen]);
 
   const handleChangeColumn = async () => {
     try {
+      const schema = ColumnNameSchema(existingColumnTitles);
+      await schema.validate({ title: changeColumnTitle });
+
       await ChangeColumn(changeColumnTitle, columnId);
       onClose();
-    } catch (error: any) {
-      setColumnError('칼럼 변경 중 오류 발생');
+    } catch (validationError: any) {
+      setColumnError(validationError.message);
     }
   };
 
