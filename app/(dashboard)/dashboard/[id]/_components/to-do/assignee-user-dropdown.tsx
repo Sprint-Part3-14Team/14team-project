@@ -55,14 +55,14 @@ export default function AssigneeUserDropdown({
   }, [dashboardId]);
 
   return (
-    <div>
+    <div className="md:w-1/2">
       <Dropdown>
         <Dropdown.Toggle>이름을 입력해 주세요</Dropdown.Toggle>
         <Dropdown.List>
           {members.map((member) => (
             <Dropdown.Item key={member.userId}>
               <div
-                className="flex h-full w-full cursor-pointer items-center gap-2 md:w-[50%]"
+                className="flex h-full w-full cursor-pointer items-center gap-2"
                 onClick={() => handleItemClick(member.userId)}
                 tabIndex={0}
                 role="button"
