@@ -2,11 +2,20 @@ import ProfileImage from '@/app/components/profile/profile-image';
 import formatDateHour from '@/utils/formDateHour';
 import React from 'react';
 
+import { deleteToDoCardComment } from '../dashboard/[id]/action';
+
 export default function TodoModalCommentList({
   commentData,
+  fetchCommentDatas,
 }: {
   commentData: any;
+  fetchCommentDatas: () => void;
 }) {
+  const handleDeleteComment = async () => {
+    await deleteToDoCardComment(commentData.id);
+    fetchCommentDatas();
+  };
+
   return (
     <div className="mt-4 flex gap-x-[10px]">
       <ProfileImage
@@ -26,7 +35,9 @@ export default function TodoModalCommentList({
         <p className="text-xs md:text-sm">{commentData.content}</p>
         <div className="flex gap-x-[6px] text-[10px] text-xs text-gray-400 underline">
           <button type="button">수정</button>
-          <button type="button">삭제</button>
+          <button type="button" onClick={handleDeleteComment}>
+            삭제
+          </button>
         </div>
       </div>
     </div>

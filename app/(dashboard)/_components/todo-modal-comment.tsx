@@ -3,7 +3,7 @@ import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { CardData } from '@/types/card';
 import { getCookie } from 'cookies-next';
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { postToDoCardComment } from '../dashboard/[id]/action';
 import TodoModalCommentList from './todo-modal-comment-list';
@@ -14,7 +14,7 @@ export default function TodoModalComment({ ...props }: { props: CardData }) {
 
   const params = useParams<{ id: string }>();
 
-  async function fetchCommentDatas() {
+  const fetchCommentDatas = useCallback(async () => {
     const token = getCookie('token');
     // TODO - 무한 스크롤 구현
     const response = await fetch(
@@ -28,18 +28,24 @@ export default function TodoModalComment({ ...props }: { props: CardData }) {
     );
     const data = await response.json();
     setCommentDatas(data.comments);
-  }
+  }, [props.props.id]);
 
   useEffect(() => {
     fetchCommentDatas();
-  }, []);
+  }, [fetchCommentDatas]);
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e:
+      | React.FormEvent<HTMLFormElement>
+      | React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
     e.preventDefault();
+
+    if (comment.trim() === '') return;
 
     const commentData = {
       content: comment,
@@ -51,7 +57,15 @@ export default function TodoModalComment({ ...props }: { props: CardData }) {
     await postToDoCardComment(commentData);
 
     setComment('');
+
     await fetchCommentDatas();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e);
+    }
   };
 
   return (
@@ -65,18 +79,24 @@ export default function TodoModalComment({ ...props }: { props: CardData }) {
           className="h-[70px] w-full resize-none rounded-md border p-4 text-xs md:h-[110px] md:text-sm"
           placeholder="댓글 작성하기"
           onChange={handleCommentChange}
+          onKeyPress={handleKeyDown}
           value={comment}
         />
         <Button
           type="submit"
           variant="mobile84x28"
           className="ml-auto rounded-md border bg-white text-violet-primary"
+          disabled={comment.length === 0}
         >
           작성
         </Button>
       </form>
       {commentDatas?.map((commentData: any) => (
-        <TodoModalCommentList commentData={commentData} key={commentData.id} />
+        <TodoModalCommentList
+          commentData={commentData}
+          key={commentData.id}
+          fetchCommentDatas={fetchCommentDatas}
+        />
       ))}
     </div>
   );
