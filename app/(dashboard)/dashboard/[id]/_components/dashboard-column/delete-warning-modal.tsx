@@ -5,9 +5,14 @@ import React from 'react';
 interface WarnimgModalProps {
   isOpen: boolean;
   onClose: () => void;
+  onDelete: () => void;
 }
 
-export default function SignModal({ isOpen, onClose }: WarnimgModalProps) {
+export default function WarnimgModal({
+  isOpen,
+  onClose,
+  onDelete,
+}: WarnimgModalProps) {
   if (!isOpen) return null;
 
   return (
@@ -19,7 +24,7 @@ export default function SignModal({ isOpen, onClose }: WarnimgModalProps) {
       <h2 className="mt-[81px] text-center text-base font-medium md:mt-[108px]">
         칼럼의 모든 카드가 삭제됩니다.
       </h2>
-      <div className="mt-[50px] flex justify-center md:ml-[260px] md:mt-[45px]">
+      <div className="mb-[28px] mt-[50px] flex justify-center md:ml-[260px] md:mt-[45px]">
         <Button
           variant="mobile138x42"
           onClick={onClose}
@@ -30,6 +35,7 @@ export default function SignModal({ isOpen, onClose }: WarnimgModalProps) {
         <Button
           variant="mobile138x42"
           type="submit"
+          onClick={onDelete}
           className="ml-[12px] rounded-lg bg-violet-primary text-white"
         >
           삭제

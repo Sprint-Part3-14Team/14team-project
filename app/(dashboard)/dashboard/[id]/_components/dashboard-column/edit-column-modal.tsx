@@ -4,6 +4,7 @@ import SingleInputModal from '@/app/components/single-input-modal';
 import React, { useEffect, useState } from 'react';
 
 import { ChangeColumn, DeleteColumn } from './actions';
+import WarnimgModal from './delete-warning-modal';
 
 interface EditColumnModalProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ export default function EditColumnModal({
 }: EditColumnModalProps) {
   const [changeColumnTitle, setChangeColumnTitle] = useState('');
   const [columnError, setColumnError] = useState<string>('');
+  const [isWarningOpen, setIsWarningOpen] = useState<boolean>(false);
 
   useEffect(() => {
     setChangeColumnTitle('');
@@ -42,20 +44,41 @@ export default function EditColumnModal({
     }
   };
 
+  const handleWarningClose = () => {
+    setIsWarningOpen(false);
+  };
+
+  const handleWarningDelete = () => {
+    handleDelete();
+    setIsWarningOpen(false);
+  };
+
+  const handleDeleteClick = () => {
+    setIsWarningOpen(true);
+    onClose();
+  };
+
   return (
-    <SingleInputModal
-      isOpen={isOpen}
-      onClose={onClose}
-      onDelete={handleDelete}
-      title="칼럼 관리"
-      labelText="이름"
-      buttonText="변경"
-      inputId="NewColumnName"
-      inputValue={changeColumnTitle}
-      setInputValue={setChangeColumnTitle}
-      onSubmit={handleChangeColumn}
-      placeholder="변경할 이름을 입력하세요"
-      error={columnError}
-    />
+    <div>
+      <SingleInputModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onDelete={handleDeleteClick}
+        title="칼럼 관리"
+        labelText="이름"
+        buttonText="변경"
+        inputId="NewColumnName"
+        inputValue={changeColumnTitle}
+        setInputValue={setChangeColumnTitle}
+        onSubmit={handleChangeColumn}
+        placeholder="변경할 이름을 입력하세요"
+        error={columnError}
+      />
+      <WarnimgModal
+        isOpen={isWarningOpen}
+        onClose={handleWarningClose}
+        onDelete={handleWarningDelete}
+      />
+    </div>
   );
 }
