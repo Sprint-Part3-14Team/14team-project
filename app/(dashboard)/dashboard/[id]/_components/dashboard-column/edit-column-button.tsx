@@ -1,24 +1,18 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import EditColumnModal from './edit-column-modal';
 
-export default function EditColumnButton() {
+interface EditColumnButtonProps {
+  columnId: number;
+}
+
+export default function EditColumnButton({ columnId }: EditColumnButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentDashboardId, setCurrentDashboardId] = useState<number>(-1);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
-
-  useEffect(() => {
-    const pathSegments = window.location.pathname.split('/');
-    const dashboardId = pathSegments[pathSegments.length - 1];
-
-    if (!Number.isNaN(parseInt(dashboardId, 10))) {
-      setCurrentDashboardId(parseInt(dashboardId, 10));
-    }
-  }, []);
 
   return (
     <div>
@@ -33,7 +27,7 @@ export default function EditColumnButton() {
       <EditColumnModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        dashboardId={currentDashboardId}
+        columnId={columnId}
       />
     </div>
   );

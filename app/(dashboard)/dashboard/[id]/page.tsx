@@ -47,7 +47,6 @@ async function getColumns(dashboardId: number) {
 function AddColumn() {
   return (
     <div className="border-gray-300 px-[15px] py-3 md:p-5 xl:border-l xl:pt-[68px]">
-      {/* TODO - href 설정할 것 #!는 eslint 우회를 위한 임시 코드입니다. */}
       <NewColumnButton />
     </div>
   );
@@ -67,7 +66,7 @@ async function Column({ data }: { data: ColumnData }) {
             </div>
           </div>
         </div>
-        <EditColumnButton />
+        <EditColumnButton columnId={data.id} />
       </div>
       <AddToDoButton columnId={data.id} />
       {cards?.map((card: CardData) => (

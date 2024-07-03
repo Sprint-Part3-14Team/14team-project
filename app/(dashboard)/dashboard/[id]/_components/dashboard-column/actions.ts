@@ -29,7 +29,7 @@ export async function CreateColumn(title: string, dashboardId: number) {
   return res.json();
 }
 
-export async function getColumnNames(dashboardId: number) {
+export async function GetColumnNames(dashboardId: number) {
   const token = cookies().get('token')?.value;
 
   if (!token) {
@@ -64,7 +64,7 @@ export async function getColumnNames(dashboardId: number) {
   return columnTitles;
 }
 
-export async function ChangeColumn(columnId: number, title: string) {
+export async function ChangeColumn(title: string, columnId: number) {
   const token = cookies().get('token')?.value;
 
   if (!token) {
@@ -111,6 +111,4 @@ export async function DeleteColumn(columnId: number) {
     const errorMessage = await res.text();
     throw new Error(`삭제를 실패했습니다: ${errorMessage}`);
   }
-
-  return res.json();
 }

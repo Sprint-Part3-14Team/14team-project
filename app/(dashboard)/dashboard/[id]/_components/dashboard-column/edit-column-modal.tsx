@@ -1,58 +1,46 @@
 'use client';
 
 import SingleInputModal from '@/app/components/single-input-modal';
-import ColumnNameSchema from '@/lib/schemas/columnName';
 import React, { useEffect, useState } from 'react';
 
-import { CreateColumn, getColumnNames } from './actions';
+import { ChangeColumn, DeleteColumn } from './actions';
 
-interface NewColumnModalProps {
+interface EditColumnModalProps {
   isOpen: boolean;
   onClose: () => void;
-  dashboardId: number;
+  columnId: number;
 }
 
 export default function EditColumnModal({
   isOpen,
   onClose,
-  dashboardId,
-}: NewColumnModalProps) {
+  columnId,
+}: EditColumnModalProps) {
   const [changeColumnTitle, setChangeColumnTitle] = useState('');
-  const [existingColumnTitles, setExistingColumnTitles] = useState<string[]>(
-    []
-  );
-  const [columnError, setcolumnError] = useState<string>('');
-
-  const fetchExistingColumnTitles = async () => {
-    try {
-      const columnNames = await getColumnNames(dashboardId);
-      setExistingColumnTitles(columnNames);
-      setcolumnError('');
-    } catch (error: any) {
-      console.error('기존 칼럼 제목들을 불러오는 중 오류 발생:', error.message);
-      setcolumnError('기존 칼럼 제목을 불러오는 중 오류 발생');
-    }
-  };
+  const [columnError, setColumnError] = useState<string>('');
 
   useEffect(() => {
-    if (isOpen) {
-      fetchExistingColumnTitles();
-    }
+    setChangeColumnTitle('');
+    setColumnError('');
   }, [isOpen]);
 
   const handleChangeColumn = async () => {
     try {
-      const schema = ColumnNameSchema(existingColumnTitles);
-      await schema.validate({ title: changeColumnTitle });
-
-      await CreateColumn(changeColumnTitle, dashboardId);
+      await ChangeColumn(changeColumnTitle, columnId);
       onClose();
-    } catch (validationError: any) {
-      setcolumnError(validationError.message);
+    } catch (error: any) {
+      setColumnError('칼럼 변경 중 오류 발생');
     }
   };
 
-  const handleDelete = async () => {};
+  const handleDelete = async () => {
+    try {
+      await DeleteColumn(columnId);
+      onClose();
+    } catch (error: any) {
+      setColumnError('칼럼 삭제 중 오류 발생');
+    }
+  };
 
   return (
     <SingleInputModal

@@ -4,7 +4,7 @@ import SingleInputModal from '@/app/components/single-input-modal';
 import ColumnNameSchema from '@/lib/schemas/columnName';
 import React, { useEffect, useState } from 'react';
 
-import { CreateColumn, getColumnNames } from './actions';
+import { CreateColumn, GetColumnNames } from './actions';
 
 interface NewColumnModalProps {
   isOpen: boolean;
@@ -25,7 +25,7 @@ export default function NewColumnModal({
 
   const fetchExistingColumnTitles = async () => {
     try {
-      const columnNames = await getColumnNames(dashboardId);
+      const columnNames = await GetColumnNames(dashboardId);
       setExistingColumnTitles(columnNames);
       setcolumnError('');
     } catch (error: any) {
