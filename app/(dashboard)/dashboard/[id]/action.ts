@@ -22,14 +22,7 @@ export async function postToDoCardImage(cardImage: File, columnId: number) {
 
   // NOTE - 에러 핸들링
   if (!res.ok) {
-    switch (res.status) {
-      case 400:
-        throw new Error(data.message);
-      case 404:
-        throw new Error(data.message);
-      default:
-        throw new Error('서버 오류가 발생했습니다');
-    }
+    throw new Error('서버 오류가 발생했습니다');
   }
 
   return data.imageUrl;
