@@ -69,7 +69,8 @@ export default function AssigneeUserDropdown({
   }, [dashboardId]);
 
   return (
-    <div className="md:w-1/2">
+    <div className="flex flex-col gap-y-2 md:w-1/2">
+      <p className="text-base font-medium md:text-lg">담당자</p>
       <Dropdown>
         <Dropdown.Toggle>
           {selectedMember ? (

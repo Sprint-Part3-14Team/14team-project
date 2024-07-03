@@ -15,6 +15,7 @@ import { postToDoCard, updateToDoCard } from '../../action';
 import AddDueDateInput from './add-due-date-input';
 import AddTagInput from './add-tag-input';
 import AssigneeUserDropdown from './assignee-user-dropdown';
+import ColumnDropdown from './column-dropdown';
 
 interface AddToDoModalProps {
   isOpen: boolean;
@@ -51,7 +52,7 @@ export default function AddToDoModal({
     formState: { errors, isValid, isDirty },
   } = methods;
   const [tags, setTags] = useState<string[]>(toDoValue?.tags || []);
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>(); // 대시보드 id
   const [isEdit, setIsEdit] = useState(false);
 
   // 감시할 필드들을 설정
@@ -151,8 +152,10 @@ export default function AddToDoModal({
           className="flex flex-grow flex-col overflow-hidden px-5 pb-5"
         >
           <div className="flex flex-grow flex-col gap-6 overflow-y-auto overflow-x-hidden">
-            <div className="flex flex-col gap-y-2">
-              <p className="text-base font-medium md:text-lg">담당자</p>
+            <div className="flex flex-col gap-2 md:flex-row">
+              {isEdit && (
+                <ColumnDropdown dashboardId={id} columnId={columnId} />
+              )}
               <AssigneeUserDropdown
                 dashboardId={id}
                 isEdit={isEdit}
