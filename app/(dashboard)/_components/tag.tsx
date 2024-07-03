@@ -1,6 +1,18 @@
-export default function Tag({ children }: { children: React.ReactNode }) {
+import { useTagColor } from '@/hooks/useTagColor';
+
+export default function Tag({
+  children,
+  tag,
+}: {
+  children: React.ReactNode;
+  tag: string;
+}) {
+  const { backgroundColor, textColor } = useTagColor(tag);
   return (
-    <p className="flex h-full items-center justify-center rounded bg-red-300 px-[6px] py-1 text-[10px] text-red-600 md:text-xs">
+    <p
+      className="rounded px-[6px] py-1 text-[10px] md:text-xs"
+      style={{ backgroundColor, color: textColor }}
+    >
       {children}
     </p>
   );
