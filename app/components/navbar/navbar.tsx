@@ -4,7 +4,7 @@ import textLogo from '@/public/images/text_logo.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import ProfileImage from '../profile/profile-image';
+import NavbarProfile from './navbar-profile';
 
 export default async function Navbar() {
   // NOTE - 사용자 정보 GET
@@ -23,15 +23,7 @@ export default async function Navbar() {
             </div>
           </div>
         </Link>
-        <div className="flex items-center gap-3 text-base font-medium">
-          <ProfileImage
-            nickname={user.nickname}
-            profileImageUrl={user.profileImageUrl}
-            id={user.id}
-            size="34px"
-          />
-          <p className="hidden text-gray-700 md:block">{user.nickname}</p>
-        </div>
+        <NavbarProfile user={user} />
       </div>
     </header>
   );
