@@ -1,0 +1,3 @@
+const TODO_MODAL_COMMENT_SIZE = 7;
+
+export default TODO_MODAL_COMMENT_SIZE;

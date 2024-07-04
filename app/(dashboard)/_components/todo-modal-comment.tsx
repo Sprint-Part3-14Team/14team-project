@@ -1,25 +1,35 @@
 import Button from '@/app/components/button';
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import TODO_MODAL_COMMENT_SIZE from '@/constants/TODO_MODAL_COMMENT';
 import { CardData } from '@/types/card';
 import { Comment } from '@/types/commentData';
 import { getCookie } from 'cookies-next';
 import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 
-import { postToDoCardComment } from '../dashboard/[id]/action';
+import {
+  deleteToDoCardComment,
+  editToDoCardComment,
+  postToDoCardComment,
+} from '../dashboard/[id]/action';
 import TodoModalCommentList from './todo-modal-comment-list';
 
 export default function TodoModalComment({ ...props }: { props: CardData }) {
   const [comment, setComment] = useState('');
   const [commentDatas, setCommentDatas] = useState<Comment[]>([]);
+  const [cursorId, setCursorId] = useState<number | null>(null);
 
   const params = useParams<{ id: string }>();
+  const { ref, inView } = useInView();
 
   const fetchCommentDatas = useCallback(async () => {
+    if (cursorId === null) return;
+
     const token = getCookie('token');
-    // TODO - 무한 스크롤 구현
+
     const response = await fetch(
-      `${TEAM_BASE_URL}/comments?size=100000&cardId=${props.props.id}`,
+      `${TEAM_BASE_URL}/comments?size=${TODO_MODAL_COMMENT_SIZE}&cardId=${props.props.id}&cursorId=${cursorId}`,
       {
         method: 'GET',
         headers: {
@@ -28,12 +38,35 @@ export default function TodoModalComment({ ...props }: { props: CardData }) {
       }
     );
     const data = await response.json();
-    setCommentDatas(data.comments);
+    setCommentDatas((prev) => [...prev, ...data.comments]);
+    setCursorId(data.cursorId);
+  }, [props.props.id, cursorId]);
+
+  useEffect(() => {
+    const fetchInitCommentDatas = async () => {
+      const token = getCookie('token');
+      const response = await fetch(
+        `${TEAM_BASE_URL}/comments?size=${TODO_MODAL_COMMENT_SIZE}&cardId=${props.props.id}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setCommentDatas(data.comments);
+      setCursorId(data.cursorId);
+    };
+
+    fetchInitCommentDatas();
   }, [props.props.id]);
 
   useEffect(() => {
-    fetchCommentDatas();
-  }, [fetchCommentDatas]);
+    if (inView) {
+      fetchCommentDatas();
+    }
+  }, [inView, fetchCommentDatas]);
 
   const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
@@ -55,11 +88,10 @@ export default function TodoModalComment({ ...props }: { props: CardData }) {
       dashboardId: Number(params.id),
     };
 
-    await postToDoCardComment(commentData);
+    const data = await postToDoCardComment(commentData);
 
+    setCommentDatas((prev) => [data, ...prev]);
     setComment('');
-
-    await fetchCommentDatas();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -67,6 +99,24 @@ export default function TodoModalComment({ ...props }: { props: CardData }) {
       e.preventDefault();
       handleSubmit(e);
     }
+  };
+
+  const handleEditComment = async (commentId: number, newContent: string) => {
+    await editToDoCardComment(commentId, newContent);
+    const updatedComments = commentDatas.map((updatedComment) =>
+      updatedComment.id === commentId
+        ? { ...updatedComment, content: newContent }
+        : updatedComment
+    );
+    setCommentDatas(updatedComments);
+  };
+
+  const handleDeleteComment = async (commentId: number) => {
+    await deleteToDoCardComment(commentId);
+    const updatedComments = commentDatas.filter(
+      (deletedComment) => deletedComment.id !== commentId
+    );
+    setCommentDatas(updatedComments);
   };
 
   return (
@@ -96,9 +146,11 @@ export default function TodoModalComment({ ...props }: { props: CardData }) {
         <TodoModalCommentList
           commentData={commentData}
           key={commentData.id}
-          fetchCommentDatas={fetchCommentDatas}
+          onEdit={handleEditComment}
+          onDelete={handleDeleteComment}
         />
       ))}
+      <div ref={ref} />
     </div>
   );
 }
