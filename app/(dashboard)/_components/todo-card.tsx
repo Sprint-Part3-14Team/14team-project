@@ -67,12 +67,15 @@ export default function ToDoCard({
               <div className="flex items-center gap-x-[6px]">
                 <div className="relative size-[22px] md:size-6">
                   {/* TODO 모바일일 때 size가 22px PC가 24px인데 어떻게 주어야 좋을까요 */}
-                  <ProfileImage
-                    profileImageUrl={props.assignee.profileImageUrl}
-                    nickname={props.assignee.nickname}
-                    id={props.assignee.id}
-                    size="24px"
-                  />
+                  {/* NOTE - 담당자 필수값 아닙니다! 없을 때도 있어요 */}
+                  {props.assignee && (
+                    <ProfileImage
+                      profileImageUrl={props.assignee.profileImageUrl}
+                      nickname={props.assignee.nickname}
+                      id={props.assignee.id}
+                      size="24px"
+                    />
+                  )}
                 </div>
               </div>
             </div>

@@ -4,11 +4,18 @@ import { useState } from 'react';
 export default function ImageInputField({
   id,
   setValue,
+  imageUrlValue,
+  unregister,
 }: {
   id: string;
   setValue: any;
+  unregister?: any;
+  imageUrlValue?: string | null;
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [initialImage, setInitialImage] = useState<string | null>(
+    imageUrlValue || null
+  );
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -18,17 +25,23 @@ export default function ImageInputField({
     }
   };
 
+  // TODO - 수정하기에서 이미지 x 누른 후 그대로 수정하면 오류남
   const handleImageDelete = () => {
+    unregister(id);
     setSelectedImage(null);
-    setValue(id, null);
+    setInitialImage(null);
   };
 
   return (
     <div>
-      {selectedImage ? (
+      {initialImage || selectedImage ? (
         <div className="relative size-[100px] md:size-[182px]">
           <Image
-            src={URL.createObjectURL(selectedImage)}
+            src={
+              selectedImage
+                ? URL.createObjectURL(selectedImage)
+                : (initialImage as string)
+            }
             alt="Selected Image"
             sizes="(min-width: 768px) 100vw"
             fill
