@@ -4,7 +4,7 @@ import SingleInputModal from '@/app/components/single-input-modal';
 import ColumnNameSchema from '@/lib/schemas/columnName';
 import React, { useEffect, useState } from 'react';
 
-import { CreateColumn, getColumnNames } from './actions';
+import { CreateColumn, GetColumnNames } from './actions';
 
 interface NewColumnModalProps {
   isOpen: boolean;
@@ -21,16 +21,16 @@ export default function NewColumnModal({
   const [existingColumnTitles, setExistingColumnTitles] = useState<string[]>(
     []
   );
-  const [columnError, setcolumnError] = useState<string>('');
+  const [columnError, setColumnError] = useState<string>('');
 
   const fetchExistingColumnTitles = async () => {
     try {
-      const columnNames = await getColumnNames(dashboardId);
+      const columnNames = await GetColumnNames(dashboardId);
       setExistingColumnTitles(columnNames);
-      setcolumnError('');
+      setColumnError('');
     } catch (error: any) {
       console.error('기존 칼럼 제목들을 불러오는 중 오류 발생:', error.message);
-      setcolumnError('기존 칼럼 제목을 불러오는 중 오류 발생');
+      setColumnError('기존 칼럼 제목을 불러오는 중 오류 발생');
     }
   };
 
@@ -48,7 +48,7 @@ export default function NewColumnModal({
       await CreateColumn(newColumnTitle, dashboardId);
       onClose();
     } catch (validationError: any) {
-      setcolumnError(validationError.message);
+      setColumnError(validationError.message);
     }
   };
 
