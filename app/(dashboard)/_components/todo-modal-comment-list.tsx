@@ -36,6 +36,7 @@ export default function TodoModalCommentList({
   return (
     <div className="mt-4 flex gap-x-[10px]">
       <ProfileImage
+        profileImageUrl={commentData.author.profileImageUrl}
         nickname={commentData.author.nickname}
         id={commentData.author.id}
         size="26px"
