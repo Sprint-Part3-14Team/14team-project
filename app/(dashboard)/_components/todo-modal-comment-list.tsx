@@ -5,17 +5,14 @@ import formatDateHour from '@/utils/formDateHour';
 import { getCookie } from 'cookies-next';
 import React, { useEffect, useState } from 'react';
 
-import {
-  deleteToDoCardComment,
-  editToDoCardComment,
-} from '../dashboard/[id]/action';
-
 export default function TodoModalCommentList({
   commentData,
-  fetchCommentDatas,
+  onEdit,
+  onDelete,
 }: {
   commentData: Comment;
-  fetchCommentDatas: () => void;
+  onEdit: (commentId: number, newContent: string) => void;
+  onDelete: (commentId: number) => void;
 }) {
   const [editComment, setEditComment] = useState(commentData.content);
   const [isEditing, setIsEditing] = useState(false);
@@ -37,8 +34,7 @@ export default function TodoModalCommentList({
   }, [commentData.author.id]);
 
   const handleDeleteComment = async () => {
-    await deleteToDoCardComment(commentData.id);
-    fetchCommentDatas();
+    await onDelete(commentData.id);
   };
 
   const handleKeyPressEditComment = async (
@@ -46,9 +42,8 @@ export default function TodoModalCommentList({
   ) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
-      await editToDoCardComment(commentData.id, editComment);
+      await onEdit(commentData.id, editComment);
       setIsEditing(false);
-      fetchCommentDatas();
     }
   };
 
