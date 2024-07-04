@@ -48,7 +48,7 @@ export default function SidebarDashboardList({
       []
     );
 
-    // NOTE: 6개 이하일 경우(=중복 데이터 존재) 함수 호출
+    // NOTE: 10개 이하일 경우(=중복 데이터 존재) 함수 호출
     if (checkDashboard.length < 10) {
       setDashboardList(
         await makeDashboardArr(
