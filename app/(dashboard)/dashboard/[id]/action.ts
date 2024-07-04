@@ -1,6 +1,7 @@
 'use server';
 
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
 // NOTE - 이미지 업로드
@@ -10,22 +11,22 @@ export async function postToDoCardImage(cardImage: File, columnId: number) {
   const imageFormData = new FormData();
   imageFormData.append('image', cardImage);
 
-  const response = await fetch(
-    `${TEAM_BASE_URL}/columns/${columnId}/card-image`,
-    {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      body: imageFormData,
-    }
-  );
+  const res = await fetch(`${TEAM_BASE_URL}/columns/${columnId}/card-image`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    body: imageFormData,
+  });
 
-  if (response.status === 201) {
-    const data = await response.json();
-    return data.imageUrl;
+  const data = await res.json();
+
+  // NOTE - 에러 핸들링
+  if (!res.ok) {
+    throw new Error('서버 오류가 발생했습니다');
   }
-  return null;
+
+  return data.imageUrl;
 }
 
 // NOTE - 할 일 카드 생성
@@ -67,14 +68,21 @@ export async function postToDoCard(formData: FormData) {
     body: JSON.stringify(jsonObject),
   });
 
-  if (response.status === 201) {
-    const data = await response.json();
-    console.log('카드 생성 성공:', data);
-    return data;
+  const data = await response.json();
+
+  if (!response.ok) {
+    switch (response.status) {
+      case 400:
+        throw new Error(data.message);
+      case 404:
+        throw new Error(data.message);
+      default:
+        throw new Error('서버 오류가 발생했습니다');
+    }
   }
-  const errorData = await response.json();
-  console.error('카드 생성 실패:', errorData);
-  return null;
+
+  revalidatePath(`/dashboard/${formData.get('dashboardId')}`);
+  return data;
 }
 
 export async function postToDoCardComment(commentData: {

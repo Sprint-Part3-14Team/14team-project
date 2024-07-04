@@ -1,7 +1,9 @@
 'use server';
 
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { DashboardResponse } from '@/types/dashboard';
 import { InvitationResponse } from '@/types/invitations';
+import { DashboardMembersResponse } from '@/types/members';
 import { cookies } from 'next/headers';
 
 export async function getInvitations(
@@ -46,4 +48,39 @@ export async function putInvitation(id: number, inviteAccepted: boolean) {
 
   const data = await res.json();
   return data.dashboard.title;
+}
+
+export async function getDashboard(page: number): Promise<DashboardResponse> {
+  const token = cookies().get('token')?.value;
+
+  const url = `${TEAM_BASE_URL}/dashboards?navigationMethod=pagination&page=${page}&size=6`;
+
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.json();
+}
+
+export async function getDashboardMember(
+  dashboardId: number
+): Promise<DashboardMembersResponse> {
+  const token = cookies().get('token')?.value;
+
+  const url = `${TEAM_BASE_URL}/members?dashboardId=${dashboardId}`;
+
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  const data = await res.json();
+  return data;
 }

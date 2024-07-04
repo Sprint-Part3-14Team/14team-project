@@ -40,8 +40,6 @@ export default function AddToDoModal({
 
   const onSubmit: SubmitHandler<toDoCardValue> = async (data) => {
     const { assigneeUserId, title, description } = data;
-    console.log(data);
-    console.log(tags);
 
     const formData = new FormData();
     // NOTE - 필수값
@@ -64,8 +62,15 @@ export default function AddToDoModal({
       formData.append('imageUrl', data.imageUrl);
     }
 
-    const res = await postToDoCard(formData);
-    console.log(res);
+    try {
+      const res = await postToDoCard(formData);
+      if (res) {
+        onClose();
+      }
+    } catch (error) {
+      // TODO - 에러났을 경우 토스트로 보여주기
+      console.error('할 일 카드 생성 중 오류 발생:', error);
+    }
   };
 
   if (!isOpen) return null;
