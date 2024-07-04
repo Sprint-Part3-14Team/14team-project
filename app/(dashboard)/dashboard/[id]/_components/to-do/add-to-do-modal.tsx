@@ -1,7 +1,6 @@
 'use client';
 
 import ImageInputField from '@/app/components/image-input-field';
-import InputField from '@/app/components/input-field';
 import Modal from '@/app/components/modal';
 import createTodoSchema from '@/lib/schemas/createToDo';
 import { CardData } from '@/types/card';
@@ -11,9 +10,10 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import { postToDoCard, updateToDoCard } from '../../action';
+import { postToDoCard, postToDoCardImage, updateToDoCard } from '../../action';
 import AddDueDateInput from './add-due-date-input';
 import AddTagInput from './add-tag-input';
+import AddToDoTitleInput from './add-to-do-title-input';
 import AssigneeUserDropdown from './assignee-user-dropdown';
 import ColumnDropdown from './column-dropdown';
 
@@ -78,54 +78,53 @@ export default function AddToDoModal({
       });
 
   const onSubmit: SubmitHandler<toDoCardValue> = async (data) => {
-    const { assigneeUserId, title, description } = data;
+    const { assigneeUserId, title, description, dueDate, imageUrl } = data;
 
-    const formData = new FormData();
-    formData.append('dashboardId', id.toString());
-    formData.append('columnId', column.toString());
-    formData.append('title', title);
-    formData.append('description', description);
+    // NOTE - 필수값
+    const jsonObject: { [key: string]: any } = {
+      dashboardId: Number(id),
+      columnId: column,
+      title,
+      description,
+    };
 
-    if (assigneeUserId) {
-      formData.append('assigneeUserId', assigneeUserId.toString());
+    // NOTE - 선택값
+    if (assigneeUserId) jsonObject.assigneeUserId = assigneeUserId;
+    if (tags.length > 0) jsonObject.tags = tags;
+    if (dueDate) jsonObject.dueDate = dueDate;
+
+    // 이미지 업로드 처리
+    if (imageUrl && imageUrl instanceof File) {
+      const formData = new FormData();
+      formData.append('image', imageUrl);
+      const imageResponse = await postToDoCardImage(formData, columnId);
+      jsonObject.imageUrl = imageResponse;
+    } else if (imageUrl) {
+      // 수정하기에서 사용자가 사진 변경 안 하고 그대로 수정하는 경우
+      jsonObject.imageUrl = imageUrl;
     }
 
-    if (tags.length > 0) {
-      formData.append('tags', JSON.stringify(tags));
-    }
-
-    if (data.dueDate) {
-      formData.append('dueDate', data.dueDate);
-    }
-
-    if (data.imageUrl) {
-      formData.append('imageUrl', data.imageUrl);
-    }
-
-    if (isEdit && cardId) {
-      try {
-        const res = await updateToDoCard(formData, cardId);
-        if (res) {
-          onClose();
-        }
-      } catch (e) {
-        console.error('할 일 카드 수정 오류');
+    try {
+      if (isEdit && cardId) {
+        console.log('수정하기>>>>>>>>>>>>>>>>>>>>...');
+        console.log(jsonObject);
+        await updateToDoCard(jsonObject, cardId);
+      } else {
+        await postToDoCard(jsonObject);
       }
-    } else {
-      try {
-        const res = await postToDoCard(formData);
-        if (res) {
-          onClose();
-        }
-      } catch (e) {
-        console.error('할 일 카드 생성 오류');
-      }
+      onClose();
+    } catch (error) {
+      console.error(
+        isEdit ? '할 일 카드 수정 오류' : '할 일 카드 생성 오류',
+        error
+      );
     }
   };
 
   useEffect(() => {
     if (toDoValue && !isEdit) {
       setIsEdit(true);
+      setTags(toDoValue.tags);
       reset({
         assigneeUserId: toDoValue.assignee?.id,
         title: toDoValue.title,
@@ -135,6 +134,21 @@ export default function AddToDoModal({
       });
     }
   }, [isEdit, reset, toDoValue]);
+
+  // NOTE - 모달이 닫힐 때 폼 초기화
+  useEffect(() => {
+    if (!isOpen) {
+      reset({
+        assigneeUserId: undefined,
+        title: '',
+        description: '',
+        dueDate: undefined,
+        imageUrl: '',
+      });
+      setTags([]);
+      setIsEdit(false);
+    }
+  }, [isOpen, reset]);
 
   if (!isOpen) return null;
 
@@ -167,15 +181,7 @@ export default function AddToDoModal({
                 assigneeUserId={toDoValue?.assignee?.id}
               />
             </div>
-            <InputField
-              id="title"
-              label="제목 *"
-              type="text"
-              placeholder="제목을 입력해 주세요"
-              register={register}
-              labelClassName="'font-medium text-base md:text-lg'"
-              error={errors.title?.message || ''}
-            />
+            <AddToDoTitleInput />
             <div className="flex flex-col gap-y-2">
               <label
                 htmlFor="description"
