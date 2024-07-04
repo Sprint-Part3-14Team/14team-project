@@ -1,5 +1,6 @@
 import ProfileImage from '@/app/components/profile/profile-image';
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { Comment } from '@/types/commentData';
 import formatDateHour from '@/utils/formDateHour';
 import { getCookie } from 'cookies-next';
 import React, { useEffect, useState } from 'react';
@@ -13,7 +14,7 @@ export default function TodoModalCommentList({
   commentData,
   fetchCommentDatas,
 }: {
-  commentData: any;
+  commentData: Comment;
   fetchCommentDatas: () => void;
 }) {
   const [editComment, setEditComment] = useState(commentData.content);

@@ -1,6 +1,7 @@
 import Button from '@/app/components/button';
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { CardData } from '@/types/card';
+import { Comment } from '@/types/commentData';
 import { getCookie } from 'cookies-next';
 import { useParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
@@ -10,7 +11,7 @@ import TodoModalCommentList from './todo-modal-comment-list';
 
 export default function TodoModalComment({ ...props }: { props: CardData }) {
   const [comment, setComment] = useState('');
-  const [commentDatas, setCommentDatas] = useState<any[]>([]);
+  const [commentDatas, setCommentDatas] = useState<Comment[]>([]);
 
   const params = useParams<{ id: string }>();
 
@@ -91,7 +92,7 @@ export default function TodoModalComment({ ...props }: { props: CardData }) {
           작성
         </Button>
       </form>
-      {commentDatas?.map((commentData: any) => (
+      {commentDatas?.map((commentData: Comment) => (
         <TodoModalCommentList
           commentData={commentData}
           key={commentData.id}
