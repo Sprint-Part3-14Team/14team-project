@@ -79,12 +79,12 @@ export default function ToDoModal({
               />
               {isTaskOptionOpen && (
                 <TaskOption>
-                  <li className="flex h-[30px] w-full items-center justify-center rounded-md hover:bg-violet-primary/10 md:h-[32px]">
+                  <li className="flex h-[30px] w-full items-center justify-center rounded-md text-xs hover:bg-violet-primary/10 md:h-[32px] md:text-sm">
                     수정하기
                   </li>
                   {/* eslint-disable-next-line */}
                   <li
-                    className="flex h-[30px] w-full items-center justify-center rounded-md hover:bg-violet-primary/10 md:h-[32px]"
+                    className="flex h-[30px] w-full items-center justify-center rounded-md text-xs hover:bg-violet-primary/10 md:h-[32px] md:text-sm"
                     onClick={() => handleDeleteTask(props.props.id)}
                   >
                     삭제하기
@@ -154,7 +154,7 @@ export default function ToDoModal({
                   />
                 </div>
               )}
-              <TodoModalComment />
+              <TodoModalComment {...props} />
             </div>
           </div>
         </div>

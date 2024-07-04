@@ -84,3 +84,62 @@ export async function postToDoCard(formData: FormData) {
   revalidatePath(`/dashboard/${formData.get('dashboardId')}`);
   return data;
 }
+
+export async function postToDoCardComment(commentData: {
+  content: string;
+  cardId: number;
+  columnId: number;
+  dashboardId: number;
+}) {
+  const token = cookies().get('token')?.value;
+
+  const response = await fetch(`${TEAM_BASE_URL}/comments`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(commentData),
+  });
+
+  if (response.status === 201) {
+    const data = await response.json();
+
+    return data;
+  }
+  return null;
+}
+
+export async function deleteToDoCardComment(commentId: number) {
+  const token = cookies().get('token')?.value;
+
+  const response = await fetch(`${TEAM_BASE_URL}/comments/${commentId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (response.status === 204) {
+    return true;
+  }
+  return false;
+}
+
+export async function editToDoCardComment(commentId: number, content: string) {
+  const token = cookies().get('token')?.value;
+
+  const response = await fetch(`${TEAM_BASE_URL}/comments/${commentId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ content }),
+  });
+
+  if (response.status === 200) {
+    return true;
+  }
+  return false;
+}
