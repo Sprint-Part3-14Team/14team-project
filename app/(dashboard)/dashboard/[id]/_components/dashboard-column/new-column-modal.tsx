@@ -2,6 +2,7 @@
 
 import SingleInputModal from '@/app/components/single-input-modal';
 import ColumnNameSchema from '@/lib/schemas/columnName';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 import { CreateColumn, GetColumnNames } from './actions';
@@ -22,6 +23,7 @@ export default function NewColumnModal({
     []
   );
   const [columnError, setColumnError] = useState<string>('');
+  const router = useRouter();
 
   const fetchExistingColumnTitles = async () => {
     try {
@@ -38,6 +40,8 @@ export default function NewColumnModal({
     if (isOpen) {
       fetchExistingColumnTitles();
     }
+    setNewColumnTitle('');
+    setColumnError('');
   }, [isOpen]);
 
   const handleCreateColumn = async () => {
@@ -47,6 +51,7 @@ export default function NewColumnModal({
 
       await CreateColumn(newColumnTitle, dashboardId);
       onClose();
+      router.refresh();
     } catch (validationError: any) {
       setColumnError(validationError.message);
     }
