@@ -2,6 +2,7 @@
 
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardDetail } from '@/types/dashboard';
+import makeDashboardArr from '@/utils/makeDashboardResponse';
 import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 
@@ -10,18 +11,58 @@ import SidebarDashboardCard from './sidebar-dashboard-card';
 
 interface SidebarDashboardListProps {
   initialData: DashboardDetail[];
+  lastPage: number;
 }
 
 export default function SidebarDashboardList({
   initialData,
+  lastPage,
 }: SidebarDashboardListProps) {
   const [page, setPage] = useState(1);
-  const [lastPage, setLastPage] = useState(1);
   const [dashboardList, setDashboardList] =
     useState<DashboardDetail[]>(initialData);
 
   const token = getCookie('token');
-  const url = `${TEAM_BASE_URL}/dashboards?navigationMethod=pagination&page=${page}&size=10`;
+
+  async function fetchData() {
+    const url = `${TEAM_BASE_URL}/dashboards?navigationMethod=pagination&page=${page}&size=10`;
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const data = await res.json();
+    const { dashboards } = data;
+
+    const checkDashboard: DashboardDetail[] = dashboards.reduce(
+      (acc: DashboardDetail[], cur: DashboardDetail) => {
+        if (acc.findIndex(({ id }) => id === cur.id) === -1) {
+          acc.push(cur);
+        }
+        return acc;
+      },
+      []
+    );
+
+    // NOTE: 6개 이하일 경우(=중복 데이터 존재) 함수 호출
+    if (checkDashboard.length < 10) {
+      setDashboardList(
+        await makeDashboardArr(
+          checkDashboard,
+          page,
+          10 - checkDashboard.length,
+          token
+        )
+      );
+      return;
+    }
+
+    setDashboardList(checkDashboard);
+  }
 
   const handleForward = () => {
     setPage((prev) => Math.max(prev - 1, 1));
@@ -32,21 +73,6 @@ export default function SidebarDashboardList({
   };
 
   useEffect(() => {
-    async function fetchData() {
-      const res = await fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      const data = await res.json();
-      const { dashboards, totalCount } = data;
-      setDashboardList(dashboards);
-      setLastPage(totalCount > 10 ? Math.ceil(totalCount / 10) : 1);
-    }
-
     fetchData();
   }, [page]);
 
