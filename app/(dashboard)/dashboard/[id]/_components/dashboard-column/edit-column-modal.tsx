@@ -54,8 +54,8 @@ export default function EditColumnModal({
       await schema.validate({ title: changeColumnTitle });
 
       await ChangeColumn(changeColumnTitle, columnId);
-      onClose();
       router.refresh();
+      onClose();
     } catch (validationError: any) {
       setColumnError(validationError.message);
     }
@@ -64,8 +64,8 @@ export default function EditColumnModal({
   const handleDelete = async () => {
     try {
       await DeleteColumn(columnId);
-      onClose();
       router.refresh();
+      onClose();
     } catch (error: any) {
       setColumnError('칼럼 삭제 중 오류 발생');
     }
