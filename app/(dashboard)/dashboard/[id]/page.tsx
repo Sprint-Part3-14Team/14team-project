@@ -1,9 +1,9 @@
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { CardData, ColumnData } from '@/types/card';
 import { cookies } from 'next/headers';
-import Image from 'next/image';
 
 import ToDoCard from '../../_components/todo-card';
+import EditColumnButton from './_components/dashboard-column/edit-column-button';
 import NewColumnButton from './_components/dashboard-column/new-column-button';
 import AddToDoButton from './_components/to-do/add-to-do-button';
 
@@ -47,7 +47,6 @@ async function getColumns(dashboardId: number) {
 function AddColumn() {
   return (
     <div className="border-gray-300 px-[15px] py-3 md:p-5 xl:border-l xl:pt-[68px]">
-      {/* TODO - href 설정할 것 #!는 eslint 우회를 위한 임시 코드입니다. */}
       <NewColumnButton />
     </div>
   );
@@ -67,9 +66,7 @@ async function Column({ data }: { data: ColumnData }) {
             </div>
           </div>
         </div>
-        <div className="relative size-[22px] md:size-6">
-          <Image src="/icons/setting_icon.svg" alt="설정" fill />
-        </div>
+        <EditColumnButton columnId={data.id} />
       </div>
       <AddToDoButton columnId={data.id} />
       {cards?.map((card: CardData) => (

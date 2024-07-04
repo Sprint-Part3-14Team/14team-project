@@ -28,10 +28,10 @@ export default function NavbarProfile({ user }: { user: User }) {
       <p className="hidden text-gray-700 md:block">{user.nickname}</p>
       {isProfileOptionOpen && (
         <TaskOption>
-          <li className="flex h-[30px] w-full items-center justify-center rounded-md hover:bg-violet-primary/10 md:h-[32px]">
+          <li className="flex h-[30px] w-full items-center justify-center rounded-md text-xs hover:bg-violet-primary/10 md:h-[32px] md:text-sm">
             마이 페이지
           </li>
-          <li className="flex h-[30px] w-full items-center justify-center rounded-md hover:bg-violet-primary/10 md:h-[32px]">
+          <li className="flex h-[30px] w-full items-center justify-center rounded-md text-xs hover:bg-violet-primary/10 md:h-[32px] md:text-sm">
             로그아웃
           </li>
         </TaskOption>

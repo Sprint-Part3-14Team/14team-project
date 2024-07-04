@@ -4,9 +4,13 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 
-import NewColumnModal from './new-column-modal';
+import EditColumnModal from './edit-column-modal';
 
-export default function NewColumnButton() {
+interface EditColumnButtonProps {
+  columnId: number;
+}
+
+export default function EditColumnButton({ columnId }: EditColumnButtonProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -18,22 +22,16 @@ export default function NewColumnButton() {
     <div>
       <button
         type="button"
-        className="flex h-[60px] w-full items-center justify-center gap-x-3 rounded-lg border border-gray-300 bg-white py-6 font-bold md:h-[70px] xl:w-[354px]"
+        className="relative size-[22px] md:size-6"
+        aria-label="설정"
         onClick={openModal}
       >
-        새로운 컬럼 추가하기
-        <div className="relative size-5 md:size-[22px]">
-          <Image
-            src="/icons/icon_add_column.svg"
-            alt="새로운 컬럼 추가하기"
-            fill
-            sizes="100vw"
-          />
-        </div>
+        <Image src="/icons/setting_icon.svg" alt="설정" fill />
       </button>
-      <NewColumnModal
+      <EditColumnModal
         isOpen={isModalOpen}
         onClose={closeModal}
+        columnId={columnId}
         dashboardId={dashboardId}
       />
     </div>

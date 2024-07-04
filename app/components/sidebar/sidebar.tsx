@@ -1,5 +1,5 @@
 import SidebarButton from './sidebar-button';
-import SidebarDashboardList from './sidebar-dashboard-list';
+import SidebarDashboard from './sidebar-dashboard';
 
 export default function Sidebar() {
   return (
@@ -11,8 +11,7 @@ export default function Sidebar() {
           </p>
           <SidebarButton />
         </div>
-        {/* // NOTE - 대시보드 리스트 section */}
-        <SidebarDashboardList />
+        <SidebarDashboard />
       </div>
     </aside>
   );
