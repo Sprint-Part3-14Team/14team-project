@@ -25,17 +25,12 @@ export default function ImageInputField({
     }
   };
 
+  // TODO - 수정하기에서 이미지 x 누른 후 그대로 수정하면 오류남
   const handleImageDelete = () => {
     unregister(id);
     setSelectedImage(null);
     setInitialImage(null);
   };
-
-  // useEffect(() => {
-  //   if (imageUrlValue) {
-  //     setInitialImage(imageUrlValue);
-  //   }
-  // }, [imageUrlValue]);
 
   return (
     <div>

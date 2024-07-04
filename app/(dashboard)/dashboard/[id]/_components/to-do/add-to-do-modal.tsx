@@ -31,16 +31,18 @@ export default function AddToDoModal({
   toDoValue,
   cardId,
 }: AddToDoModalProps) {
+  const defaultValues = {
+    assigneeUserId: toDoValue?.assignee?.id || undefined,
+    title: toDoValue?.title || '',
+    description: toDoValue?.description || '',
+    dueDate: toDoValue?.dueDate || undefined,
+    imageUrl: toDoValue?.imageUrl || '',
+  };
+
   const methods = useForm<toDoCardValue>({
     resolver: yupResolver(createTodoSchema),
     mode: 'onChange',
-    defaultValues: {
-      assigneeUserId: toDoValue?.assignee?.id || undefined,
-      title: toDoValue?.title || '',
-      description: toDoValue?.description || '',
-      dueDate: toDoValue?.dueDate || undefined,
-      imageUrl: toDoValue?.imageUrl || '',
-    },
+    defaultValues,
   });
   const {
     register,
@@ -48,38 +50,15 @@ export default function AddToDoModal({
     handleSubmit,
     setValue,
     reset,
-    watch,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
   } = methods;
   const [tags, setTags] = useState<string[]>(toDoValue?.tags || []);
   const [column, setColumn] = useState(columnId);
   const { id } = useParams<{ id: string }>(); // 대시보드 id
   const [isEdit, setIsEdit] = useState(false);
 
-  // 감시할 필드들을 설정
-  const watchFields = watch([
-    'assigneeUserId',
-    'title',
-    'description',
-    'dueDate',
-    'imageUrl',
-  ]);
-
-  const isFormChanged =
-    isDirty ||
-    isValid ||
-    JSON.stringify(watchFields) !==
-      JSON.stringify({
-        assigneeUserId: toDoValue?.assignee?.id || undefined,
-        title: toDoValue?.title || '',
-        description: toDoValue?.description || '',
-        dueDate: toDoValue?.dueDate || undefined,
-        imageUrl: toDoValue?.imageUrl || null,
-      });
-
   const onSubmit: SubmitHandler<toDoCardValue> = async (data) => {
     const { assigneeUserId, title, description, dueDate, imageUrl } = data;
-
     // NOTE - 필수값
     const jsonObject: { [key: string]: any } = {
       dashboardId: Number(id),
@@ -106,7 +85,6 @@ export default function AddToDoModal({
 
     try {
       if (isEdit && cardId) {
-        console.log('수정하기>>>>>>>>>>>>>>>>>>>>...');
         console.log(jsonObject);
         await updateToDoCard(jsonObject, cardId);
       } else {
@@ -125,13 +103,7 @@ export default function AddToDoModal({
     if (toDoValue && !isEdit) {
       setIsEdit(true);
       setTags(toDoValue.tags);
-      reset({
-        assigneeUserId: toDoValue.assignee?.id,
-        title: toDoValue.title,
-        description: toDoValue.description,
-        dueDate: toDoValue.dueDate || '',
-        imageUrl: toDoValue?.imageUrl || null,
-      });
+      reset(defaultValues);
     }
   }, [isEdit, reset, toDoValue]);
 
@@ -226,7 +198,6 @@ export default function AddToDoModal({
               <button
                 type="submit"
                 className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
-                disabled={!isFormChanged}
               >
                 수정
               </button>
