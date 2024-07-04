@@ -2,6 +2,7 @@
 
 import SingleInputModal from '@/app/components/single-input-modal';
 import ColumnNameSchema from '@/lib/schemas/columnName';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 import { ChangeColumn, DeleteColumn, GetColumnNames } from './actions';
@@ -26,6 +27,7 @@ export default function EditColumnModal({
   const [existingColumnTitles, setExistingColumnTitles] = useState<string[]>(
     []
   );
+  const router = useRouter();
 
   const fetchExistingColumnTitles = async () => {
     try {
@@ -61,6 +63,7 @@ export default function EditColumnModal({
   const handleDelete = async () => {
     try {
       await DeleteColumn(columnId);
+      router.push(`/dashboard/${dashboardId}`);
       onClose();
     } catch (error: any) {
       setColumnError('칼럼 삭제 중 오류 발생');
