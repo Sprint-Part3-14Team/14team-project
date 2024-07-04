@@ -1,6 +1,8 @@
 import ProfileImage from '@/app/components/profile/profile-image';
+import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import formatDateHour from '@/utils/formDateHour';
-import React, { useState } from 'react';
+import { getCookie } from 'cookies-next';
+import React, { useEffect, useState } from 'react';
 
 import {
   deleteToDoCardComment,
@@ -16,6 +18,22 @@ export default function TodoModalCommentList({
 }) {
   const [editComment, setEditComment] = useState(commentData.content);
   const [isEditing, setIsEditing] = useState(false);
+  const [isCommentByMe, setIsCommentByMe] = useState(false);
+
+  useEffect(() => {
+    async function writtenByMe() {
+      const token = getCookie('token');
+      const response = await fetch(`${TEAM_BASE_URL}/users/me`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = await response.json();
+      setIsCommentByMe(data.id === commentData.author.id);
+    }
+    writtenByMe();
+  }, [commentData.author.id]);
 
   const handleDeleteComment = async () => {
     await deleteToDoCardComment(commentData.id);
@@ -60,14 +78,16 @@ export default function TodoModalCommentList({
         ) : (
           <p className="text-xs md:text-sm">{commentData.content}</p>
         )}
-        <div className="flex gap-x-[6px] text-[10px] text-gray-400 underline md:text-xs">
-          <button type="button" onClick={() => setIsEditing(true)}>
-            수정
-          </button>
-          <button type="button" onClick={handleDeleteComment}>
-            삭제
-          </button>
-        </div>
+        {isCommentByMe && (
+          <div className="flex gap-x-[6px] text-[10px] text-gray-400 underline md:text-xs">
+            <button type="button" onClick={() => setIsEditing(true)}>
+              수정
+            </button>
+            <button type="button" onClick={handleDeleteComment}>
+              삭제
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
