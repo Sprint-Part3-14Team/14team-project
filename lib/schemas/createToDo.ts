@@ -2,7 +2,8 @@ import * as yup from 'yup';
 
 // 사용자 정의 유효성 검사 함수
 const imageFileValidation = (value: any) => {
-  if (!value) return true; // 파일이 없는 경우 유효성 검사 통과
+  // 파일이 없거나 문자열인 경우 유효성 검사 통과
+  if (!value || typeof value === 'string') return true;
 
   // File 객체인지 확인
   if (value instanceof File) {
@@ -14,7 +15,7 @@ const imageFileValidation = (value: any) => {
 };
 
 const createTodoSchema = yup.object().shape({
-  assigneeUserId: yup.number().required('담당자를 선택해 주세요.'),
+  assigneeUserId: yup.number(),
   title: yup
     .string()
     .required('제목을 입력해 주세요')
