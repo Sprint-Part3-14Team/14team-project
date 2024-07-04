@@ -55,6 +55,7 @@ export default function EditColumnModal({
 
       await ChangeColumn(changeColumnTitle, columnId);
       onClose();
+      router.refresh();
     } catch (validationError: any) {
       setColumnError(validationError.message);
     }
