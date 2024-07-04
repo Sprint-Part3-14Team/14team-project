@@ -19,3 +19,9 @@ export interface DashboardDetail extends Dashboard {
 export interface Dashboards {
   dashboards: Dashboard[];
 }
+
+export interface DashboardResponse {
+  dashboards: DashboardDetail[];
+  totalCount: number;
+  cursorId: number | null;
+}
