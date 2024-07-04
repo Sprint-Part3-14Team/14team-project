@@ -1,6 +1,7 @@
 'use client';
 
 import { INITIAL_NUMBER_OF_USERS } from '@/constants/TEAM_BASE_URL';
+import useDebounce from '@/hooks/useDebounce';
 import search from '@/public/icons/search.svg';
 import { Invitation, InvitationResponse } from '@/types/invitations';
 import Image from 'next/image';
@@ -23,6 +24,8 @@ export default function InvitationContainer({
     useState<Invitation[]>(initialInvitations);
   const [apiCursorId, setApiCursorId] = useState(initialCursorId);
   const [searchWord, setSearchWord] = useState<string>('');
+  const searchTitle = useDebounce(searchWord, 500);
+
   const { ref, inView } = useInView();
 
   async function loadMore() {
@@ -32,7 +35,7 @@ export default function InvitationContainer({
     const data: InvitationResponse = await getInvitations(
       INITIAL_NUMBER_OF_USERS,
       apiCursorId ?? undefined,
-      searchWord ?? undefined
+      searchTitle ?? undefined
     );
     const { invitations, cursorId } = data;
 
@@ -48,7 +51,7 @@ export default function InvitationContainer({
     const data: InvitationResponse = await getInvitations(
       INITIAL_NUMBER_OF_USERS,
       undefined,
-      searchWord ?? undefined
+      searchTitle ?? undefined
     );
     const { invitations, cursorId } = data;
 
@@ -63,7 +66,7 @@ export default function InvitationContainer({
 
   useEffect(() => {
     searchInvitation();
-  }, [searchWord]);
+  }, [searchTitle]);
 
   useEffect(() => {
     if (inView) {
