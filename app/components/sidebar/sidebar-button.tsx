@@ -1,8 +1,7 @@
 'use client';
 
 import NewDashboardModal from '@/app/(dashboard)/mydashboard/_components/new-dashboard-modal';
-import addDashboard from '@/public/icons/add_dashboard.svg';
-import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function SidebarButton() {
@@ -16,15 +15,26 @@ export default function SidebarButton() {
     setIsModalOpen(false);
   };
   return (
-    <div>
-      <button
-        className="relative h-5 w-5"
-        type="button"
-        onClick={handleOpenModal}
-      >
-        <Image src={addDashboard} alt="대시보드 추가 버튼" fill />
-      </button>
-      <NewDashboardModal isOpen={isModalOpen} onClose={handleCloseModal} />
-    </div>
+    <>
+      <div className="mb-2 border-b pb-2">
+        <button
+          className="size-[50px] rounded-full bg-red-200 text-center text-xl font-semibold text-white"
+          type="button"
+          onClick={handleOpenModal}
+        >
+          +
+        </button>
+        <NewDashboardModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      </div>
+      {/* NOTE - 나의 대시보드 페이지 */}
+      <Link href="/mydashboard">
+        <button
+          className="mb-[16px] size-[50px] rounded-full bg-orange-200 text-center text-xl font-semibold text-white"
+          type="button"
+        >
+          +
+        </button>
+      </Link>
+    </>
   );
 }
