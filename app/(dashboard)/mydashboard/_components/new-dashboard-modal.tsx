@@ -2,6 +2,7 @@
 
 import Button from '@/app/components/button';
 import ColorList from '@/app/components/color-list';
+import ColorPicker from '@/app/components/color-picker';
 import Modal from '@/app/components/modal';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -33,6 +34,10 @@ export default function NewDashboardModal({
     } catch (error: any) {
       console.error('대시보드 생성 오류:', error.message);
     }
+  };
+
+  const handleColorChange = (color: any) => {
+    setSelectedColor(color);
   };
 
   if (!isOpen) return null;
@@ -68,11 +73,17 @@ export default function NewDashboardModal({
             className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-300 pl-[16px] text-sm font-normal text-gray-700 md:h-[48px] md:w-[484px] md:text-base"
           />
         </div>
+        <div className="ml-[261px] mt-[10px] text-sm md:ml-[270px]">
+          <p>색상 선택</p>
+        </div>
         <ColorList
-          className="ml-[20px] mt-[24px] flex md:ml-[28px] md:mt-[28px]"
+          className="ml-[20px] mt-[5px] flex md:ml-[28px] md:mt-[8px]"
           register={(color: string) => setSelectedColor(color)}
         />
-        <div className="mt-[76px] flex justify-center md:mt-[86px] md:justify-end">
+        <div className="ml-[273px] mt-[5px] md:ml-[280px] md:mt-[8px]">
+          <ColorPicker value={selectedColor} onChange={handleColorChange} />
+        </div>
+        <div className="mt-[18px] flex justify-center md:mt-[15px] md:justify-end">
           <Button
             variant="mobile138x42"
             onClick={onClose}

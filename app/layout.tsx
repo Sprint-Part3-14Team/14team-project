@@ -2,6 +2,7 @@ import { Toaster } from '@/components/ui/sonner';
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
+import PrelineScript from './components/PrelineScript';
 import './globals.css';
 
 const pretendard = localFont({
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="ko" className={pretendard.className}>
       <body>{children}</body>
       <Toaster />
+      <PrelineScript />
     </html>
   );
 }
