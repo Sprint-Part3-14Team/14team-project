@@ -18,9 +18,7 @@ export default function InviteModal({
   const [inviteEmail, setInviteEmail] = useState('');
   const [emailError, setEmailError] = useState<string>('');
 
-  const handleInviteByEmail = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleInviteByEmail = async () => {
     try {
       await inviteEmailSchema.validate({ email: inviteEmail });
 

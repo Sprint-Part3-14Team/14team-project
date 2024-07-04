@@ -13,7 +13,7 @@ interface SingleInputModalProps {
   inputId: string;
   inputValue: string;
   setInputValue: (value: string) => void;
-  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onSubmit: (inputValue: string) => Promise<void>;
   placeholder: string;
   error?: string;
 }
@@ -36,6 +36,11 @@ export default function SingleInputModal({
     setInputValue(e.target.value);
   };
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await onSubmit(inputValue);
+  };
+
   return (
     <Modal
       isOpen={isOpen}
@@ -45,7 +50,7 @@ export default function SingleInputModal({
       <h2 className="ml-[20px] mt-[28px] text-xl font-bold md:ml-[28px] md:mt-[32px] md:text-2xl">
         {title}
       </h2>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={handleSubmit}>
         <label
           htmlFor={inputId}
           className="ml-[20px] mt-[24px] block text-base font-medium text-gray-700 md:ml-[28px] md:mt-[32px] md:text-lg"

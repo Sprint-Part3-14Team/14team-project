@@ -1,24 +1,18 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
+import { useParams } from 'next/navigation';
+import React, { useState } from 'react';
 
 import NewColumnModal from './new-column-modal';
 
 export default function NewColumnButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentDashboardId, setCurrentDashboardId] = useState<number>(-1);
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  useEffect(() => {
-    const pathSegments = window.location.pathname.split('/');
-    const dashboardId = pathSegments[pathSegments.length - 1];
-
-    if (!Number.isNaN(parseInt(dashboardId, 10))) {
-      setCurrentDashboardId(parseInt(dashboardId, 10));
-    }
-  }, []);
+  const params = useParams();
+  const dashboardId = parseInt(params.id as string, 10);
 
   return (
     <div>
@@ -40,7 +34,7 @@ export default function NewColumnButton() {
       <NewColumnModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        dashboardId={currentDashboardId}
+        dashboardId={dashboardId}
       />
     </div>
   );
