@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 import { ChangeColumn, DeleteColumn, GetColumnNames } from './actions';
-import WarnimgModal from './delete-warning-modal';
+import WarningModal from './delete-warning-modal';
 
 interface EditColumnModalProps {
   isOpen: boolean;
@@ -63,8 +63,8 @@ export default function EditColumnModal({
   const handleDelete = async () => {
     try {
       await DeleteColumn(columnId);
-      router.push(`/dashboard/${dashboardId}`);
       onClose();
+      router.refresh();
     } catch (error: any) {
       setColumnError('칼럼 삭제 중 오류 발생');
     }
@@ -100,7 +100,7 @@ export default function EditColumnModal({
         placeholder="변경할 이름을 입력하세요"
         error={columnError}
       />
-      <WarnimgModal
+      <WarningModal
         isOpen={isWarningOpen}
         onClose={handleWarningClose}
         onDelete={handleWarningDelete}
