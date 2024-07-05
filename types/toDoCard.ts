@@ -1,5 +1,5 @@
-export interface toDoCardValue {
-  assigneeUserId?: number;
+export interface ToDoCardValue {
+  assigneeUserId?: number | null;
   title: string;
   description: string;
   dueDate?: string;
