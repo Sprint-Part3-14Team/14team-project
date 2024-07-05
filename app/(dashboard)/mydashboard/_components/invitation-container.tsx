@@ -1,9 +1,9 @@
 'use client';
 
 import { INITIAL_NUMBER_OF_USERS } from '@/constants/TEAM_BASE_URL';
-import useDebounce from '@/hooks/useDebounce';
 import search from '@/public/icons/search.svg';
 import { Invitation, InvitationResponse } from '@/types/invitations';
+import { debounce } from '@/utils/debounce';
 import Image from 'next/image';
 import React, { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
@@ -24,8 +24,6 @@ export default function InvitationContainer({
     useState<Invitation[]>(initialInvitations);
   const [apiCursorId, setApiCursorId] = useState(initialCursorId);
   const [searchWord, setSearchWord] = useState<string>('');
-  const searchTitle = useDebounce(searchWord, 500);
-
   const { ref, inView } = useInView();
 
   async function loadMore() {
@@ -35,7 +33,7 @@ export default function InvitationContainer({
     const data: InvitationResponse = await getInvitations(
       INITIAL_NUMBER_OF_USERS,
       apiCursorId ?? undefined,
-      searchTitle ?? undefined
+      searchWord ?? undefined
     );
     const { invitations, cursorId } = data;
 
@@ -51,7 +49,7 @@ export default function InvitationContainer({
     const data: InvitationResponse = await getInvitations(
       INITIAL_NUMBER_OF_USERS,
       undefined,
-      searchTitle ?? undefined
+      searchWord ?? undefined
     );
     const { invitations, cursorId } = data;
 
@@ -59,14 +57,16 @@ export default function InvitationContainer({
     setApiCursorId(cursorId);
   }
 
-  const onChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchWord(e.target.value);
     searchInvitation();
   };
 
+  const debouncedOnChange = debounce<typeof onChange>(onChange, 500);
+
   useEffect(() => {
     searchInvitation();
-  }, [searchTitle]);
+  }, [searchWord]);
 
   useEffect(() => {
     if (inView) {
@@ -81,7 +81,7 @@ export default function InvitationContainer({
           type="text"
           className="h-9 w-full rounded-md border border-gray-300 py-[10px] pl-[44px] placeholder:text-sm placeholder:text-gray-400"
           placeholder="검색"
-          onChange={onChangeSearch}
+          onChange={debouncedOnChange}
         />
         <div className="absolute left-[20px] top-[50%] translate-y-[-50%]">
           <Image src={search} width={16} height={16} alt="검색" />
