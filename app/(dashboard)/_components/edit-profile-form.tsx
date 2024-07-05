@@ -20,9 +20,8 @@ export default function EditProfileForm() {
     register,
     setValue,
     handleSubmit,
-    watch,
     unregister,
-    formState: { errors, isValid, isDirty },
+    formState: { errors },
   } = useForm<EditProfile>({
     resolver: yupResolver(editProfileSchema),
     mode: 'onChange',
@@ -30,12 +29,6 @@ export default function EditProfileForm() {
 
   const token = getCookie('token');
   const [user, setUser] = useState<User | null>(null);
-
-  const profileImageUrlInput = watch('profileImageUrl');
-  const nicknameInput = watch('nickname');
-
-  const isFormValid =
-    isValid && (!!profileImageUrlInput || nicknameInput !== '');
 
   const onSubmit: SubmitHandler<EditProfile> = async (data) => {
     const { profileImageUrl, nickname } = data;
@@ -102,7 +95,6 @@ export default function EditProfileForm() {
             type="submit"
             variant="mobile84x28"
             className="ml-auto mt-4 rounded bg-violet-primary text-white disabled:cursor-not-allowed disabled:bg-gray-400"
-            disabled={!isFormValid || !isDirty}
           >
             저장
           </Button>
