@@ -20,18 +20,19 @@ import ColumnDropdown from './column-dropdown';
 interface AddToDoModalProps {
   isOpen: boolean;
   onClose: () => void;
-  columnId: number;
+  columnIdProp: number;
   toDoValue?: CardData;
   cardId?: number;
 }
 export default function AddToDoModal({
   isOpen,
   onClose,
-  columnId,
+  columnIdProp,
   toDoValue,
   cardId,
 }: AddToDoModalProps) {
   const defaultValues = {
+    columnId: toDoValue?.columnId || columnIdProp,
     assigneeUserId: toDoValue?.assignee?.id || null,
     title: toDoValue?.title || '',
     description: toDoValue?.description || '',
@@ -53,18 +54,19 @@ export default function AddToDoModal({
     formState: { errors, isValid, isDirty },
   } = methods;
   const [tags, setTags] = useState<string[]>(toDoValue?.tags || []);
-  const [column, setColumn] = useState(columnId);
+  // const [column, setColumn] = useState(columnId);
   const { id } = useParams<{ id: string }>(); // 대시보드 id
   const [isEdit, setIsEdit] = useState(false);
   const [isChange, setIsChange] = useState(false);
 
   const onSubmit: SubmitHandler<ToDoCardValue> = async (data) => {
-    const { assigneeUserId, title, description, dueDate, imageUrl } = data;
+    const { assigneeUserId, title, description, dueDate, imageUrl, columnId } =
+      data;
 
     // NOTE - 필수값
     const jsonObject: { [key: string]: any } = {
       dashboardId: Number(id),
-      columnId: column,
+      columnId,
       title,
       description,
     };
@@ -119,6 +121,7 @@ export default function AddToDoModal({
   useEffect(() => {
     if (!isOpen) {
       reset({
+        columnId: columnIdProp,
         assigneeUserId: null,
         title: '',
         description: '',
@@ -128,7 +131,7 @@ export default function AddToDoModal({
       setTags([]);
       setIsEdit(false);
     }
-  }, [isOpen, reset]);
+  }, [isOpen, reset, columnIdProp]);
 
   if (!isOpen) return null;
 
@@ -149,11 +152,7 @@ export default function AddToDoModal({
           <div className="flex flex-grow flex-col gap-6 overflow-y-auto overflow-x-hidden">
             <div className="flex flex-col gap-2 md:flex-row">
               {isEdit && (
-                <ColumnDropdown
-                  dashboardId={id}
-                  columnId={column}
-                  setColumn={setColumn}
-                />
+                <ColumnDropdown dashboardId={id} columnId={columnIdProp} />
               )}
               <AssigneeUserDropdown
                 dashboardId={id}
