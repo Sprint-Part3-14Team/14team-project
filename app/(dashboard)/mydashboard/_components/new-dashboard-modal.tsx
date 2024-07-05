@@ -19,7 +19,14 @@ export default function NewDashboardModal({
   isOpen,
   onClose,
 }: NewDashboardModalProps) {
-  const { register, handleSubmit, setValue } = useForm<Dashboard>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { isValid },
+  } = useForm<Dashboard>({
+    mode: 'onChange',
+  });
   const router = useRouter();
 
   const handleColorChange = (color: string) => {
@@ -57,7 +64,7 @@ export default function NewDashboardModal({
         </label>
         <div className="flex items-center justify-center">
           <input
-            {...register('title')}
+            {...register('title', { required: true })}
             id="title"
             type="text"
             placeholder="대시보드 이름"
@@ -92,6 +99,7 @@ export default function NewDashboardModal({
             variant="mobile138x42"
             type="submit"
             className="ml-[12px] rounded-lg bg-violet-primary text-white md:mr-[28px]"
+            disabled={!isValid}
           >
             생성
           </Button>
