@@ -50,12 +50,13 @@ export default function AddToDoModal({
     handleSubmit,
     setValue,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isDirty },
   } = methods;
   const [tags, setTags] = useState<string[]>(toDoValue?.tags || []);
   const [column, setColumn] = useState(columnId);
   const { id } = useParams<{ id: string }>(); // 대시보드 id
   const [isEdit, setIsEdit] = useState(false);
+  const [isChange, setIsChange] = useState(false);
 
   const onSubmit: SubmitHandler<ToDoCardValue> = async (data) => {
     const { assigneeUserId, title, description, dueDate, imageUrl } = data;
@@ -91,8 +92,6 @@ export default function AddToDoModal({
       jsonObject.assigneeUserId = null;
     }
 
-    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
-    console.log(jsonObject);
     try {
       if (isEdit && cardId) {
         await updateToDoCard(jsonObject, cardId);
@@ -193,6 +192,7 @@ export default function AddToDoModal({
                 imageUrlValue={toDoValue?.imageUrl}
                 unregister={unregister}
                 size="76px"
+                setIsChange={setIsChange}
               />
             </div>
           </div>
@@ -208,6 +208,7 @@ export default function AddToDoModal({
               <button
                 type="submit"
                 className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
+                disabled={!(isDirty && isValid) && !isChange}
               >
                 수정
               </button>

@@ -65,11 +65,11 @@ export default function AssigneeUserDropdown({
 
   const handleItemClick = (userId: number) => {
     // 선택된 담당자 ID를 react-hook-form 필드에 설정
-    setValue('assigneeUserId', userId);
+    setValue('assigneeUserId', userId, { shouldDirty: true });
   };
 
   const handleDeleteItem = () => {
-    setValue('assigneeUserId', null);
+    setValue('assigneeUserId', null, { shouldDirty: true });
   };
 
   useEffect(() => {
