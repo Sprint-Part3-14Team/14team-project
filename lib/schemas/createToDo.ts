@@ -15,7 +15,7 @@ const imageFileValidation = (value: any) => {
 };
 
 const createTodoSchema = yup.object().shape({
-  assigneeUserId: yup.number(),
+  assigneeUserId: yup.number().nullable(),
   title: yup
     .string()
     .required('제목을 입력해 주세요')
