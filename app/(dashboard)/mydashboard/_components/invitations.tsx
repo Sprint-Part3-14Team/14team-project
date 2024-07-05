@@ -1,6 +1,7 @@
 import { INITIAL_NUMBER_OF_USERS } from '@/constants/TEAM_BASE_URL';
 import invitation from '@/public/images/none_invitation.svg';
 import { InvitationResponse } from '@/types/invitations';
+import Image from 'next/image';
 
 import { getInvitations } from '../actions';
 import InvitationContainer from './invitation-container';
@@ -29,10 +30,10 @@ export default async function Invitations() {
           </div>
         </div>
       ) : (
-         <InvitationContainer
-        initialInvitations={invitations}
-        initialCursorId={cursorId}
-      />
+        <InvitationContainer
+          initialInvitations={invitations}
+          initialCursorId={cursorId}
+        />
       )}
     </section>
   );

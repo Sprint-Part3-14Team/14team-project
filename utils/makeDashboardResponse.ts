@@ -1,7 +1,7 @@
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardDetail } from '@/types/dashboard';
 
-// NOTE: 대시보드 중복 제거 후 6개로 맞추는 함수
+// NOTE: 대시보드 중복 제거 후 원하는 사이즈로 맞추는 함수
 export default async function makeDashboardArr(
   arr: DashboardDetail[],
   page: number,
