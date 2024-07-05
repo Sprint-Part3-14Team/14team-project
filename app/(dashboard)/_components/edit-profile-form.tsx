@@ -21,7 +21,8 @@ export default function EditProfileForm() {
     setValue,
     handleSubmit,
     watch,
-    formState: { errors, isValid },
+    unregister,
+    formState: { errors, isValid, isDirty },
   } = useForm<EditProfile>({
     resolver: yupResolver(editProfileSchema),
     mode: 'onChange',
@@ -40,7 +41,12 @@ export default function EditProfileForm() {
     const { profileImageUrl, nickname } = data;
 
     const formData = new FormData();
-    formData.append('image', profileImageUrl!);
+
+    if (profileImageUrl) {
+      formData.append('image', profileImageUrl);
+    } else {
+      formData.append('image', 'null');
+    }
 
     const res = await editProfile(formData, nickname);
     // NOTE - 성공 메시지 출력
@@ -69,7 +75,12 @@ export default function EditProfileForm() {
         onSubmit={handleSubmit(onSubmit)}
         className="mt-6 flex w-full flex-col md:mt-8 md:flex-row md:gap-x-4"
       >
-        <ImageInputField id="profileImageUrl" setValue={setValue} />
+        <ImageInputField
+          id="profileImageUrl"
+          setValue={setValue}
+          imageUrlValue={user?.profileImageUrl}
+          unregister={unregister}
+        />
         <div className="flex w-full flex-col">
           <InputField
             id="email"
@@ -91,7 +102,7 @@ export default function EditProfileForm() {
             type="submit"
             variant="mobile84x28"
             className="ml-auto mt-4 rounded bg-violet-primary text-white disabled:cursor-not-allowed disabled:bg-gray-400"
-            disabled={!isFormValid}
+            disabled={!isFormValid || !isDirty}
           >
             저장
           </Button>
