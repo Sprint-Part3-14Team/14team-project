@@ -91,17 +91,19 @@ export default function AddToDoModal({
       jsonObject.imageUrl = null;
     }
 
-    if (isEdit && !assigneeUserId) {
-      jsonObject.assigneeUserId = null;
+    try {
+      let res;
+      if (isEdit && cardId) {
+        res = await updateToDoCard(jsonObject, cardId);
+        // NOTE - 수정인 경우에만 toast
+        toast.success(res.message);
+      } else {
+        res = await postToDoCard(jsonObject);
+      }
+      onClose();
+    } catch (error: any) {
+      toast.error(error.message);
     }
-    let res;
-    if (isEdit && cardId) {
-      res = await updateToDoCard(jsonObject, cardId);
-    } else {
-      res = await postToDoCard(jsonObject);
-    }
-    onClose();
-    toast.success(res.message);
   };
 
   useEffect(() => {
