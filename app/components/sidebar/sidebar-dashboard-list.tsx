@@ -52,7 +52,7 @@ export default function SidebarDashboardList({
 
   return (
     <>
-      <ul className="flex flex-col gap-[38px] md:gap-[27px]">
+      <ul className="flex flex-col gap-[16px]">
         {dashboardList.map((dashboard: DashboardDetail) => (
           <SidebarDashboardCard dashboard={dashboard} key={dashboard.id} />
         ))}

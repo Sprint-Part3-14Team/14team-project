@@ -183,6 +183,7 @@ export default function AddToDoModal({
                 setValue={setValue}
                 imageUrlValue={toDoValue?.imageUrl}
                 unregister={unregister}
+                size="76px"
               />
             </div>
           </div>

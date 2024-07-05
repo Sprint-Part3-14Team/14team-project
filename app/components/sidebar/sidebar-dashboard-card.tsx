@@ -1,32 +1,29 @@
 'use client';
 
-import crown from '@/public/icons/crown_icon.svg';
 import { DashboardDetail } from '@/types/dashboard';
-import Image from 'next/image';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 export default function SidebarDashboardCard({
   dashboard,
 }: {
   dashboard: DashboardDetail;
 }) {
+  const params = useParams<{ id: string }>();
+  const isActive = params?.id === dashboard.id.toString();
+
   return (
-    <li key={dashboard.id} className="flex items-center">
-      <p
-        className="h-2 w-2 rounded-full"
+    <Link href={`/dashboard/${dashboard.id}`}>
+      <li
+        key={dashboard.id}
+        className={`flex h-[50px] w-[50px] items-center justify-center overflow-hidden rounded-full p-[2px] text-xs font-semibold text-white ${
+          // TODO - 스타일 다르게 주기
+          isActive && 'border border-black'
+        }`}
         style={{ backgroundColor: dashboard.color }}
-      />
-      <Link
-        href={`/dashboard/${dashboard.id}`}
-        className="ml-4 mr-1 hidden text-base font-medium text-gray-500 md:block xl:mr-[6px] xl:text-lg"
       >
         {dashboard.title}
-      </Link>
-      {dashboard.createdByMe && (
-        <div className="relative hidden h-3 w-4 md:block">
-          <Image src={crown} alt="내가 만든 대시보드 왕관" fill />
-        </div>
-      )}
-    </li>
+      </li>
+    </Link>
   );
 }
