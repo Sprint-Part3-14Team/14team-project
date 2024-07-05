@@ -1,13 +1,14 @@
 'use client';
 
 import Button from '@/app/components/button';
-import ColorList from '@/app/components/color-list';
 import ColorPicker from '@/app/components/color-picker';
 import Modal from '@/app/components/modal';
+import { Dashboard } from '@/types/dashboard';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
-import Postdashboard from '../postActions';
+import ColorList from '../../dashboard/[id]/edit/_components/dashboard/color-list';
+import Postdashboard from './actions';
 
 interface NewDashboardModalProps {
   isOpen: boolean;
@@ -18,26 +19,22 @@ export default function NewDashboardModal({
   isOpen,
   onClose,
 }: NewDashboardModalProps) {
-  const [dashboardName, setDashboardName] = useState('');
-  const [selectedColor, setSelectedColor] = useState('');
+  const { register, handleSubmit, setValue } = useForm<Dashboard>();
   const router = useRouter();
 
-  const handleCreateDashboard = async () => {
+  const handleColorChange = (color: string) => {
+    setValue('color', color);
+  };
+
+  const createDashboardInfo: SubmitHandler<Dashboard> = async (data) => {
+    const { title, color } = data;
     try {
-      if (!dashboardName || !selectedColor) return;
-      const createdDashboard = await Postdashboard(
-        dashboardName,
-        selectedColor
-      );
+      const createdDashboard = await Postdashboard(title, color);
       router.push(`/dashboard/${createdDashboard.id}`);
       onClose();
     } catch (error: any) {
       console.error('대시보드 생성 오류:', error.message);
     }
-  };
-
-  const handleColorChange = (color: any) => {
-    setSelectedColor(color);
   };
 
   if (!isOpen) return null;
@@ -51,12 +48,7 @@ export default function NewDashboardModal({
       <h2 className="ml-[20px] mt-[28px] text-xl font-bold md:ml-[28px] md:mt-[32px] md:text-2xl">
         새로운 대시보드
       </h2>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleCreateDashboard();
-        }}
-      >
+      <form onSubmit={handleSubmit(createDashboardInfo)}>
         <label
           htmlFor="dashboardName"
           className="ml-[20px] mt-[24px] block text-base font-medium text-gray-700 md:ml-[28px] md:mt-[32px] md:text-lg"
@@ -65,11 +57,10 @@ export default function NewDashboardModal({
         </label>
         <div className="flex items-center justify-center">
           <input
+            {...register('title')}
             id="title"
             type="text"
             placeholder="대시보드 이름"
-            value={dashboardName}
-            onChange={(e) => setDashboardName(e.target.value)}
             className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-300 pl-[16px] text-sm font-normal text-gray-700 md:h-[48px] md:w-[484px] md:text-base"
           />
         </div>
@@ -78,10 +69,16 @@ export default function NewDashboardModal({
         </div>
         <ColorList
           className="ml-[20px] mt-[5px] flex md:ml-[28px] md:mt-[8px]"
-          register={(color: string) => setSelectedColor(color)}
+          register={register}
+          setValue={setValue}
+          onColorChange={handleColorChange}
         />
         <div className="ml-[273px] mt-[5px] md:ml-[280px] md:mt-[8px]">
-          <ColorPicker value={selectedColor} onChange={handleColorChange} />
+          <ColorPicker
+            register={register}
+            setValue={setValue}
+            onColorChange={handleColorChange}
+          />
         </div>
         <div className="mt-[18px] flex justify-center md:mt-[15px] md:justify-end">
           <Button
@@ -94,8 +91,7 @@ export default function NewDashboardModal({
           <Button
             variant="mobile138x42"
             type="submit"
-            className={`ml-[12px] rounded-lg bg-violet-primary text-white md:mr-[28px] ${dashboardName && selectedColor ? 'cursor-default' : 'cursor-not-allowed'}`}
-            disabled={!dashboardName || !selectedColor}
+            className="ml-[12px] rounded-lg bg-violet-primary text-white md:mr-[28px]"
           >
             생성
           </Button>
