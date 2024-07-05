@@ -10,7 +10,9 @@ export default async function SidebarDashboard() {
   });
 
   const data = await getFetcher(`/dashboards?${params.toString()}`);
-  const { dashboards } = data;
+  const { dashboards, totalCount } = data;
 
-  return <SidebarDashboardList initialData={dashboards} />;
+  const lastPage = Math.ceil(totalCount / 6);
+
+  return <SidebarDashboardList initialData={dashboards} lastPage={lastPage} />;
 }
