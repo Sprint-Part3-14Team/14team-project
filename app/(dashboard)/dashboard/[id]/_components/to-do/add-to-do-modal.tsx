@@ -32,7 +32,7 @@ export default function AddToDoModal({
   cardId,
 }: AddToDoModalProps) {
   const defaultValues = {
-    assigneeUserId: toDoValue?.assignee?.id || undefined,
+    assigneeUserId: toDoValue?.assignee?.id || null,
     title: toDoValue?.title || '',
     description: toDoValue?.description || '',
     dueDate: toDoValue?.dueDate || undefined,
@@ -87,6 +87,12 @@ export default function AddToDoModal({
       jsonObject.imageUrl = null;
     }
 
+    if (isEdit && !assigneeUserId) {
+      jsonObject.assigneeUserId = null;
+    }
+
+    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>.');
+    console.log(jsonObject);
     try {
       if (isEdit && cardId) {
         await updateToDoCard(jsonObject, cardId);
@@ -114,7 +120,7 @@ export default function AddToDoModal({
   useEffect(() => {
     if (!isOpen) {
       reset({
-        assigneeUserId: undefined,
+        assigneeUserId: null,
         title: '',
         description: '',
         dueDate: undefined,
