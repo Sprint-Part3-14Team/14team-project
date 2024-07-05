@@ -14,6 +14,9 @@ export default function AddTagInput({ tags, setTags }: AddTagInputProps) {
       if (value && !tags.includes(value)) {
         setTags([...tags, value]);
         (e.target as HTMLInputElement).value = '';
+      } else {
+        // NOTE - 같은 값 입력하는 경우
+        (e.target as HTMLInputElement).value = '';
       }
     }
   }
