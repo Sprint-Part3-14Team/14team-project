@@ -1,12 +1,20 @@
 import calendar from '@/public/icons/icon_calendar.svg';
 import { format as formatDate } from 'date-fns';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useFormContext } from 'react-hook-form';
 
-export default function AddDueDateInput() {
+interface AddDueDateInputProps {
+  dueDateValue?: string | null;
+  isEdit: boolean;
+}
+
+export default function AddDueDateInput({
+  dueDateValue,
+  isEdit,
+}: AddDueDateInputProps) {
   const { register, setValue } = useFormContext();
   // NOTE - 초기값 null : 어떤 날짜도 선택되지 않았음 표시
   const [dateValue, setDateValue] = useState<Date | null>(null);
@@ -25,6 +33,14 @@ export default function AddDueDateInput() {
       setDateValue(date);
     }
   };
+
+  useEffect(() => {
+    if (dueDateValue && isEdit) {
+      setDateValue(new Date(dueDateValue));
+    } else {
+      setDateValue(null);
+    }
+  }, [dueDateValue, isEdit]);
 
   return (
     <div className="flex flex-col gap-y-2">

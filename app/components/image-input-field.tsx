@@ -4,11 +4,20 @@ import { useState } from 'react';
 export default function ImageInputField({
   id,
   setValue,
+  imageUrlValue,
+  unregister,
+  size,
 }: {
   id: string;
   setValue: any;
+  unregister?: any;
+  imageUrlValue?: string | null;
+  size?: string;
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [initialImage, setInitialImage] = useState<string | null>(
+    imageUrlValue || null
+  );
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -18,17 +27,26 @@ export default function ImageInputField({
     }
   };
 
+  // TODO - 수정하기에서 이미지 x 누른 후 그대로 수정하면 오류남
   const handleImageDelete = () => {
+    unregister(id);
     setSelectedImage(null);
-    setValue(id, null);
+    setInitialImage(null);
   };
 
   return (
     <div>
-      {selectedImage ? (
-        <div className="relative size-[100px] md:size-[182px]">
+      {initialImage || selectedImage ? (
+        <div
+          className="relative size-[100px] md:size-[182px]"
+          style={{ width: size, height: size }}
+        >
           <Image
-            src={URL.createObjectURL(selectedImage)}
+            src={
+              selectedImage
+                ? URL.createObjectURL(selectedImage)
+                : (initialImage as string)
+            }
             alt="Selected Image"
             sizes="(min-width: 768px) 100vw"
             fill
@@ -48,6 +66,7 @@ export default function ImageInputField({
         <label
           htmlFor={id}
           className="relative inline-block size-[100px] md:size-[182px]"
+          style={{ width: size, height: size }}
         >
           <input
             id={id}
@@ -64,7 +83,10 @@ export default function ImageInputField({
               fill
             />
           </div>
-          <div className="size-[100px] cursor-pointer rounded-md bg-gray-200 md:size-[182px]" />
+          <div
+            className="size-[100px] cursor-pointer rounded-md bg-gray-200 md:size-[182px]"
+            style={{ width: size, height: size }}
+          />
         </label>
       )}
     </div>

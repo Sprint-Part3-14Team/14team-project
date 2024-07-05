@@ -1,77 +1,126 @@
 'use client';
 
 import ImageInputField from '@/app/components/image-input-field';
-import InputField from '@/app/components/input-field';
 import Modal from '@/app/components/modal';
 import createTodoSchema from '@/lib/schemas/createToDo';
+import { CardData } from '@/types/card';
 import { toDoCardValue } from '@/types/toDoCard';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
-import { postToDoCard } from '../../action';
+import { postToDoCard, postToDoCardImage, updateToDoCard } from '../../action';
 import AddDueDateInput from './add-due-date-input';
 import AddTagInput from './add-tag-input';
+import AddToDoTitleInput from './add-to-do-title-input';
 import AssigneeUserDropdown from './assignee-user-dropdown';
+import ColumnDropdown from './column-dropdown';
 
 interface AddToDoModalProps {
   isOpen: boolean;
   onClose: () => void;
   columnId: number;
+  toDoValue?: CardData;
+  cardId?: number;
 }
 export default function AddToDoModal({
   isOpen,
   onClose,
   columnId,
+  toDoValue,
+  cardId,
 }: AddToDoModalProps) {
+  const defaultValues = {
+    assigneeUserId: toDoValue?.assignee?.id || undefined,
+    title: toDoValue?.title || '',
+    description: toDoValue?.description || '',
+    dueDate: toDoValue?.dueDate || undefined,
+    imageUrl: toDoValue?.imageUrl || '',
+  };
+
   const methods = useForm<toDoCardValue>({
     resolver: yupResolver(createTodoSchema),
     mode: 'onChange',
+    defaultValues,
   });
   const {
     register,
+    unregister,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors, isValid },
   } = methods;
-  const [tags, setTags] = useState<string[]>([]);
-  const { id } = useParams<{ id: string }>();
+  const [tags, setTags] = useState<string[]>(toDoValue?.tags || []);
+  const [column, setColumn] = useState(columnId);
+  const { id } = useParams<{ id: string }>(); // 대시보드 id
+  const [isEdit, setIsEdit] = useState(false);
 
   const onSubmit: SubmitHandler<toDoCardValue> = async (data) => {
-    const { assigneeUserId, title, description } = data;
-
-    const formData = new FormData();
+    const { assigneeUserId, title, description, dueDate, imageUrl } = data;
     // NOTE - 필수값
-    formData.append('assigneeUserId', assigneeUserId.toString());
-    formData.append('dashboardId', id.toString());
-    formData.append('columnId', columnId.toString());
-    formData.append('title', title);
-    formData.append('description', description);
+    const jsonObject: { [key: string]: any } = {
+      dashboardId: Number(id),
+      columnId: column,
+      title,
+      description,
+    };
 
     // NOTE - 선택값
-    if (tags.length > 0) {
-      formData.append('tags', JSON.stringify(tags));
-    }
+    if (assigneeUserId) jsonObject.assigneeUserId = assigneeUserId;
+    if (tags.length > 0) jsonObject.tags = tags;
+    if (dueDate) jsonObject.dueDate = dueDate;
 
-    if (data.dueDate) {
-      formData.append('dueDate', data.dueDate);
-    }
-
-    if (data.imageUrl) {
-      formData.append('imageUrl', data.imageUrl);
+    // 이미지 업로드 처리
+    if (imageUrl && imageUrl instanceof File) {
+      const formData = new FormData();
+      formData.append('image', imageUrl);
+      const imageResponse = await postToDoCardImage(formData, columnId);
+      jsonObject.imageUrl = imageResponse;
+    } else if (imageUrl) {
+      // 수정하기에서 사용자가 사진 변경 안 하고 그대로 수정하는 경우
+      jsonObject.imageUrl = imageUrl;
     }
 
     try {
-      const res = await postToDoCard(formData);
-      if (res) {
-        onClose();
+      if (isEdit && cardId) {
+        console.log(jsonObject);
+        await updateToDoCard(jsonObject, cardId);
+      } else {
+        await postToDoCard(jsonObject);
       }
+      onClose();
     } catch (error) {
-      // TODO - 에러났을 경우 토스트로 보여주기
-      console.error('할 일 카드 생성 중 오류 발생:', error);
+      console.error(
+        isEdit ? '할 일 카드 수정 오류' : '할 일 카드 생성 오류',
+        error
+      );
     }
   };
+
+  useEffect(() => {
+    if (toDoValue && !isEdit) {
+      setIsEdit(true);
+      setTags(toDoValue.tags);
+      reset(defaultValues);
+    }
+  }, [isEdit, reset, toDoValue]);
+
+  // NOTE - 모달이 닫힐 때 폼 초기화
+  useEffect(() => {
+    if (!isOpen) {
+      reset({
+        assigneeUserId: undefined,
+        title: '',
+        description: '',
+        dueDate: undefined,
+        imageUrl: '',
+      });
+      setTags([]);
+      setIsEdit(false);
+    }
+  }, [isOpen, reset]);
 
   if (!isOpen) return null;
 
@@ -82,7 +131,7 @@ export default function AddToDoModal({
       className="flex h-[70vh] w-[327px] flex-col text-left md:w-[506px] md:px-7 md:pb-7"
     >
       <h2 className="md:md-[32px] mb-[24px] px-5 pt-8 text-xl font-bold md:text-2xl">
-        할 일 생성
+        {isEdit ? '할 일 수정' : '할 일 생성'}
       </h2>
       <FormProvider {...methods}>
         <form
@@ -90,19 +139,21 @@ export default function AddToDoModal({
           className="flex flex-grow flex-col overflow-hidden px-5 pb-5"
         >
           <div className="flex flex-grow flex-col gap-6 overflow-y-auto overflow-x-hidden">
-            <div className="flex flex-col gap-y-2">
-              <p className="text-base font-medium md:text-lg">담당자</p>
-              <AssigneeUserDropdown dashboardId={id} />
+            <div className="flex flex-col gap-2 md:flex-row">
+              {isEdit && (
+                <ColumnDropdown
+                  dashboardId={id}
+                  columnId={column}
+                  setColumn={setColumn}
+                />
+              )}
+              <AssigneeUserDropdown
+                dashboardId={id}
+                isEdit={isEdit}
+                assigneeUserId={toDoValue?.assignee?.id}
+              />
             </div>
-            <InputField
-              id="title"
-              label="제목 *"
-              type="text"
-              placeholder="제목을 입력해 주세요"
-              register={register}
-              labelClassName="'font-medium text-base md:text-lg'"
-              error={errors.title?.message || ''}
-            />
+            <AddToDoTitleInput />
             <div className="flex flex-col gap-y-2">
               <label
                 htmlFor="description"
@@ -120,11 +171,20 @@ export default function AddToDoModal({
                 <p className="text-red-500">{errors.description.message}</p>
               )}
             </div>
-            <AddDueDateInput />
+            <AddDueDateInput
+              dueDateValue={toDoValue?.dueDate}
+              isEdit={isEdit}
+            />
             <AddTagInput tags={tags} setTags={setTags} />
             <div className="mb-4 flex flex-col gap-y-2">
               <p className="text-base font-medium md:text-lg">이미지</p>
-              <ImageInputField id="imageUrl" setValue={setValue} />
+              <ImageInputField
+                id="imageUrl"
+                setValue={setValue}
+                imageUrlValue={toDoValue?.imageUrl}
+                unregister={unregister}
+                size="76px"
+              />
             </div>
           </div>
           <div className="mt-5 flex gap-[11px] md:ml-auto">
@@ -135,13 +195,22 @@ export default function AddToDoModal({
             >
               취소
             </button>
-            <button
-              type="submit"
-              className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
-              disabled={!isValid}
-            >
-              생성
-            </button>
+            {isEdit ? (
+              <button
+                type="submit"
+                className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
+              >
+                수정
+              </button>
+            ) : (
+              <button
+                type="submit"
+                className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
+                disabled={!isValid}
+              >
+                생성
+              </button>
+            )}
           </div>
         </form>
       </FormProvider>

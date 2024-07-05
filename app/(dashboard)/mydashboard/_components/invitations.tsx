@@ -1,4 +1,5 @@
 import { INITIAL_NUMBER_OF_USERS } from '@/constants/TEAM_BASE_URL';
+import invitation from '@/public/images/none_invitation.svg';
 import { InvitationResponse } from '@/types/invitations';
 
 import { getInvitations } from '../actions';
@@ -12,14 +13,27 @@ export default async function Invitations() {
   const { invitations, cursorId } = data;
 
   return (
-    <section className="mt-6 bg-white px-4 py-6 md:px-7 md:py-8">
+    <section className="mt-6 w-full bg-white px-4 py-6 md:px-7 md:py-8">
       <h2 className="mb-5 text-xl font-bold text-gray-700">
         초대받은 대시보드
       </h2>
-      <InvitationContainer
+      {invitations.length === 0 ? (
+        <div className="h-[352px] w-full">
+          <div className="flex h-full flex-col items-center justify-center gap-4">
+            <div className="relative size-[60px] md:size-[100px]">
+              <Image src={invitation} fill alt="초대받은 대시보드 없음" />
+            </div>
+            <p className="text-sm font-normal text-gray-400 md:text-lg">
+              아직 초대받은 대시보드가 없어요
+            </p>
+          </div>
+        </div>
+      ) : (
+         <InvitationContainer
         initialInvitations={invitations}
         initialCursorId={cursorId}
       />
+      )}
     </section>
   );
 }

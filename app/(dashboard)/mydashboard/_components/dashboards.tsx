@@ -20,7 +20,11 @@ export default async function DashBoards() {
         <h2 className="text-xl font-bold">Dashboard</h2>
         <p>{totalCount}</p>
       </div>
-      <DashboardList initialData={dashboards} lastPage={lastPage} />
+      {totalCount === 0 ? (
+        <div className="h-[68px]" />
+      ) : (
+        <DashboardList initialData={dashboards} lastPage={lastPage} />
+      )}
     </section>
   );
 }

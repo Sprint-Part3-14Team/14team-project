@@ -6,6 +6,7 @@ interface ProfileImageProps {
   nickname: string;
   id: number;
   size: string;
+  textSize?: string;
 }
 
 export default function ProfileImage({
@@ -13,6 +14,7 @@ export default function ProfileImage({
   nickname,
   id,
   size,
+  textSize,
 }: ProfileImageProps) {
   const profileColor = useProfileColor(id);
   return (
@@ -32,7 +34,12 @@ export default function ProfileImage({
       ) : (
         <div
           className="flex size-[34px] items-center justify-center rounded-full border-2 border-white text-sm font-semibold text-white"
-          style={{ backgroundColor: profileColor, width: size, height: size }}
+          style={{
+            backgroundColor: profileColor,
+            width: size,
+            height: size,
+            fontSize: textSize,
+          }}
         >
           {nickname.charAt(0)}
         </div>

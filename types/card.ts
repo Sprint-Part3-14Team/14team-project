@@ -3,9 +3,9 @@ export interface CardData {
   title: string;
   description: string;
   tags: string[];
-  dueDate: string;
-  assignee: Assignee;
-  imageUrl: string;
+  dueDate: string | null;
+  assignee: Assignee | null;
+  imageUrl: string | null;
   teamId: string;
   columnId: number;
   createdAt: Date;
@@ -13,7 +13,7 @@ export interface CardData {
 }
 
 export interface Assignee {
-  profileImageUrl: string;
+  profileImageUrl: string | null;
   nickname: string;
   id: number;
 }

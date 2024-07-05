@@ -3,6 +3,7 @@
 import PageButton from '@/app/components/pagination/page-button';
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardDetail } from '@/types/dashboard';
+import makeDashboardArr from '@/utils/makeDashboardResponse';
 import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 
@@ -21,8 +22,9 @@ export default function DashboardList({
   const [dashboardList, setDashboardList] =
     useState<DashboardDetail[]>(initialData);
 
+  const token = getCookie('token');
+
   async function getData() {
-    const token = getCookie('token');
     const url = `${TEAM_BASE_URL}/dashboards?navigationMethod=pagination&page=${page}&size=6`;
 
     const res = await fetch(url, {
@@ -35,7 +37,31 @@ export default function DashboardList({
 
     const data = await res.json();
     const { dashboards } = data;
-    setDashboardList(dashboards);
+
+    const checkDashboard: DashboardDetail[] = dashboards.reduce(
+      (acc: DashboardDetail[], cur: DashboardDetail) => {
+        if (acc.findIndex(({ id }) => id === cur.id) === -1) {
+          acc.push(cur);
+        }
+        return acc;
+      },
+      []
+    );
+
+    // NOTE: 6개 이하일 경우(=중복 데이터 존재) 함수 호출
+    if (checkDashboard.length < 6) {
+      setDashboardList(
+        await makeDashboardArr(
+          checkDashboard,
+          page,
+          6 - checkDashboard.length,
+          token
+        )
+      );
+      return;
+    }
+
+    setDashboardList(checkDashboard);
   }
 
   const handleForward = () => {
