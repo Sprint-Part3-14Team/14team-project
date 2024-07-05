@@ -131,7 +131,7 @@ export default function AddToDoModal({
       setTags([]);
       setIsEdit(false);
     }
-  }, [isOpen, reset, columnIdProp]);
+  }, [isOpen, reset, columnIdProp, toDoValue]);
 
   if (!isOpen) return null;
 
