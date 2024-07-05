@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { postToDoCard, postToDoCardImage, updateToDoCard } from '../../action';
 import AddDueDateInput from './add-due-date-input';
@@ -93,20 +94,14 @@ export default function AddToDoModal({
     if (isEdit && !assigneeUserId) {
       jsonObject.assigneeUserId = null;
     }
-
-    try {
-      if (isEdit && cardId) {
-        await updateToDoCard(jsonObject, cardId);
-      } else {
-        await postToDoCard(jsonObject);
-      }
-      onClose();
-    } catch (error) {
-      console.error(
-        isEdit ? '할 일 카드 수정 오류' : '할 일 카드 생성 오류',
-        error
-      );
+    let res;
+    if (isEdit && cardId) {
+      res = await updateToDoCard(jsonObject, cardId);
+    } else {
+      res = await postToDoCard(jsonObject);
     }
+    onClose();
+    toast.success(res.message);
   };
 
   useEffect(() => {
