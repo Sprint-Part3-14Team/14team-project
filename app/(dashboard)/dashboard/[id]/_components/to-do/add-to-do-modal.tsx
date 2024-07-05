@@ -4,7 +4,7 @@ import ImageInputField from '@/app/components/image-input-field';
 import Modal from '@/app/components/modal';
 import createTodoSchema from '@/lib/schemas/createToDo';
 import { CardData } from '@/types/card';
-import { toDoCardValue } from '@/types/toDoCard';
+import { ToDoCardValue } from '@/types/toDoCard';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -39,7 +39,7 @@ export default function AddToDoModal({
     imageUrl: toDoValue?.imageUrl || '',
   };
 
-  const methods = useForm<toDoCardValue>({
+  const methods = useForm<ToDoCardValue>({
     resolver: yupResolver(createTodoSchema),
     mode: 'onChange',
     defaultValues,
@@ -57,8 +57,9 @@ export default function AddToDoModal({
   const { id } = useParams<{ id: string }>(); // 대시보드 id
   const [isEdit, setIsEdit] = useState(false);
 
-  const onSubmit: SubmitHandler<toDoCardValue> = async (data) => {
+  const onSubmit: SubmitHandler<ToDoCardValue> = async (data) => {
     const { assigneeUserId, title, description, dueDate, imageUrl } = data;
+
     // NOTE - 필수값
     const jsonObject: { [key: string]: any } = {
       dashboardId: Number(id),
@@ -81,11 +82,13 @@ export default function AddToDoModal({
     } else if (imageUrl) {
       // 수정하기에서 사용자가 사진 변경 안 하고 그대로 수정하는 경우
       jsonObject.imageUrl = imageUrl;
+    } else if (!imageUrl && isEdit) {
+      // 생성하기에서 사진 없이 생성하는 경우
+      jsonObject.imageUrl = null;
     }
 
     try {
       if (isEdit && cardId) {
-        console.log(jsonObject);
         await updateToDoCard(jsonObject, cardId);
       } else {
         await postToDoCard(jsonObject);
