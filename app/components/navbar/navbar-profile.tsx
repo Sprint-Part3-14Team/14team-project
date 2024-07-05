@@ -40,7 +40,7 @@ export default function NavbarProfile({ user }: { user: User }) {
             <p>{user.email}</p>
           </div>
           <div className="flex flex-col gap-2">
-            <Link href="/mydashboard">
+            <Link href="/mypage">
               <button type="button" className="h-11 w-full rounded-sm border">
                 마이페이지
               </button>

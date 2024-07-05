@@ -6,11 +6,13 @@ export default function ImageInputField({
   setValue,
   imageUrlValue,
   unregister,
+  size,
 }: {
   id: string;
   setValue: any;
   unregister?: any;
   imageUrlValue?: string | null;
+  size?: string;
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [initialImage, setInitialImage] = useState<string | null>(
@@ -35,7 +37,10 @@ export default function ImageInputField({
   return (
     <div>
       {initialImage || selectedImage ? (
-        <div className="relative size-[100px] md:size-[182px]">
+        <div
+          className="relative size-[100px] md:size-[182px]"
+          style={{ width: size, height: size }}
+        >
           <Image
             src={
               selectedImage
@@ -61,6 +66,7 @@ export default function ImageInputField({
         <label
           htmlFor={id}
           className="relative inline-block size-[100px] md:size-[182px]"
+          style={{ width: size, height: size }}
         >
           <input
             id={id}
@@ -77,7 +83,10 @@ export default function ImageInputField({
               fill
             />
           </div>
-          <div className="size-[100px] cursor-pointer rounded-md bg-gray-200 md:size-[182px]" />
+          <div
+            className="size-[100px] cursor-pointer rounded-md bg-gray-200 md:size-[182px]"
+            style={{ width: size, height: size }}
+          />
         </label>
       )}
     </div>
