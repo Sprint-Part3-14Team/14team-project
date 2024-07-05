@@ -31,8 +31,6 @@ export default function InviteModal({
     } catch (error: any) {
       if (error.name === 'ValidationError') {
         setEmailError(error.errors[0]);
-      } else if (error.response && error.response.status === 500) {
-        setEmailError('서버 오류가 발생했습니다. 나중에 다시 시도해 주세요.');
       } else {
         setEmailError('존재하지 않는 유저입니다.');
       }
