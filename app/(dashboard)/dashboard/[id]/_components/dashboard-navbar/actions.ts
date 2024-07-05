@@ -63,15 +63,13 @@ export async function MyEmail() {
     });
 
     if (!response.ok) {
-      throw new Error(
-        `서버에서 사용자 정보를 가져오지 못했습니다. 오류 코드: ${response.status}`
-      );
+      throw new Error(`서버에서 유저 정보를 가져오지 못했습니다.`);
     }
 
     const userData = await response.json();
-    return userData.email; // 혹은 필요한 사용자 정보를 반환
-  } catch (error: any) {
-    console.error('내 정보 조회 중 오류 발생:', error.message);
+    return userData.email;
+  } catch (error) {
+    console.error('서버 요청 중 오류 발생:', error);
     throw new Error('서버 요청 중 오류 발생');
   }
 }
