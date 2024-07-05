@@ -4,15 +4,21 @@ import { KeyboardEvent } from 'react';
 interface AddTagInputProps {
   tags: string[];
   setTags: React.Dispatch<React.SetStateAction<string[]>>;
+  setIsChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function AddTagInput({ tags, setTags }: AddTagInputProps) {
+export default function AddTagInput({
+  tags,
+  setTags,
+  setIsChange,
+}: AddTagInputProps) {
   function handleKeyDown(e: KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'Enter') {
       e.preventDefault();
       const value = (e.target as HTMLInputElement).value.trim();
       if (value && !tags.includes(value)) {
         setTags([...tags, value]);
+        setIsChange(true);
         (e.target as HTMLInputElement).value = '';
       } else {
         // NOTE - 같은 값 입력하는 경우
@@ -25,6 +31,7 @@ export default function AddTagInput({ tags, setTags }: AddTagInputProps) {
     const updatedTags = [...tags];
     updatedTags.splice(index, 1);
     setTags(updatedTags);
+    setIsChange(true);
   }
 
   return (

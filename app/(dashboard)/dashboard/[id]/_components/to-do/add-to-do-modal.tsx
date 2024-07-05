@@ -182,7 +182,11 @@ export default function AddToDoModal({
               dueDateValue={toDoValue?.dueDate}
               isEdit={isEdit}
             />
-            <AddTagInput tags={tags} setTags={setTags} />
+            <AddTagInput
+              tags={tags}
+              setTags={setTags}
+              setIsChange={setIsChange}
+            />
             <div className="mb-4 flex flex-col gap-y-2">
               <p className="text-base font-medium md:text-lg">이미지</p>
               <ImageInputField
