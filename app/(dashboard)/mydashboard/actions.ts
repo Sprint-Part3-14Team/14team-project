@@ -8,7 +8,8 @@ import { cookies } from 'next/headers';
 
 export async function getInvitations(
   size: number,
-  cursorId?: number
+  cursorId?: number,
+  searchTitle?: string
 ): Promise<InvitationResponse> {
   const token = cookies().get('token')?.value;
 
@@ -17,6 +18,10 @@ export async function getInvitations(
   // NOTE - cursorId가 존재하면 쿼리 파라미터에 추가
   if (cursorId !== undefined) {
     url += `&cursorId=${cursorId}`;
+  }
+
+  if (searchTitle) {
+    url += `&title=${searchTitle}`;
   }
 
   const res = await fetch(url, {
