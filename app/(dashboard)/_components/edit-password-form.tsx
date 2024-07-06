@@ -59,7 +59,7 @@ export default function EditPasswordForm() {
         <Button
           type="submit"
           variant="mobile84x28"
-          className="ml-auto mt-4 rounded bg-primary text-primary disabled:cursor-not-allowed disabled:bg-gray-400"
+          className="ml-auto mt-4 rounded bg-primary text-primary disabled:cursor-not-allowed disabled:bg-secondary-foreground"
           disabled={!isValid}
         >
           변경

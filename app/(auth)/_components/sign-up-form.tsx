@@ -107,7 +107,7 @@ export default function SignUpForm() {
       </div>
       <button
         type="submit"
-        className="mt-5 rounded-lg bg-primary py-4 text-primary disabled:cursor-not-allowed disabled:bg-gray-400"
+        className="mt-5 rounded-lg bg-primary py-4 text-primary-foreground disabled:cursor-not-allowed disabled:bg-secondary-foreground disabled:text-primary"
         disabled={!isValid}
       >
         회원가입

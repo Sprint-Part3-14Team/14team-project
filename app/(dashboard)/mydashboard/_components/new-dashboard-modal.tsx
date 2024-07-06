@@ -87,14 +87,14 @@ export default function NewDashboardModal({
           <Button
             variant="mobile138x42"
             onClick={onClose}
-            className="rounded-lg border border-solid border-gray-700 bg-background text-black"
+            className="rounded-lg border border-solid border-gray-700 bg-background text-primary-foreground"
           >
             취소
           </Button>
           <Button
             variant="mobile138x42"
             type="submit"
-            className={`ml-[12px] rounded-lg bg-primary text-primary md:mr-[28px] ${dashboardName && selectedColor ? 'cursor-default' : 'cursor-not-allowed'}`}
+            className={`ml-[12px] rounded-lg bg-primary text-primary-foreground md:mr-[28px] ${dashboardName && selectedColor ? 'cursor-default' : 'cursor-not-allowed'}`}
             disabled={!dashboardName || !selectedColor}
           >
             생성

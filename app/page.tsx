@@ -59,8 +59,8 @@ export default function Home() {
           <div className="my-[80px] text-center">
             <Buttons
               variant="mobile235x42"
-              href="/signin"
-              className="rounded-lg bg-primary text-primary"
+              href="/login"
+              className="rounded-lg bg-primary text-primary-foreground"
             >
               로그인하기
             </Buttons>

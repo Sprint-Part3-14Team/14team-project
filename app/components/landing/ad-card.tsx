@@ -20,7 +20,7 @@ export default function AdCard({
   };
 
   return (
-    <div className="w-full md:w-[378px]">
+    <div className="w-full text-primary-foreground md:w-[378px]">
       <div
         className={`h-[236px] rounded-t-lg bg-gray-600 px-10 md:h-[260px] md:px-[39px] ${imgContainerYPadding[yPadding]} `}
       >
@@ -33,7 +33,7 @@ export default function AdCard({
           />
         </div>
       </div>
-      <div className="h-[124px] rounded-b-lg bg-gray-800 py-[27px] pl-[32px] text-primary md:py-[33px]">
+      <div className="h-[124px] rounded-b-lg bg-gray-800 py-[27px] pl-[32px] md:py-[33px]">
         <p className="mb-[18px] text-lg font-bold">{title}</p>
         <p className="text-base font-medium">{description}</p>
       </div>
