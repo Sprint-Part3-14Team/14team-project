@@ -6,6 +6,7 @@ import ColorPicker from '@/app/components/color-picker';
 import Modal from '@/app/components/modal';
 import { Dashboard } from '@/types/dashboard';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import Postdashboard from './actions';
@@ -23,11 +24,18 @@ export default function NewDashboardModal({
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { isValid },
   } = useForm<Dashboard>({
     mode: 'onChange',
   });
   const router = useRouter();
+
+  useEffect(() => {
+    if (isOpen) {
+      reset({ title: '', color: '' });
+    }
+  }, [isOpen, reset]);
 
   const handleColorChange = (color: string) => {
     setValue('color', color);
