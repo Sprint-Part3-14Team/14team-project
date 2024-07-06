@@ -67,7 +67,7 @@ export default function ToDoCard({
                   </p>
                 </div>
               )}
-              <div className="flex items-center gap-x-[6px]">
+              <div className="ml-auto flex items-center gap-x-[6px]">
                 <div className="relative size-[22px] md:size-6">
                   {/* TODO 모바일일 때 size가 22px PC가 24px인데 어떻게 주어야 좋을까요 */}
                   {/* NOTE - 담당자 필수값 아닙니다! 없을 때도 있어요 */}
