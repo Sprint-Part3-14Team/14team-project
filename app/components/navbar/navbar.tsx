@@ -1,3 +1,4 @@
+import ModeToggle from '@/components/mode-toggle';
 import getLoggedInUser from '@/lib/api/getLoggedInUser';
 import logoSmall from '@/public/images/checkbox_logo.png';
 import textLogo from '@/public/images/todo_todo_text_logo.svg';
@@ -28,7 +29,10 @@ export default async function Navbar() {
             </div>
           </div>
         </Link>
-        <NavbarProfile user={user} />
+        <div className="flex items-center gap-x-4">
+          <ModeToggle />
+          <NavbarProfile user={user} />
+        </div>
       </div>
     </header>
   );
