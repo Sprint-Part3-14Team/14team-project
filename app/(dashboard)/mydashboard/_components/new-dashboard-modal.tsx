@@ -1,13 +1,13 @@
 'use client';
 
 import Button from '@/app/components/button';
+import ColorList from '@/app/components/color-list';
 import ColorPicker from '@/app/components/color-picker';
 import Modal from '@/app/components/modal';
 import { Dashboard } from '@/types/dashboard';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import ColorList from '../../dashboard/[id]/edit/_components/dashboard/color-list';
 import Postdashboard from './actions';
 
 interface NewDashboardModalProps {
