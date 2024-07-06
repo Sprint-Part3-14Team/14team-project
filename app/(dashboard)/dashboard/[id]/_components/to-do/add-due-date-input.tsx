@@ -24,9 +24,9 @@ export default function AddDueDateInput({
   const handleDateChange = (date: Date | null) => {
     if (date) {
       const formattedDate = formatDate(date, 'yyyy-MM-dd HH:mm');
-      setValue('dueDate', formattedDate);
+      setValue('dueDate', formattedDate, { shouldDirty: true });
     } else {
-      setValue('dueDate', '');
+      setValue('dueDate', '', { shouldDirty: true });
     }
     if (date !== dateValue) {
       // 상태가 바뀌었을 때만 업데이트

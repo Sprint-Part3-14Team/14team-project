@@ -15,6 +15,7 @@ const imageFileValidation = (value: any) => {
 };
 
 const createTodoSchema = yup.object().shape({
+  columnId: yup.number().required(),
   assigneeUserId: yup.number().nullable(),
   title: yup
     .string()

@@ -188,7 +188,7 @@ export default function ToDoModal({
       <AddToDoModal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
-        columnId={props.props.columnId}
+        columnIdProp={props.props.columnId}
         toDoValue={props.props}
         cardId={props.props.id}
       />

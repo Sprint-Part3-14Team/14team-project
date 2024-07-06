@@ -48,7 +48,7 @@ export async function postToDoCard(jsonObject: { [key: string]: any }) {
       case 404:
         throw new Error(data.message);
       default:
-        throw new Error('서버 오류가 발생했습니다');
+        throw new Error('카드 생성 중 오류가 발생했습니다');
     }
   }
 
@@ -72,15 +72,21 @@ export async function updateToDoCard(
     body: JSON.stringify(jsonObject),
   });
 
+  const data = await response.json();
+
   if (!response.ok) {
-    const errorData = await response.json();
-    console.error('카드 수정 실패:', errorData);
-    throw new Error('카드 수정 실패');
+    switch (response.status) {
+      case 400:
+        throw new Error(data.message);
+      case 404:
+        throw new Error(data.message);
+      default:
+        throw new Error('카드 수정 중 오류가 발생했습니다');
+    }
   }
 
-  const data = await response.json();
   revalidatePath(`/dashboard/${jsonObject.dashboardId}`);
-  return data;
+  return { message: '카드가 수정되었습니다.' };
 }
 
 export async function postToDoCardComment(commentData: {

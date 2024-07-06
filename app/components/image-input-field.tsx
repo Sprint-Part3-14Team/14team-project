@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ImageInputField({
   id,
@@ -7,31 +7,42 @@ export default function ImageInputField({
   imageUrlValue,
   unregister,
   size,
+  setIsChange,
 }: {
   id: string;
   setValue: any;
   unregister?: any;
   imageUrlValue?: string | null;
   size?: string;
+  setIsChange?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [initialImage, setInitialImage] = useState<string | null>(
-    imageUrlValue || null
-  );
+  const [initialImage, setInitialImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (imageUrlValue) {
+      setInitialImage(imageUrlValue);
+    }
+  }, [imageUrlValue]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       setSelectedImage(file);
       setValue(id, file);
+      if (setIsChange) {
+        setIsChange(true);
+      }
     }
   };
 
-  // TODO - 수정하기에서 이미지 x 누른 후 그대로 수정하면 오류남
   const handleImageDelete = () => {
     unregister(id);
     setSelectedImage(null);
     setInitialImage(null);
+    if (setIsChange) {
+      setIsChange(true);
+    }
   };
 
   return (

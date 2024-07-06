@@ -1,8 +1,8 @@
 import SingleInputModal from '@/app/components/single-input-modal';
 import inviteEmailSchema from '@/lib/schemas/inviteEmail';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import Invitedashboard from './actions';
+import { Invitedashboard } from './actions';
 
 interface InviteModalProps {
   isOpen: boolean;
@@ -18,19 +18,21 @@ export default function InviteModal({
   const [inviteEmail, setInviteEmail] = useState('');
   const [emailError, setEmailError] = useState<string>('');
 
+  useEffect(() => {
+    setInviteEmail('');
+    setEmailError('');
+  }, [isOpen]);
+
   const handleInviteByEmail = async () => {
     try {
       await inviteEmailSchema.validate({ email: inviteEmail });
-
-      const result = await Invitedashboard(dashboardId, inviteEmail);
-      console.log('초대 성공:', result);
+      await Invitedashboard(dashboardId, inviteEmail);
       onClose();
-      setInviteEmail('');
     } catch (error: any) {
       if (error.name === 'ValidationError') {
         setEmailError(error.errors[0]);
       } else {
-        console.error('대시보드 초대 오류:', error.message);
+        setEmailError('존재하지 않는 유저입니다.');
       }
     }
   };

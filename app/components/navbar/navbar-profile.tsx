@@ -1,16 +1,26 @@
 'use client';
 
 import { User } from '@/types/user';
+import { deleteCookie } from 'cookies-next';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import ProfileImage from '../profile/profile-image';
 
 export default function NavbarProfile({ user }: { user: User }) {
+  const router = useRouter();
   const [isProfileOptionOpen, setIsProfileOptionOpen] = useState(false);
 
   const handleProfileOption = () => {
     setIsProfileOptionOpen(!isProfileOptionOpen);
+  };
+
+  const handleLogout = () => {
+    deleteCookie('token');
+    router.push('/');
+    toast.success('로그아웃 되었습니다.');
   };
 
   return (
@@ -45,8 +55,11 @@ export default function NavbarProfile({ user }: { user: User }) {
                 마이페이지
               </button>
             </Link>
-            {/* TODO - 로그아웃 기능 */}
-            <button type="button" className="h-11 w-full rounded-sm border">
+            <button
+              type="button"
+              className="h-11 w-full rounded-sm border"
+              onClick={handleLogout}
+            >
               로그아웃
             </button>
           </div>
