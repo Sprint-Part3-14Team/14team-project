@@ -94,7 +94,7 @@ export default function NewDashboardModal({
           <Button
             variant="mobile138x42"
             type="submit"
-            className={`ml-[12px] rounded-lg bg-violet-primary text-white md:mr-[28px] ${dashboardName && selectedColor ? 'cursor-default' : 'cursor-not-allowed'}`}
+            className={`ml-[12px] rounded-lg bg-primary text-white md:mr-[28px] ${dashboardName && selectedColor ? 'cursor-default' : 'cursor-not-allowed'}`}
             disabled={!dashboardName || !selectedColor}
           >
             생성

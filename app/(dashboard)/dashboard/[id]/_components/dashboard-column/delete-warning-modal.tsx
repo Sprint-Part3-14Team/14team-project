@@ -36,7 +36,7 @@ export default function WarnimgModal({
           variant="mobile138x42"
           type="submit"
           onClick={onDelete}
-          className="ml-[12px] rounded-lg bg-violet-primary text-white"
+          className="ml-[12px] rounded-lg bg-primary text-white"
         >
           삭제
         </Button>

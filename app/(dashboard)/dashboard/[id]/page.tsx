@@ -58,7 +58,7 @@ async function Column({ data }: { data: ColumnData }) {
     <div className="min-h-full border-b border-gray-300 p-5 xl:min-w-[354px] xl:border-b-0 xl:border-l">
       <div className="flex items-center justify-between xl:mb-[25px] xl:mt-[2px]">
         <div className="flex items-center gap-x-2">
-          <div className="size-2 rounded-full bg-violet-primary" />
+          <div className="size-2 rounded-full bg-primary" />
           <div className="flex items-center gap-x-3">
             <p>{data.title}</p>
             <div className="flex size-5 items-center justify-center rounded bg-gray-200 px-2 py-1 text-xs font-medium text-gray-500">

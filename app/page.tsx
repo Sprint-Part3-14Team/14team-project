@@ -60,7 +60,7 @@ export default function Home() {
             <Buttons
               variant="mobile235x42"
               href="/signin"
-              className="rounded-lg bg-violet-primary text-white"
+              className="rounded-lg bg-primary text-white"
             >
               로그인하기
             </Buttons>

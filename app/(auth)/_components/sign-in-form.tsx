@@ -68,7 +68,7 @@ export default function SignInForm() {
       />
       <button
         type="submit"
-        className="mt-5 rounded-lg bg-violet-primary py-4 text-white disabled:cursor-not-allowed disabled:bg-gray-400"
+        className="mt-5 rounded-lg bg-primary py-4 text-white disabled:cursor-not-allowed disabled:bg-gray-400"
         disabled={!isValid}
       >
         로그인

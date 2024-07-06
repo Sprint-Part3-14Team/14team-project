@@ -95,7 +95,7 @@ export default function SingleInputModal({
             <Button
               variant="mobile138x42"
               type="submit"
-              className="ml-[12px] rounded-lg bg-violet-primary text-white"
+              className="ml-[12px] rounded-lg bg-primary text-white"
             >
               {buttonText}
             </Button>

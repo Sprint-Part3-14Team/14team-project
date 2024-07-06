@@ -207,7 +207,7 @@ export default function AddToDoModal({
             {isEdit ? (
               <button
                 type="submit"
-                className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
+                className="h-[42px] w-full rounded bg-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
                 disabled={!(isDirty && isValid) && !isChange}
               >
                 수정
@@ -215,7 +215,7 @@ export default function AddToDoModal({
             ) : (
               <button
                 type="submit"
-                className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
+                className="h-[42px] w-full rounded bg-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
                 disabled={!isValid}
               >
                 생성
