@@ -28,10 +28,10 @@ export default function ToDoCard({
       {/* eslint-disable-next-line */}
       <div
         onClick={handleOpenModal}
-        className="mt-[10px] flex cursor-pointer flex-col rounded-md border border-gray-300 bg-white p-3 md:flex-row md:items-center md:gap-x-5 xl:w-[314px] xl:flex-col"
+        className="mt-[10px] flex cursor-pointer flex-col rounded-md border border-gray-700 bg-foreground p-3 text-primary md:flex-row md:items-center md:gap-x-5 xl:w-[314px] xl:flex-col"
       >
         {props.imageUrl && (
-          <div className="relative h-[150px] rounded-md bg-gray-100 md:h-[53px] md:w-[90px] xl:h-[160px] xl:w-full">
+          <div className="relative h-[150px] rounded-md bg-background md:h-[53px] md:w-[90px] xl:h-[160px] xl:w-full">
             <Image
               src={props.imageUrl}
               alt="card-image"

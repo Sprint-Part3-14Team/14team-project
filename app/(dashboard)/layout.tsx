@@ -11,9 +11,9 @@ export default function DashboardLayout({
   return (
     <div className="flex overflow-hidden">
       <Sidebar />
-      <div className="w-full bg-gray-100">
+      <div className="w-full bg-background">
         <Navbar />
-        <div className="w-full">{children}</div>
+        <div className="w-full text-primary-foreground">{children}</div>
       </div>
     </div>
   );

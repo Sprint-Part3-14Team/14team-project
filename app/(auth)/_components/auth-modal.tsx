@@ -28,7 +28,7 @@ export default function SignModal({
         <Button
           onClick={onClose}
           variant="mobile138x42"
-          className="rounded-lg bg-primary text-sm text-white md:text-base"
+          className="rounded-lg bg-primary text-sm text-primary md:text-base"
         >
           확인
         </Button>

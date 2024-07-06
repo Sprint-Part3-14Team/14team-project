@@ -30,7 +30,7 @@ export default function PasswordInputField({
           type={passwordShown ? 'text' : 'password'}
           placeholder={placeholder}
           id={id}
-          className="h-[50px] rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
+          className="h-[50px] rounded-lg border border-gray-700 p-4 placeholder:text-gray-400"
         />
         <button
           className="absolute bottom-[25px] right-4 translate-y-1/2 cursor-pointer"

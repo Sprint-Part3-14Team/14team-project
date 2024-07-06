@@ -33,7 +33,7 @@ export default function AdCard({
           />
         </div>
       </div>
-      <div className="h-[124px] rounded-b-lg bg-gray-800 py-[27px] pl-[32px] text-white md:py-[33px]">
+      <div className="h-[124px] rounded-b-lg bg-gray-800 py-[27px] pl-[32px] text-primary md:py-[33px]">
         <p className="mb-[18px] text-lg font-bold">{title}</p>
         <p className="text-base font-medium">{description}</p>
       </div>

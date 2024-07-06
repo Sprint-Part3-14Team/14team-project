@@ -19,6 +19,10 @@ import {
 
 /* eslint-disable */
 
+/* eslint-disable */
+
+/* eslint-disable */
+
 interface DropdownContextType {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -56,7 +60,7 @@ function List({ children }: { children: React.ReactNode }) {
   return (
     <div>
       {isOpen && (
-        <ul className="absolute z-10 mt-2 w-full rounded-md border bg-white">
+        <ul className="absolute z-10 mt-2 w-full rounded-md border bg-background">
           {children}
         </ul>
       )}

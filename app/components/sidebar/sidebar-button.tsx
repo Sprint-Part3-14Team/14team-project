@@ -18,7 +18,7 @@ export default function SidebarButton() {
     <>
       <div className="mb-2 border-b pb-2">
         <button
-          className="size-[50px] rounded-full bg-red-200 text-center text-xl font-semibold text-white"
+          className="size-[50px] rounded-full bg-red-200 text-center text-xl font-semibold text-primary"
           type="button"
           onClick={handleOpenModal}
         >
@@ -29,7 +29,7 @@ export default function SidebarButton() {
       {/* NOTE - 나의 대시보드 페이지 */}
       <Link href="/mydashboard">
         <button
-          className="mb-[16px] size-[50px] rounded-full bg-orange-200 text-center text-xl font-semibold text-white"
+          className="mb-[16px] size-[50px] rounded-full bg-orange-200 text-center text-xl font-semibold text-primary"
           type="button"
         >
           +

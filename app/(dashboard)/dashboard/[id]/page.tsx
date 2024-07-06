@@ -46,7 +46,7 @@ async function getColumns(dashboardId: number) {
 
 function AddColumn() {
   return (
-    <div className="border-gray-300 px-[15px] py-3 md:p-5 xl:border-l xl:pt-[68px]">
+    <div className="border-gray-700 px-[15px] py-3 md:p-5 xl:border-l xl:pt-[68px]">
       <NewColumnButton />
     </div>
   );
@@ -55,7 +55,7 @@ function AddColumn() {
 async function Column({ data }: { data: ColumnData }) {
   const { cards } = await getCards(data.id);
   return (
-    <div className="min-h-full border-b border-gray-300 p-5 xl:min-w-[354px] xl:border-b-0 xl:border-l">
+    <div className="min-h-full border-b border-gray-700 p-5 xl:min-w-[354px] xl:border-b-0 xl:border-l">
       <div className="flex items-center justify-between xl:mb-[25px] xl:mt-[2px]">
         <div className="flex items-center gap-x-2">
           <div className="size-2 rounded-full bg-primary" />

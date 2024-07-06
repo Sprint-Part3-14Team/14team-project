@@ -79,7 +79,7 @@ export default function InvitationContainer({
       <div className="relative">
         <input
           type="text"
-          className="h-9 w-full rounded-md border border-gray-300 py-[10px] pl-[44px] placeholder:text-sm placeholder:text-gray-400"
+          className="h-9 w-full rounded-md border border-gray-700 py-[10px] pl-[44px] placeholder:text-sm placeholder:text-gray-400"
           placeholder="검색"
           onChange={debouncedOnChange}
         />

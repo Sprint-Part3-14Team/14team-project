@@ -72,7 +72,7 @@ export default function ToDoModal({
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        className="h-[708px] w-[calc(100vw-48px)] md:h-[770px] md:w-[calc(100vw-64px)] lg:w-[730px]"
+        className="h-[708px] w-[calc(100vw-48px)] text-primary md:h-[770px] md:w-[calc(100vw-64px)] lg:w-[730px]"
       >
         <div className="h-full p-3 md:px-[28px] md:py-[32px]">
           <div className="flex items-center justify-between">

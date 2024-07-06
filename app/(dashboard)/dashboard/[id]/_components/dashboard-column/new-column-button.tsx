@@ -18,7 +18,7 @@ export default function NewColumnButton() {
     <div>
       <button
         type="button"
-        className="flex h-[60px] w-full items-center justify-center gap-x-3 rounded-lg border border-gray-300 bg-white py-6 font-bold md:h-[70px] xl:w-[354px]"
+        className="flex h-[60px] w-full items-center justify-center gap-x-3 rounded-lg border border-gray-700 bg-background py-6 font-bold md:h-[70px] xl:w-[354px]"
         onClick={openModal}
       >
         새로운 컬럼 추가하기

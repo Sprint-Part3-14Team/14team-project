@@ -11,7 +11,7 @@ export default async function Navbar() {
   const user = await getLoggedInUser();
 
   return (
-    <header className="z-5 h-[60px] border-b border-gray-300 bg-white md:h-[70px]">
+    <header className="z-5 h-[60px] border-b border-gray-400 bg-background md:h-[70px]">
       <div className="flex items-center justify-between px-3 py-[13px] md:px-10 md:py-4">
         <Link href="/mydashboard">
           <div className="flex items-center">

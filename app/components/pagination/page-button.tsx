@@ -20,7 +20,7 @@ export default function PageButton({
   currentPage,
   totalPage,
 }: PageButtonProps) {
-  const buttonStyle = 'border border-solid border-gray-300 bg-white p-3';
+  const buttonStyle = 'border border-solid border-gray-700 bg-background p-3';
 
   return (
     <>

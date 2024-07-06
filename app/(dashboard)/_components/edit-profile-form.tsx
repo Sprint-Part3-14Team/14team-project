@@ -62,7 +62,7 @@ export default function EditProfileForm() {
   }, [token]);
 
   return (
-    <div className="mt-6 rounded-lg bg-white p-5">
+    <div className="mt-6 rounded-lg bg-background p-5">
       <p className="text-xl font-bold md:text-2xl">프로필</p>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -94,7 +94,7 @@ export default function EditProfileForm() {
           <Button
             type="submit"
             variant="mobile84x28"
-            className="ml-auto mt-4 rounded bg-primary text-white disabled:cursor-not-allowed disabled:bg-gray-400"
+            className="ml-auto mt-4 rounded bg-primary text-primary disabled:cursor-not-allowed disabled:bg-gray-400"
           >
             저장
           </Button>

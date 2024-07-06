@@ -40,7 +40,7 @@ export default function Modal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div
-        className={`modal-content overflow-hidden rounded-lg bg-white ${className}`}
+        className={`modal-content overflow-hidden rounded-lg bg-background ${className}`}
       >
         {children}
       </div>

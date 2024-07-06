@@ -16,7 +16,7 @@ import SnsLinkIcon from './components/landing/sns-link-icon';
 
 export default function Home() {
   return (
-    <div className="h-full w-full bg-black text-white">
+    <div className="h-full w-full bg-black text-primary">
       <header className="flex h-[60px] items-center justify-between px-6 md:h-[70px] md:px-10 xl:px-20">
         <h1>
           <div className="flex">
@@ -60,7 +60,7 @@ export default function Home() {
             <Buttons
               variant="mobile235x42"
               href="/signin"
-              className="rounded-lg bg-primary text-white"
+              className="rounded-lg bg-primary text-primary"
             >
               로그인하기
             </Buttons>
