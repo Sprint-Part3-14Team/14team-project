@@ -1,6 +1,6 @@
 'use client';
 
-import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { SIDE_DASHBOARD_COUNT, TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardDetail } from '@/types/dashboard';
 import makeDashboardArr from '@/utils/makeDashboardResponse';
 import { getCookie } from 'cookies-next';
@@ -25,7 +25,7 @@ export default function SidebarDashboardList({
   const token = getCookie('token');
 
   async function fetchData() {
-    const url = `${TEAM_BASE_URL}/dashboards?navigationMethod=pagination&page=${page}&size=10`;
+    const url = `${TEAM_BASE_URL}/dashboards?navigationMethod=pagination&page=${page}&size=${SIDE_DASHBOARD_COUNT}`;
 
     const res = await fetch(url, {
       method: 'GET',
@@ -48,13 +48,12 @@ export default function SidebarDashboardList({
       []
     );
 
-    // NOTE: 10개 이하일 경우(=중복 데이터 존재) 함수 호출
-    if (checkDashboard.length < 10) {
+    if (checkDashboard.length < SIDE_DASHBOARD_COUNT) {
       setDashboardList(
         await makeDashboardArr(
           checkDashboard,
           page,
-          10 - checkDashboard.length,
+          SIDE_DASHBOARD_COUNT - checkDashboard.length,
           token
         )
       );
@@ -78,12 +77,12 @@ export default function SidebarDashboardList({
 
   return (
     <>
-      <ul className="flex flex-col gap-[16px]">
+      <ul className="flex flex-col gap-[16px] pb-5">
         {dashboardList.map((dashboard: DashboardDetail) => (
           <SidebarDashboardCard dashboard={dashboard} key={dashboard.id} />
         ))}
       </ul>
-      <div className="mt-9 hidden text-center md:fixed md:bottom-7 md:left-3 md:flex md:h-10 md:w-20">
+      <div className="text-center md:flex md:h-10 md:w-20">
         <PageButton
           goToForward={handleForward}
           goToNext={handleNext}
