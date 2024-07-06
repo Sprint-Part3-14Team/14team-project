@@ -54,7 +54,7 @@ export default function ToDoCard({
               {/* NOTE - dueDate가 아니라 createdAt으로 되어있었어요 */}
               {props.dueDate && (
                 <div className="flex items-center gap-x-[6px] md:ml-4 xl:ml-0">
-                  <div className="relative ml-auto size-[14px] md:size-[18px]">
+                  <div className="relative size-[14px] md:size-[18px]">
                     <Image
                       src="/icons/icon_calendar.svg"
                       fill
