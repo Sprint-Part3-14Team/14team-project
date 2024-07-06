@@ -1,4 +1,3 @@
-/* eslint-disable */
 'use client';
 
 import ColumnTag from '@/app/components/column-tag';
@@ -15,22 +14,6 @@ import { useState } from 'react';
 import AddToDoModal from '../dashboard/[id]/_components/to-do/add-to-do-modal';
 import Tag from './tag';
 import TodoModalComment from './todo-modal-comment';
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
 
 /* eslint-disable */
 
@@ -143,9 +126,9 @@ export default function ToDoModal({
               <div className="flex w-full flex-col">
                 <p className="text-[10px] font-semibold md:text-xs">담당자</p>
                 {/* NOTE - 담당자 없을 때도 있습니다 */}
-                {props.props.assignee && (
-                  <div className="flex items-center gap-x-2">
-                    <div className="relative size-[26px] md:size-[34px]">
+                {props.props.assignee ? (
+                  <div className="mt-1 flex items-center gap-x-2">
+                    <div className="relative flex size-[26px] items-center md:size-[34px]">
                       <ProfileImage
                         profileImageUrl={props.props.assignee.profileImageUrl}
                         nickname={props.props.assignee.nickname}
@@ -155,13 +138,18 @@ export default function ToDoModal({
                     </div>
                     <p>{props.props.assignee.nickname}</p>
                   </div>
+                ) : (
+                  <p className="mt-1 text-xs md:text-sm">
+                    담당자가 존재하지 않습니다.
+                  </p>
                 )}
               </div>
               <div className="flex-flex-col w-full">
                 <p className="text-[10px] font-semibold md:text-xs">마감일</p>
-                <p className="text-xs md:text-sm">
-                  {props.props.dueDate &&
-                    formatDate(new Date(props.props.dueDate))}
+                <p className="mt-1 text-xs md:text-sm">
+                  {props.props.dueDate
+                    ? formatDate(new Date(props.props.dueDate))
+                    : '마감일이 설정되지 않았습니다.'}
                 </p>
               </div>
             </div>
@@ -200,7 +188,7 @@ export default function ToDoModal({
       <AddToDoModal
         isOpen={isEditModalOpen}
         onClose={() => setIsEditModalOpen(false)}
-        columnId={props.props.columnId}
+        columnIdProp={props.props.columnId}
         toDoValue={props.props}
         cardId={props.props.id}
       />

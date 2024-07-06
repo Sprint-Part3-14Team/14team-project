@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import { postToDoCard, postToDoCardImage, updateToDoCard } from '../../action';
 import AddDueDateInput from './add-due-date-input';
@@ -20,19 +21,20 @@ import ColumnDropdown from './column-dropdown';
 interface AddToDoModalProps {
   isOpen: boolean;
   onClose: () => void;
-  columnId: number;
+  columnIdProp: number;
   toDoValue?: CardData;
   cardId?: number;
 }
 export default function AddToDoModal({
   isOpen,
   onClose,
-  columnId,
+  columnIdProp,
   toDoValue,
   cardId,
 }: AddToDoModalProps) {
   const defaultValues = {
-    assigneeUserId: toDoValue?.assignee?.id || undefined,
+    columnId: toDoValue?.columnId || columnIdProp,
+    assigneeUserId: toDoValue?.assignee?.id || null,
     title: toDoValue?.title || '',
     description: toDoValue?.description || '',
     dueDate: toDoValue?.dueDate || undefined,
@@ -50,20 +52,22 @@ export default function AddToDoModal({
     handleSubmit,
     setValue,
     reset,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isDirty },
   } = methods;
   const [tags, setTags] = useState<string[]>(toDoValue?.tags || []);
-  const [column, setColumn] = useState(columnId);
+  // const [column, setColumn] = useState(columnId);
   const { id } = useParams<{ id: string }>(); // 대시보드 id
   const [isEdit, setIsEdit] = useState(false);
+  const [isChange, setIsChange] = useState(false);
 
   const onSubmit: SubmitHandler<ToDoCardValue> = async (data) => {
-    const { assigneeUserId, title, description, dueDate, imageUrl } = data;
+    const { assigneeUserId, title, description, dueDate, imageUrl, columnId } =
+      data;
 
     // NOTE - 필수값
     const jsonObject: { [key: string]: any } = {
       dashboardId: Number(id),
-      columnId: column,
+      columnId,
       title,
       description,
     };
@@ -88,17 +92,17 @@ export default function AddToDoModal({
     }
 
     try {
+      let res;
       if (isEdit && cardId) {
-        await updateToDoCard(jsonObject, cardId);
+        res = await updateToDoCard(jsonObject, cardId);
+        // NOTE - 수정인 경우에만 toast
+        toast.success(res.message);
       } else {
-        await postToDoCard(jsonObject);
+        res = await postToDoCard(jsonObject);
       }
       onClose();
-    } catch (error) {
-      console.error(
-        isEdit ? '할 일 카드 수정 오류' : '할 일 카드 생성 오류',
-        error
-      );
+    } catch (error: any) {
+      toast.error(error.message);
     }
   };
 
@@ -114,7 +118,8 @@ export default function AddToDoModal({
   useEffect(() => {
     if (!isOpen) {
       reset({
-        assigneeUserId: undefined,
+        columnId: columnIdProp,
+        assigneeUserId: null,
         title: '',
         description: '',
         dueDate: undefined,
@@ -123,7 +128,7 @@ export default function AddToDoModal({
       setTags([]);
       setIsEdit(false);
     }
-  }, [isOpen, reset]);
+  }, [isOpen, reset, columnIdProp, toDoValue]);
 
   if (!isOpen) return null;
 
@@ -144,11 +149,7 @@ export default function AddToDoModal({
           <div className="flex flex-grow flex-col gap-6 overflow-y-auto overflow-x-hidden">
             <div className="flex flex-col gap-2 md:flex-row">
               {isEdit && (
-                <ColumnDropdown
-                  dashboardId={id}
-                  columnId={column}
-                  setColumn={setColumn}
-                />
+                <ColumnDropdown dashboardId={id} columnId={columnIdProp} />
               )}
               <AssigneeUserDropdown
                 dashboardId={id}
@@ -178,7 +179,11 @@ export default function AddToDoModal({
               dueDateValue={toDoValue?.dueDate}
               isEdit={isEdit}
             />
-            <AddTagInput tags={tags} setTags={setTags} />
+            <AddTagInput
+              tags={tags}
+              setTags={setTags}
+              setIsChange={setIsChange}
+            />
             <div className="mb-4 flex flex-col gap-y-2">
               <p className="text-base font-medium md:text-lg">이미지</p>
               <ImageInputField
@@ -187,6 +192,7 @@ export default function AddToDoModal({
                 imageUrlValue={toDoValue?.imageUrl}
                 unregister={unregister}
                 size="76px"
+                setIsChange={setIsChange}
               />
             </div>
           </div>
@@ -202,6 +208,7 @@ export default function AddToDoModal({
               <button
                 type="submit"
                 className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
+                disabled={!(isDirty && isValid) && !isChange}
               >
                 수정
               </button>

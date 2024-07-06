@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use client';
 
 import Dropdown from '@/app/components/dropdown';
@@ -7,6 +8,12 @@ import { DashboardMembers } from '@/types/members';
 import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
 
 interface AssigneeUserDropdownProps {
   dashboardId: string;
@@ -60,7 +67,11 @@ export default function AssigneeUserDropdown({
 
   const handleItemClick = (userId: number) => {
     // 선택된 담당자 ID를 react-hook-form 필드에 설정
-    setValue('assigneeUserId', userId);
+    setValue('assigneeUserId', userId, { shouldDirty: true });
+  };
+
+  const handleDeleteItem = () => {
+    setValue('assigneeUserId', null, { shouldDirty: true });
   };
 
   useEffect(() => {
@@ -86,11 +97,20 @@ export default function AssigneeUserDropdown({
             </div>
           ) : (
             <p className="text-sm font-normal text-gray-400">
-              이름을 입력해 주세요
+              담당자를 선택해 주세요
             </p>
           )}
         </Dropdown.Toggle>
         <Dropdown.List>
+          <Dropdown.Item>
+            {/* NOTE - 담당자 취소 */}
+            <div
+              className="flex h-full w-full text-sm font-normal text-gray-400"
+              onClick={() => handleDeleteItem()}
+            >
+              담당자를 선택해 주세요
+            </div>
+          </Dropdown.Item>
           {members.map((member) => (
             <Dropdown.Item key={member.userId}>
               <div

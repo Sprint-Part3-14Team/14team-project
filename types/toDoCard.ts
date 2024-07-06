@@ -1,4 +1,5 @@
 export interface ToDoCardValue {
+  columnId: number;
   assigneeUserId?: number | null;
   title: string;
   description: string;
