@@ -41,13 +41,13 @@ export default function DashboardCard({ dashboard }: DashboardProps) {
     <li key={dashboard.id}>
       <Link
         href={`/dashboard/${dashboard.id}`}
-        className="relative flex h-20 items-center justify-between rounded-lg border border-gray-300 bg-white px-5 py-5"
+        className="relative flex h-20 items-center justify-between rounded-lg border border-gray-600 bg-secondary-foreground px-5 py-5"
       >
         <div
           className="absolute left-0 top-[50%] h-7 w-1 translate-y-[-50%] rounded-r-lg"
           style={{ backgroundColor: dashboard.color }}
         />
-        <p className="text-sm font-semibold text-gray-700">{dashboard.title}</p>
+        <p className="text-sm font-semibold">{dashboard.title}</p>
         {ownerUser && (
           <ProfileImage
             nickname={ownerUser.nickname}

@@ -1,12 +1,13 @@
 'use server';
 
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { DashboardDetail } from '@/types/dashboard';
 import { cookies } from 'next/headers';
 
 export default async function Postdashboard(
   dashboardName: string,
   selectedColor: string
-) {
+): Promise<DashboardDetail> {
   if (!dashboardName || !selectedColor) {
     throw new Error('유효하지 않은 입력입니다');
   }
@@ -30,5 +31,7 @@ export default async function Postdashboard(
     throw new Error('대시보드 생성을 실패했습니다');
   }
 
-  return response.json();
+  const data: DashboardDetail = await response.json();
+
+  return data;
 }

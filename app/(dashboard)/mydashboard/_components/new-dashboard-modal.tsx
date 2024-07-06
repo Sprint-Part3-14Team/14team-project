@@ -38,6 +38,10 @@ export default function NewDashboardModal({
     try {
       const createdDashboard = await Postdashboard(title, color);
       router.push(`/dashboard/${createdDashboard.id}`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 400);
+
       onClose();
     } catch (error: any) {
       console.error('대시보드 생성 오류:', error.message);
@@ -58,7 +62,7 @@ export default function NewDashboardModal({
       <form onSubmit={handleSubmit(createDashboardInfo)}>
         <label
           htmlFor="dashboardName"
-          className="ml-[20px] mt-[24px] block text-base font-medium text-gray-700 md:ml-[28px] md:mt-[32px] md:text-lg"
+          className="ml-[20px] mt-[24px] block text-base font-medium md:ml-[28px] md:mt-[32px] md:text-lg"
         >
           대시보드 이름
         </label>
@@ -68,7 +72,7 @@ export default function NewDashboardModal({
             id="title"
             type="text"
             placeholder="대시보드 이름"
-            className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-300 pl-[16px] text-sm font-normal text-gray-700 md:h-[48px] md:w-[484px] md:text-base"
+            className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-700 pl-[16px] text-sm font-normal md:h-[48px] md:w-[484px] md:text-base"
           />
         </div>
         <div className="ml-[261px] mt-[10px] text-sm md:ml-[270px]">
@@ -91,14 +95,14 @@ export default function NewDashboardModal({
           <Button
             variant="mobile138x42"
             onClick={onClose}
-            className="rounded-lg border border-solid border-gray-300 bg-white text-black"
+            className="rounded-lg border border-solid border-gray-700 bg-background text-primary-foreground"
           >
             취소
           </Button>
           <Button
             variant="mobile138x42"
             type="submit"
-            className="ml-[12px] rounded-lg bg-violet-primary text-white md:mr-[28px]"
+            className="ml-[12px] rounded-lg bg-primary text-primary-foreground md:mr-[28px]"
             disabled={!isValid}
           >
             생성

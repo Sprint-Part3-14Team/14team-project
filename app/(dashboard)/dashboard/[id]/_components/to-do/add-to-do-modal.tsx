@@ -167,7 +167,7 @@ export default function AddToDoModal({
               </label>
               <textarea
                 id="description"
-                className="h-[84px] resize-none rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
+                className="h-[84px] resize-none rounded-lg border border-gray-700 p-4 placeholder:text-gray-400"
                 placeholder="설명을 입력해 주세요"
                 {...register('description')}
               />
@@ -199,7 +199,7 @@ export default function AddToDoModal({
           <div className="mt-5 flex gap-[11px] md:ml-auto">
             <button
               type="button"
-              className="h-[42px] w-full rounded border border-gray-300 bg-white text-center text-sm font-medium text-gray-500 md:w-[120px] md:text-base"
+              className="h-[42px] w-full rounded border border-gray-700 bg-background text-center text-sm font-medium text-gray-500 md:w-[120px] md:text-base"
               onClick={onClose}
             >
               취소
@@ -207,7 +207,7 @@ export default function AddToDoModal({
             {isEdit ? (
               <button
                 type="submit"
-                className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
+                className="h-[42px] w-full rounded bg-primary text-center text-sm font-medium text-primary-foreground disabled:bg-secondary-foreground md:w-[120px] md:text-base"
                 disabled={!(isDirty && isValid) && !isChange}
               >
                 수정
@@ -215,7 +215,7 @@ export default function AddToDoModal({
             ) : (
               <button
                 type="submit"
-                className="h-[42px] w-full rounded bg-violet-primary text-center text-sm font-medium text-white disabled:bg-gray-400 md:w-[120px] md:text-base"
+                className="h-[42px] w-full rounded bg-primary text-center text-sm font-medium text-primary-foreground disabled:bg-secondary-foreground md:w-[120px] md:text-base"
                 disabled={!isValid}
               >
                 생성

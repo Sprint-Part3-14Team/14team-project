@@ -13,7 +13,7 @@ export default function AddToDoTitleInput() {
       <input
         type="text"
         placeholder="제목을 입력해 주세요"
-        className="h-[50px] rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
+        className="h-[50px] rounded-lg border border-gray-700 p-4 placeholder:text-gray-400"
         {...register('title')}
       />
       {errors.title && typeof errors.title.message === 'string' && (

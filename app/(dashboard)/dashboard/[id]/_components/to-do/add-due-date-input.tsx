@@ -54,7 +54,7 @@ export default function AddDueDateInput({
           {...register('dueDate')}
           id="dueDate"
           onChange={handleDateChange}
-          className="h-[50px] rounded-lg border border-gray-300 py-4 pl-[46px] pr-4 placeholder:text-gray-400"
+          className="h-[50px] rounded-lg border border-gray-700 py-4 pl-[46px] pr-4 placeholder:text-gray-400"
           placeholderText="날짜를 입력해 주세요"
           minDate={new Date()} // NOTE - 오늘 이전의 날짜 선택 불가능하게 설정
         />

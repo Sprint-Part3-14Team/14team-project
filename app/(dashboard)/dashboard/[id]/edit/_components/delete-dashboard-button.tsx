@@ -31,7 +31,7 @@ export default function DeleteDashboardButton({
     <button
       type="button"
       onClick={deleteHandler}
-      className="my-6 h-[52px] w-[284px] rounded-lg border border-gray-300 md:my-8 md:h-[62px] md:w-80"
+      className="my-6 h-[52px] w-[284px] rounded-lg border border-gray-700 md:my-8 md:h-[62px] md:w-80"
     >
       대시보드 삭제하기
     </button>

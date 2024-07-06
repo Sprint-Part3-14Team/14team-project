@@ -21,7 +21,7 @@ export default async function DashboardNavbar({ id }: { id: number }) {
   );
 
   return (
-    <section className="top-[60px] flex h-[60px] items-center justify-between border-b border-gray-300 bg-white px-3 py-1 md:top-[70px] md:px-10">
+    <section className="top-[60px] flex h-[60px] items-center justify-between border-b border-gray-600 bg-background px-3 py-1 md:top-[70px] md:px-10">
       <div className="flex items-center gap-1">
         <h2 className="text-lg font-bold">{data.title}</h2>
         {data.createdByMe && (

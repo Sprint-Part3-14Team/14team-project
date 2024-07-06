@@ -9,7 +9,7 @@ export default function Login() {
       <SignInForm />
       <p className="mt-6">
         회원이 아니신가요?{' '}
-        <Link href="/signup" className="text-violet-primary underline">
+        <Link href="/signup" className="text-primary underline">
           회원가입하기
         </Link>
       </p>

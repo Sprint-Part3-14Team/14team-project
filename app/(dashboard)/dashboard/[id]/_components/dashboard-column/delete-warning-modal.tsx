@@ -28,7 +28,7 @@ export default function WarnimgModal({
         <Button
           variant="mobile138x42"
           onClick={onClose}
-          className="rounded-lg border border-solid border-gray-300 bg-white text-black"
+          className="rounded-lg border border-solid border-gray-700 bg-background text-black"
         >
           취소
         </Button>
@@ -36,7 +36,7 @@ export default function WarnimgModal({
           variant="mobile138x42"
           type="submit"
           onClick={onDelete}
-          className="ml-[12px] rounded-lg bg-violet-primary text-white"
+          className="ml-[12px] rounded-lg bg-primary text-primary"
         >
           삭제
         </Button>

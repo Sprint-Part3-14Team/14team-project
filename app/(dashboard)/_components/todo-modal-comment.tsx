@@ -136,7 +136,7 @@ export default function TodoModalComment({ ...props }: { props: CardData }) {
         <Button
           type="submit"
           variant="mobile84x28"
-          className="ml-auto rounded-md border bg-white text-violet-primary"
+          className="ml-auto rounded-md border bg-background text-primary"
           disabled={comment.length === 0}
         >
           작성

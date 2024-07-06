@@ -28,10 +28,10 @@ export default function ToDoCard({
       {/* eslint-disable-next-line */}
       <div
         onClick={handleOpenModal}
-        className="mt-[10px] flex cursor-pointer flex-col rounded-md border border-gray-300 bg-white p-3 md:flex-row md:items-center md:gap-x-5 xl:w-[314px] xl:flex-col"
+        className="mt-[10px] flex cursor-pointer flex-col rounded-md border border-gray-700 bg-foreground p-3 text-primary-foreground md:flex-row md:items-center md:gap-x-5 xl:w-[314px] xl:flex-col"
       >
         {props.imageUrl && (
-          <div className="relative h-[150px] rounded-md bg-gray-100 md:h-[53px] md:w-[90px] xl:h-[160px] xl:w-full">
+          <div className="relative h-[150px] rounded-md bg-background md:h-[53px] md:w-[90px] xl:h-[160px] xl:w-full">
             <Image
               src={props.imageUrl}
               alt="card-image"
@@ -51,19 +51,22 @@ export default function ToDoCard({
               ))}
             </div>
             <div className="flex w-full items-center justify-between">
-              <div className="flex items-center gap-x-[6px] md:ml-4 xl:ml-0">
-                <div className="relative size-[14px] md:size-[18px]">
-                  <Image
-                    src="/icons/icon_calendar.svg"
-                    fill
-                    sizes="100vw"
-                    alt="calendar"
-                  />
+              {/* NOTE - dueDate가 아니라 createdAt으로 되어있었어요 */}
+              {props.dueDate && (
+                <div className="flex items-center gap-x-[6px] md:ml-4 xl:ml-0">
+                  <div className="relative size-[14px] md:size-[18px]">
+                    <Image
+                      src="/icons/icon_calendar.svg"
+                      fill
+                      sizes="100vw"
+                      alt="calendar"
+                    />
+                  </div>
+                  <p className="text-[10px] md:text-xs">
+                    {formatDate(new Date(props.dueDate))}
+                  </p>
                 </div>
-                <p className="text-[10px] md:text-xs">
-                  {formatDate(props.createdAt)}
-                </p>
-              </div>
+              )}
               <div className="flex items-center gap-x-[6px]">
                 <div className="relative size-[22px] md:size-6">
                   {/* TODO 모바일일 때 size가 22px PC가 24px인데 어떻게 주어야 좋을까요 */}

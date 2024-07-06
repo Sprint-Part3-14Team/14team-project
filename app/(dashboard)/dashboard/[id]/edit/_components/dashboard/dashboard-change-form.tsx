@@ -48,12 +48,12 @@ export default function DashboardChangeForm({
           type="text"
           placeholder="변경할 이름을 입력해주세요"
           id="title"
-          className="mb-4 mt-3 h-[42px] w-full rounded-lg border border-gray-300 py-3 pl-4 placeholder:text-gray-400"
+          className="mb-4 mt-3 h-[42px] w-full rounded-lg border border-gray-700 py-3 pl-4 placeholder:text-gray-400"
         />
         <div className="text-right">
           <button
             type="submit"
-            className="h-7 w-[84px] rounded bg-violet-primary text-xs text-white"
+            className="h-7 w-[84px] rounded bg-primary text-xs text-primary-foreground"
           >
             변경
           </button>

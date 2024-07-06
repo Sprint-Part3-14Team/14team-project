@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import React, { useState } from 'react';
 
@@ -18,18 +17,13 @@ export default function NewColumnButton() {
     <div>
       <button
         type="button"
-        className="flex h-[60px] w-full items-center justify-center gap-x-3 rounded-lg border border-gray-300 bg-white py-6 font-bold md:h-[70px] xl:w-[354px]"
+        className="flex h-[60px] w-full items-center justify-center gap-x-3 rounded-lg border border-gray-700 bg-background py-6 font-bold md:h-[70px] xl:w-[354px]"
         onClick={openModal}
       >
         새로운 컬럼 추가하기
-        <div className="relative size-5 md:size-[22px]">
-          <Image
-            src="/icons/icon_add_column.svg"
-            alt="새로운 컬럼 추가하기"
-            fill
-            sizes="100vw"
-          />
-        </div>
+        <p className="flex size-5 items-center justify-center rounded bg-secondary-foreground text-lg font-medium text-primary md:size-[22px]">
+          +
+        </p>
       </button>
       <NewColumnModal
         isOpen={isModalOpen}

@@ -44,7 +44,7 @@ export default function AddTagInput({
         type="text"
         name="tags"
         placeholder="입력 후 Enter"
-        className="h-[50px] rounded-lg border border-gray-300 p-4 placeholder:text-gray-400"
+        className="h-[50px] rounded-lg border border-gray-700 p-4 placeholder:text-gray-400"
         onKeyDown={handleKeyDown}
       />
       <div className="flex gap-1">

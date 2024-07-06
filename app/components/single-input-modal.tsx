@@ -53,7 +53,7 @@ export default function SingleInputModal({
       <form onSubmit={handleSubmit}>
         <label
           htmlFor={inputId}
-          className="ml-[20px] mt-[24px] block text-base font-medium text-gray-700 md:ml-[28px] md:mt-[32px] md:text-lg"
+          className="ml-[20px] mt-[24px] block text-base font-medium md:ml-[28px] md:mt-[32px] md:text-lg"
         >
           {labelText}
         </label>
@@ -64,7 +64,7 @@ export default function SingleInputModal({
             value={inputValue}
             placeholder={placeholder}
             onChange={handleInputChange}
-            className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-300 pl-[16px] text-sm font-normal text-gray-700 md:h-[48px] md:w-[484px] md:text-base"
+            className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-700 pl-[16px] text-sm font-normal md:h-[48px] md:w-[484px] md:text-base"
           />
         </div>
         {error && (
@@ -88,14 +88,14 @@ export default function SingleInputModal({
             <Button
               variant="mobile138x42"
               onClick={onClose}
-              className="rounded-lg border border-solid border-gray-300 bg-white text-black"
+              className="rounded-lg border border-solid border-gray-700 bg-background text-primary-foreground"
             >
               취소
             </Button>
             <Button
               variant="mobile138x42"
               type="submit"
-              className="ml-[12px] rounded-lg bg-violet-primary text-white"
+              className="ml-[12px] rounded-lg bg-primary text-primary-foreground"
             >
               {buttonText}
             </Button>

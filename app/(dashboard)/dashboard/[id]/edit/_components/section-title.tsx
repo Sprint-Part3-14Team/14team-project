@@ -9,7 +9,7 @@ export default function SectionTitle({
 }: SectionTitleProps) {
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-700">{sectionTitle}</h2>
+      <h2 className="text-xl font-bold">{sectionTitle}</h2>
       <h3 className="mb-5 mt-6 text-sm text-gray-400 md:mb-6 md:mt-8 md:text-base">
         {listTitle}
       </h3>

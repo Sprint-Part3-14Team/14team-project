@@ -21,7 +21,7 @@ export default function ProfileImage({
     <div>
       {profileImageUrl ? (
         <div
-          className="relative size-[34px] border-2 border-white"
+          className="relative size-[34px] rounded-full border border-white"
           style={{ width: size, height: size }}
         >
           <Image
@@ -33,7 +33,7 @@ export default function ProfileImage({
         </div>
       ) : (
         <div
-          className="flex size-[34px] items-center justify-center rounded-full border-2 border-white text-sm font-semibold text-white"
+          className="flex size-[34px] items-center justify-center rounded-full border border-white text-sm font-semibold text-primary-foreground"
           style={{
             backgroundColor: profileColor,
             width: size,
