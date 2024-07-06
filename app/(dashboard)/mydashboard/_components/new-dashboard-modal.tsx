@@ -59,7 +59,7 @@ export default function NewDashboardModal({
       >
         <label
           htmlFor="dashboardName"
-          className="ml-[20px] mt-[24px] block text-base font-medium text-gray-700 md:ml-[28px] md:mt-[32px] md:text-lg"
+          className="ml-[20px] mt-[24px] block text-base font-medium md:ml-[28px] md:mt-[32px] md:text-lg"
         >
           대시보드 이름
         </label>
@@ -70,7 +70,7 @@ export default function NewDashboardModal({
             placeholder="대시보드 이름"
             value={dashboardName}
             onChange={(e) => setDashboardName(e.target.value)}
-            className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-700 pl-[16px] text-sm font-normal text-gray-700 md:h-[48px] md:w-[484px] md:text-base"
+            className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-700 pl-[16px] text-sm font-normal md:h-[48px] md:w-[484px] md:text-base"
           />
         </div>
         <div className="ml-[261px] mt-[10px] text-sm md:ml-[270px]">

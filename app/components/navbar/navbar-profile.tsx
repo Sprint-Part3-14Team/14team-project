@@ -35,7 +35,7 @@ export default function NavbarProfile({ user }: { user: User }) {
         id={user.id}
         size="34px"
       />
-      <p className="hidden text-gray-700 md:block">{user.nickname}</p>
+      <p className="hidden md:block">{user.nickname}</p>
       {isProfileOptionOpen && (
         <div className="absolute right-0 top-10 z-[9999] flex h-[280px] w-[250px] flex-col justify-between rounded-md border bg-background p-5">
           <div className="flex flex-col items-center">

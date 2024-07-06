@@ -23,13 +23,13 @@ export default function InvitationCard({
       <div className="flex flex-col gap-[10px] md:mr-[70px] md:w-full md:flex-row md:justify-between xl:mr-[140px]">
         <div className="flex gap-7">
           <p className="text-sm font-normal text-gray-400 md:hidden">이름</p>
-          <p className="text-sm font-normal text-gray-700 md:text-base">
+          <p className="text-sm font-normal md:text-base">
             {invitation.dashboard.title}
           </p>
         </div>
         <div className="flex gap-7">
           <p className="text-sm font-normal text-gray-400 md:hidden">초대자</p>
-          <p className="text-sm font-normal text-gray-700 md:text-base">
+          <p className="text-sm font-normal md:text-base">
             {invitation.invitee.nickname}
           </p>
         </div>

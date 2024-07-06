@@ -13,6 +13,10 @@ import { useFormContext } from 'react-hook-form';
 
 /* eslint-disable */
 
+/* eslint-disable */
+
+/* eslint-disable */
+
 interface AssigneeUserDropdownProps {
   dashboardId: string;
   isEdit?: boolean;
@@ -89,9 +93,7 @@ export default function AssigneeUserDropdown({
                 id={selectedMember.userId}
                 size="26px"
               />
-              <p className="text-sm font-normal text-gray-700">
-                {selectedMember.nickname}
-              </p>
+              <p className="text-sm font-normal">{selectedMember.nickname}</p>
             </div>
           ) : (
             <p className="text-sm font-normal text-gray-400">
@@ -136,9 +138,7 @@ export default function AssigneeUserDropdown({
                   id={member.userId}
                   size="26px"
                 />
-                <p className="text-sm font-normal text-gray-700">
-                  {member.nickname}
-                </p>
+                <p className="text-sm font-normal">{member.nickname}</p>
               </div>
             </Dropdown.Item>
           ))}

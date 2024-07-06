@@ -47,7 +47,7 @@ export default function DashboardCard({ dashboard }: DashboardProps) {
           className="absolute left-0 top-[50%] h-7 w-1 translate-y-[-50%] rounded-r-lg"
           style={{ backgroundColor: dashboard.color }}
         />
-        <p className="text-sm font-semibold text-gray-700">{dashboard.title}</p>
+        <p className="text-sm font-semibold">{dashboard.title}</p>
         {ownerUser && (
           <ProfileImage
             nickname={ownerUser.nickname}

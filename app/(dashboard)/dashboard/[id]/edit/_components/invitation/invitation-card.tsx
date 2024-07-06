@@ -28,7 +28,7 @@ export default function InvitationCard({
       </p>
       <Button
         variant="mobile52x28"
-        className="rounded border border-gray-700 text-xs text-violet-primary md:text-sm"
+        className="rounded border border-gray-700 text-xs text-primary md:text-sm"
         onClick={buttonHandler}
       >
         취소

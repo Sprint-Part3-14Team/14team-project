@@ -15,9 +15,7 @@ export default async function Invitations() {
 
   return (
     <section className="mt-6 w-full bg-background px-4 py-6 md:px-7 md:py-8">
-      <h2 className="mb-5 text-xl font-bold text-gray-700">
-        초대받은 대시보드
-      </h2>
+      <h2 className="mb-5 text-xl font-bold">초대받은 대시보드</h2>
       {invitations.length === 0 ? (
         <div className="h-[352px] w-full">
           <div className="flex h-full flex-col items-center justify-center gap-4">
