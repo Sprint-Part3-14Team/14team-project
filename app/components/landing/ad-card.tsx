@@ -20,7 +20,7 @@ export default function AdCard({
   };
 
   return (
-    <div className="w-full text-primary-foreground md:w-[378px]">
+    <div className="w-full text-[#fef1f4] md:w-[378px]">
       <div
         className={`h-[236px] rounded-t-lg bg-gray-600 px-10 md:h-[260px] md:px-[39px] ${imgContainerYPadding[yPadding]} `}
       >
