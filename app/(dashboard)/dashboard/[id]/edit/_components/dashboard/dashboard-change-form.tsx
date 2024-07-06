@@ -1,10 +1,10 @@
 'use client';
 
+import ColorList from '@/app/components/color-list';
 import { Dashboard } from '@/types/dashboard';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import putDashboardInfo from '../../actions';
-import ColorList from './color-list';
 
 interface DashboardChangeFormProps {
   dashboardId: number;
