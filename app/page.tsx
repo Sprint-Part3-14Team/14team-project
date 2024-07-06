@@ -16,7 +16,7 @@ import SnsLinkIcon from './components/landing/sns-link-icon';
 
 export default function Home() {
   return (
-    <div className="h-full w-full bg-black text-primary-foreground">
+    <div className="h-full w-full bg-black text-[#fef1f4]">
       <header className="flex h-[60px] items-center justify-between px-6 md:h-[70px] md:px-10 xl:px-20">
         <h1>
           <div className="flex">

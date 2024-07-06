@@ -1,3 +1,4 @@
+import ModeToggle from '@/components/mode-toggle';
 import getLoggedInUser from '@/lib/api/getLoggedInUser';
 import logoSmall from '@/public/images/logo_small.svg';
 import textLogo from '@/public/images/text_logo.svg';
@@ -23,7 +24,10 @@ export default async function Navbar() {
             </div>
           </div>
         </Link>
-        <NavbarProfile user={user} />
+        <div className="flex items-center gap-x-4">
+          <ModeToggle />
+          <NavbarProfile user={user} />
+        </div>
       </div>
     </header>
   );
