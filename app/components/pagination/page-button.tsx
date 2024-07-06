@@ -33,7 +33,7 @@ export default function PageButton({
         <Image
           width={16}
           height={16}
-          src={currentPage === 1 ? forwardArrowGray : forwardArrowBlack}
+          src={currentPage === 1 ? forwardArrowBlack : forwardArrowGray}
           alt="왼쪽을 향하는 꺽쇠 화살표"
         />
       </button>
@@ -46,7 +46,7 @@ export default function PageButton({
         <Image
           width={16}
           height={16}
-          src={totalPage === currentPage ? nextArrowGray : nextArrowBlack}
+          src={totalPage === currentPage ? nextArrowBlack : nextArrowGray}
           alt="오른쪽을 향하는 꺽쇠 화살표"
         />
       </button>
