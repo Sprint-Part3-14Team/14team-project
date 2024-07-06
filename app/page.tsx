@@ -1,8 +1,8 @@
+import logo from '@/public/images/checkbox_logo.png';
 import pointImg1 from '@/public/images/landing/landing1.png';
 import pointImg2 from '@/public/images/landing/landing2.png';
 import mainImg from '@/public/images/landing/main.png';
-import logo from '@/public/images/logo_small.svg';
-import textLogo from '@/public/images/text_logo.svg';
+import textLogo from '@/public/images/todo_todo_text_logo.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -19,10 +19,15 @@ export default function Home() {
     <div className="h-full w-full bg-black text-primary-foreground">
       <header className="flex h-[60px] items-center justify-between px-6 md:h-[70px] md:px-10 xl:px-20">
         <h1>
-          <div className="flex">
-            <Image src={logo} alt="사이트 로고" />
+          <div className="flex items-center justify-center gap-1">
+            <Image src={logo} width={29} height={30} alt="사이트 로고" />
             <div className="hidden md:block">
-              <Image src={textLogo} alt="Taskify 글자" />
+              <Image
+                src={textLogo}
+                width={100}
+                height={40}
+                alt="Taskify 글자"
+              />
             </div>
           </div>
           <span className="sr-only">Taskify</span>
