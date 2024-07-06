@@ -47,9 +47,10 @@ export async function editProfile(formData?: FormData, nickname?: string) {
 
   // 프로필 업데이트 함수
   async function updateProfile(uploadedImageUrl?: string, nick?: string) {
-    const body: { nickname?: string; profileImageUrl?: string } = {};
+    const body: { nickname?: string; profileImageUrl?: string | null } = {};
     if (nick !== undefined && nick !== '') body.nickname = nick;
     if (uploadedImageUrl !== undefined) body.profileImageUrl = uploadedImageUrl;
+    if (uploadedImageUrl === undefined) body.profileImageUrl = null;
 
     const response = await fetch(`${TEAM_BASE_URL}/users/me`, {
       method: 'PUT',
@@ -68,7 +69,7 @@ export async function editProfile(formData?: FormData, nickname?: string) {
   }
 
   // 이미지가 있는 경우
-  if (formData !== undefined) {
+  if (formData !== undefined && formData.get('image') !== 'null') {
     const uploadedImageUrl = await uploadImage(formData);
     if (uploadedImageUrl) {
       return updateProfile(uploadedImageUrl, nickname);

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ImageInputField({
   id,
@@ -17,9 +17,13 @@ export default function ImageInputField({
   setIsChange?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [initialImage, setInitialImage] = useState<string | null>(
-    imageUrlValue || null
-  );
+  const [initialImage, setInitialImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (imageUrlValue) {
+      setInitialImage(imageUrlValue);
+    }
+  }, [imageUrlValue]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
