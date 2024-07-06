@@ -37,7 +37,8 @@
 
   .dark {
     --background: 348 33% 3%;
-    --foreground: 348 19% 21%;
+    /* 카드 배경 */
+    --foreground: 344 12% 17%;
 
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -48,7 +49,7 @@
     --primary: 345 84% 81%;
     --primary-foreground: 346 87% 97%;
 
-    --secondary: 346 84% 90%;
+    --secondary: 344 10% 21%;
     --secondary-foreground: 0 0% 98%;
 
     --muted: 240 3.7% 15.9%;
