@@ -1,10 +1,10 @@
 'use client';
 
+import ColorList from '@/app/components/color-list';
 import { Dashboard } from '@/types/dashboard';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 import putDashboardInfo from '../../actions';
-import ColorList from './color-list';
 
 interface DashboardChangeFormProps {
   dashboardId: number;
@@ -17,7 +17,7 @@ export default function DashboardChangeForm({
   dashboardTitle,
   dashboardColor,
 }: DashboardChangeFormProps) {
-  const { register, handleSubmit } = useForm<Dashboard>({
+  const { register, handleSubmit, setValue } = useForm<Dashboard>({
     defaultValues: {
       title: dashboardTitle,
       color: dashboardColor,
@@ -29,10 +29,19 @@ export default function DashboardChangeForm({
     await putDashboardInfo(title, color, dashboardId);
   };
 
+  const handleColorChange = (color: string) => {
+    setValue('color', color);
+  };
+
   return (
     <div>
       <form className="mt-6" onSubmit={handleSubmit(changeDashboardInfo)}>
-        <ColorList className="right-7 top-11" register={register} />
+        <ColorList
+          setValue={setValue}
+          onColorChange={handleColorChange}
+          className="right-7 top-11"
+          register={register}
+        />
         <label htmlFor="title">대시보드 이름</label>
         <input
           {...register('title')}
