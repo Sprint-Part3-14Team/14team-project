@@ -54,7 +54,7 @@ export default function PageButton({
         <Image
           width={16}
           height={16}
-          src={getForwardArrowSrc(currentPage, theme)}
+          src={getForwardArrowSrc(currentPage, theme!)}
           alt="왼쪽을 향하는 꺽쇠 화살표"
         />
       </button>
@@ -67,7 +67,7 @@ export default function PageButton({
         <Image
           width={16}
           height={16}
-          src={getNextArrowSrc(currentPage, totalPage, theme)}
+          src={getNextArrowSrc(currentPage, totalPage, theme!)}
           alt="오른쪽을 향하는 꺽쇠 화살표"
         />
       </button>
