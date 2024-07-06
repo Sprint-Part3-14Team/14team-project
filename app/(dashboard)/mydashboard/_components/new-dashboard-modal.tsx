@@ -38,6 +38,10 @@ export default function NewDashboardModal({
     try {
       const createdDashboard = await Postdashboard(title, color);
       router.push(`/dashboard/${createdDashboard.id}`);
+      setTimeout(() => {
+        window.location.reload();
+      }, 400);
+
       onClose();
     } catch (error: any) {
       console.error('대시보드 생성 오류:', error.message);
