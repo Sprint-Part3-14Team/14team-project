@@ -51,19 +51,22 @@ export default function ToDoCard({
               ))}
             </div>
             <div className="flex w-full items-center justify-between">
-              <div className="flex items-center gap-x-[6px] md:ml-4 xl:ml-0">
-                <div className="relative size-[14px] md:size-[18px]">
-                  <Image
-                    src="/icons/icon_calendar.svg"
-                    fill
-                    sizes="100vw"
-                    alt="calendar"
-                  />
+              {/* NOTE - dueDate가 아니라 createdAt으로 되어있었어요 */}
+              {props.dueDate && (
+                <div className="flex items-center gap-x-[6px] md:ml-4 xl:ml-0">
+                  <div className="relative ml-auto size-[14px] md:size-[18px]">
+                    <Image
+                      src="/icons/icon_calendar.svg"
+                      fill
+                      sizes="100vw"
+                      alt="calendar"
+                    />
+                  </div>
+                  <p className="text-[10px] md:text-xs">
+                    {formatDate(new Date(props.dueDate))}
+                  </p>
                 </div>
-                <p className="text-[10px] md:text-xs">
-                  {formatDate(props.createdAt)}
-                </p>
-              </div>
+              )}
               <div className="flex items-center gap-x-[6px]">
                 <div className="relative size-[22px] md:size-6">
                   {/* TODO 모바일일 때 size가 22px PC가 24px인데 어떻게 주어야 좋을까요 */}

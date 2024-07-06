@@ -122,7 +122,8 @@ export default function ToDoModal({
             </div>
           </div>
           <div className="mt-4 flex h-full flex-col md:flex-row-reverse">
-            <div className="flex w-full items-center justify-between rounded-lg border p-4 md:h-[155px] md:w-[180px] md:flex-col lg:w-[200px]">
+            {/* TODO - 담당자 옆에 마진 */}
+            <div className="flex w-full items-center justify-between rounded-lg border p-4 md:h-[155px] md:w-[180px] md:flex-col lg:w-[200px] xl:ml-2">
               <div className="flex w-full flex-col">
                 <p className="text-[10px] font-semibold md:text-xs">담당자</p>
                 {/* NOTE - 담당자 없을 때도 있습니다 */}
@@ -153,7 +154,7 @@ export default function ToDoModal({
                 </p>
               </div>
             </div>
-            <div className="mb-[44px] mt-4 w-full overflow-y-auto md:mt-0">
+            <div className="mb-[44px] mt-4 w-full overflow-y-auto pt-[2px] md:mt-0">
               <div className="h-full w-full md:pr-6">
                 <div className="flex h-5 items-center gap-x-5">
                   <ColumnTag title={columnTitle} />

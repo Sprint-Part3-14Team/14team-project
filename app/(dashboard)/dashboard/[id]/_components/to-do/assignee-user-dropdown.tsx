@@ -17,6 +17,26 @@ import { useFormContext } from 'react-hook-form';
 
 /* eslint-disable */
 
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
+/* eslint-disable */
+
 interface AssigneeUserDropdownProps {
   dashboardId: string;
   isEdit?: boolean;
@@ -93,7 +113,9 @@ export default function AssigneeUserDropdown({
                 id={selectedMember.userId}
                 size="26px"
               />
-              <p className="text-sm font-normal">{selectedMember.nickname}</p>
+              <p className="text-sm font-normal text-gray-700">
+                {selectedMember.nickname}
+              </p>
             </div>
           ) : (
             <p className="text-sm font-normal text-gray-400">
@@ -105,7 +127,7 @@ export default function AssigneeUserDropdown({
           <Dropdown.Item>
             {/* NOTE - 담당자 취소 */}
             <div
-              className="flex h-full w-full text-sm font-normal text-gray-400"
+              className="flex h-full w-full items-center text-sm font-normal text-gray-400"
               onClick={() => handleDeleteItem()}
             >
               담당자를 선택해 주세요

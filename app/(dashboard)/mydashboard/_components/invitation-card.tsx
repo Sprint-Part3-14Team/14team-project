@@ -18,7 +18,7 @@ export default function InvitationCard({
   return (
     <li
       key={invitation.id}
-      className="flex flex-col border-b border-gray-200 py-4 md:flex-row md:items-center md:justify-between"
+      className="flex flex-col border-b border-gray-600 py-4 md:flex-row md:items-center md:justify-between"
     >
       <div className="flex flex-col gap-[10px] md:mr-[70px] md:w-full md:flex-row md:justify-between xl:mr-[140px]">
         <div className="flex gap-7">
