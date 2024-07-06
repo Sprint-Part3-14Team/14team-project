@@ -7,12 +7,14 @@ export default function ImageInputField({
   imageUrlValue,
   unregister,
   size,
+  setIsChange,
 }: {
   id: string;
   setValue: any;
   unregister?: any;
   imageUrlValue?: string | null;
   size?: string;
+  setIsChange?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [initialImage, setInitialImage] = useState<string | null>(
@@ -24,14 +26,19 @@ export default function ImageInputField({
     if (file) {
       setSelectedImage(file);
       setValue(id, file);
+      if (setIsChange) {
+        setIsChange(true);
+      }
     }
   };
 
-  // TODO - 수정하기에서 이미지 x 누른 후 그대로 수정하면 오류남
   const handleImageDelete = () => {
     unregister(id);
     setSelectedImage(null);
     setInitialImage(null);
+    if (setIsChange) {
+      setIsChange(true);
+    }
   };
 
   return (

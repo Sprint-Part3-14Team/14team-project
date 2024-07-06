@@ -29,7 +29,7 @@ export default function AddToDoButton({ columnId }: AddToDoButtonProps) {
         </div>
       </button>
       <AddToDoModal
-        columnId={columnId}
+        columnIdProp={columnId}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
       />

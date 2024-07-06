@@ -7,6 +7,7 @@ import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { ColumnData } from '@/types/card';
 import { getCookie } from 'cookies-next';
 import { useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 /* eslint-disable */
 
@@ -15,16 +16,16 @@ import { useEffect, useState } from 'react';
 interface ColumnDropdownProps {
   dashboardId: string;
   columnId: number;
-  setColumn: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function ColumnDropdown({
   dashboardId,
   columnId,
-  setColumn,
 }: ColumnDropdownProps) {
   const [columns, setColumns] = useState<ColumnData[]>([]);
   const token = getCookie('token');
+
+  const { register, setValue } = useFormContext();
 
   async function getColumns() {
     const res = await fetch(
@@ -43,7 +44,7 @@ export default function ColumnDropdown({
   }
 
   const handleItemClick = (id: number) => {
-    setColumn(id);
+    setValue('columnId', id, { shouldDirty: true });
   };
 
   useEffect(() => {
@@ -76,6 +77,13 @@ export default function ColumnDropdown({
                   }
                 }}
               >
+                <input
+                  className="appearance-none"
+                  type="radio"
+                  id={`columnId-${column.id}`}
+                  value={column.id}
+                  {...register('columnId')}
+                />
                 <ColumnTag title={column.title} />
               </div>
             </Dropdown.Item>
