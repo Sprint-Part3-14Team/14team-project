@@ -33,7 +33,7 @@ export default function ProfileImage({
         </div>
       ) : (
         <div
-          className="flex size-[34px] items-center justify-center rounded-full border-2 border-white text-sm font-semibold text-primary-foreground"
+          className="flex size-[34px] items-center justify-center rounded-full border border-white text-sm font-semibold text-primary-foreground"
           style={{
             backgroundColor: profileColor,
             width: size,

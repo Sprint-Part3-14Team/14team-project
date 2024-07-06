@@ -1,4 +1,4 @@
-import arrow from '@/public/icons/arrow_forward_black.svg';
+import arrow from '@/public/icons/arrow_forward_gray.svg';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -9,7 +9,7 @@ import Member from './_components/member/member';
 
 export default function DashboardEdit({ params }: { params: { id: number } }) {
   return (
-    <main className="px-3 pt-3 md:px-5 md:pt-5 [&_path]:fill-black [&_svg]:h-5 [&_svg]:w-5">
+    <main className="px-3 pt-3 text-primary-foreground md:px-5 md:pt-5 [&_path]:fill-black [&_svg]:h-5 [&_svg]:w-5">
       <Link
         className="mb-5 flex w-20 items-center gap-1"
         href={`/dashboard/${params.id}`}

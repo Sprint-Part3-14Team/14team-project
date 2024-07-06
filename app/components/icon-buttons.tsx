@@ -26,7 +26,7 @@ export default function IconButtons({
       'w-[86px] h-[28px] md:w-[105px] md:h-[32px] rounded bg-primary border';
     iconStyles = 'mt-0 ml-2 md:mt-0 md:ml-3.5';
     textStyles =
-      'text-xs text-primary font-medium mt-0 ml-2 md:text-sm md:ml-2.5 xl:ml-3';
+      'text-xs text-primary-foreground font-medium mt-0 ml-2 md:text-sm md:ml-2.5 xl:ml-3';
   }
 
   buttonClasses += ` ${className}`;

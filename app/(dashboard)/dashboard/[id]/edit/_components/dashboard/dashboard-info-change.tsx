@@ -14,7 +14,7 @@ export default async function DashboardInfoChange({
   const { title, color } = data;
 
   return (
-    <section className="relative w-full rounded-lg bg-background p-5 pt-7 md:h-64 md:p-8 md:pt-11 xl:w-[620px]">
+    <section className="relative w-full rounded-lg border border-gray-600 bg-secondary-foreground p-5 pt-7 md:h-64 md:p-8 md:pt-11 xl:w-[620px]">
       <SectionTitle sectionTitle={title} />
       <DashboardChangeForm
         dashboardId={dashboardId}

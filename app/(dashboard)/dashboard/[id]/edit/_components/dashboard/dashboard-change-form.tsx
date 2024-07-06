@@ -44,7 +44,7 @@ export default function DashboardChangeForm({
         <div className="text-right">
           <button
             type="submit"
-            className="h-7 w-[84px] rounded bg-primary text-xs text-primary"
+            className="h-7 w-[84px] rounded bg-primary text-xs text-primary-foreground"
           >
             변경
           </button>

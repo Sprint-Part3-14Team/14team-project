@@ -88,14 +88,14 @@ export default function SingleInputModal({
             <Button
               variant="mobile138x42"
               onClick={onClose}
-              className="rounded-lg border border-solid border-gray-700 bg-background text-black"
+              className="rounded-lg border border-solid border-gray-700 bg-background text-primary-foreground"
             >
               취소
             </Button>
             <Button
               variant="mobile138x42"
               type="submit"
-              className="ml-[12px] rounded-lg bg-primary text-primary"
+              className="ml-[12px] rounded-lg bg-primary text-primary-foreground"
             >
               {buttonText}
             </Button>

@@ -23,7 +23,7 @@ export default function AddToDoButton({ columnId }: AddToDoButtonProps) {
     <div>
       <button type="button" className="w-full" onClick={handleOpenModal}>
         <div className="mt-[17px] flex justify-center rounded-md border border-gray-700 bg-background py-[6px] xl:mt-0">
-          <p className="flex size-5 items-center justify-center rounded bg-violet-secondary text-lg font-medium text-primary md:size-[22px]">
+          <p className="flex size-5 items-center justify-center rounded bg-secondary-foreground text-lg font-medium text-primary md:size-[22px]">
             +
           </p>
         </div>

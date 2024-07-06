@@ -16,9 +16,9 @@ export default function SidebarDashboardCard({
     <Link href={`/dashboard/${dashboard.id}`}>
       <li
         key={dashboard.id}
-        className={`flex h-[50px] w-[50px] items-center justify-center overflow-hidden rounded-full p-[2px] text-xs font-semibold text-primary-foreground ${
+        className={`flex h-[50px] w-[50px] items-center justify-center overflow-hidden rounded-full border border-white p-[2px] text-xs font-semibold text-primary-foreground ${
           // TODO - 스타일 다르게 주기
-          isActive && 'border border-black'
+          isActive && 'rounded-md transition duration-1000'
         }`}
         style={{ backgroundColor: dashboard.color }}
       >

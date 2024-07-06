@@ -59,9 +59,9 @@ async function Column({ data }: { data: ColumnData }) {
       <div className="flex items-center justify-between xl:mb-[25px] xl:mt-[2px]">
         <div className="flex items-center gap-x-2">
           <div className="size-2 rounded-full bg-primary" />
-          <div className="flex items-center gap-x-3">
+          <div className="flex items-center gap-x-2">
             <p>{data.title}</p>
-            <div className="flex size-5 items-center justify-center rounded bg-gray-200 px-2 py-1 text-xs font-medium text-gray-500">
+            <div className="flex size-5 items-center justify-center rounded bg-secondary-foreground px-2 py-1 text-xs font-medium text-primary">
               <p>{Object.keys(cards).length}</p>
             </div>
           </div>
