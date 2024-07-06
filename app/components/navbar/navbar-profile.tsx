@@ -19,7 +19,7 @@ export default function NavbarProfile({ user }: { user: User }) {
 
   const handleLogout = () => {
     deleteCookie('token');
-    router.push('/login');
+    router.push('/');
     toast.success('로그아웃 되었습니다.');
   };
 
