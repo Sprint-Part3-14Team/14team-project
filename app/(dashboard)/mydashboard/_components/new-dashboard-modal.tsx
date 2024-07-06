@@ -1,6 +1,7 @@
 'use client';
 
 import Button from '@/app/components/button';
+import ColorPicker from '@/app/components/color-picker';
 import Modal from '@/app/components/modal';
 import { Dashboard } from '@/types/dashboard';
 import { useRouter } from 'next/navigation';
@@ -21,11 +22,16 @@ export default function NewDashboardModal({
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isValid },
   } = useForm<Dashboard>({
     mode: 'onChange',
   });
   const router = useRouter();
+
+  const handleColorChange = (color: string) => {
+    setValue('color', color);
+  };
 
   const createDashboardInfo: SubmitHandler<Dashboard> = async (data) => {
     const { title, color } = data;
@@ -71,8 +77,17 @@ export default function NewDashboardModal({
         <ColorList
           className="ml-[20px] mt-[5px] flex md:ml-[28px] md:mt-[8px]"
           register={register}
+          setValue={setValue}
+          onColorChange={handleColorChange}
         />
-        <div className="mt-[50px] flex justify-center md:mt-[55px] md:justify-end">
+        <div className="ml-[273px] mt-[5px] md:ml-[280px] md:mt-[8px]">
+          <ColorPicker
+            register={register}
+            setValue={setValue}
+            onColorChange={handleColorChange}
+          />
+        </div>
+        <div className="mt-[18px] flex justify-center md:mt-[15px] md:justify-end">
           <Button
             variant="mobile138x42"
             onClick={onClose}
