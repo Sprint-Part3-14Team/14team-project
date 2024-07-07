@@ -25,7 +25,7 @@ export default function NewDashboardModal({
     handleSubmit,
     setValue,
     reset,
-    formState: { isValid },
+    formState: { isValid, errors },
   } = useForm<Dashboard>({
     mode: 'onChange',
   });
@@ -62,7 +62,7 @@ export default function NewDashboardModal({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      className="h-[293px] w-[327px] md:h-[334px] md:w-[540px]"
+      className="h-[340px] w-[327px] md:h-[375px] md:w-[540px]"
     >
       <h2 className="ml-[20px] mt-[28px] text-xl font-bold md:ml-[28px] md:mt-[32px] md:text-2xl">
         새로운 대시보드
@@ -76,13 +76,24 @@ export default function NewDashboardModal({
         </label>
         <div className="flex items-center justify-center">
           <input
-            {...register('title', { required: true })}
+            {...register('title', {
+              required: true,
+              maxLength: {
+                value: 10,
+                message: '대시보드 이름은 최대 10자입니다.',
+              },
+            })}
             id="title"
             type="text"
             placeholder="대시보드 이름"
             className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-700 pl-[16px] text-sm font-normal md:h-[48px] md:w-[484px] md:text-base"
           />
         </div>
+        {errors.title && (
+          <p className="mt-1 w-full pl-6 text-red-500">
+            {errors.title.message}
+          </p>
+        )}
         <div className="ml-[261px] mt-[10px] text-sm md:ml-[270px]">
           <p>색상 선택</p>
         </div>
@@ -99,7 +110,7 @@ export default function NewDashboardModal({
             onColorChange={handleColorChange}
           />
         </div>
-        <div className="mt-[18px] flex justify-center md:mt-[15px] md:justify-end">
+        <div className="mb-[28px] mt-[18px] flex justify-center md:mt-[15px] md:justify-end">
           <Button
             variant="mobile138x42"
             onClick={onClose}
