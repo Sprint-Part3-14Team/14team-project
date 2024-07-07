@@ -18,7 +18,7 @@ export default function SidebarButton() {
     <>
       <div className="mb-2 border-b pb-2">
         <button
-          className="size-[50px] rounded-full bg-red-200 text-center text-xl font-semibold text-primary"
+          className="size-[50px] rounded-full bg-primary/25 text-center text-2xl font-medium text-primary hover:animate-[spin_1s_100ms] hover:bg-primary/35"
           type="button"
           onClick={handleOpenModal}
         >
