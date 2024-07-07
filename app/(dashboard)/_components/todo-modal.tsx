@@ -7,6 +7,7 @@ import TaskOption from '@/app/components/task-option';
 import { CardData } from '@/types/card';
 import formatDate from '@/utils/formatDate';
 import { getCookie } from 'cookies-next';
+import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -31,6 +32,7 @@ export default function ToDoModal({
   const [isTaskOptionOpen, setIsTaskOptionOpen] = useState(false);
   const router = useRouter();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const { theme } = useTheme();
 
   async function deleteTask(cardId: number) {
     const token = getCookie('token');
@@ -85,11 +87,19 @@ export default function ToDoModal({
                 className="relative size-6 md:size-8"
                 onClick={handleTaskOptionToggle}
               >
-                <Image
-                  src="/icons/icon_three_point.svg"
-                  alt="세 점 아이콘"
-                  fill
-                />
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 28 28"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M14 22.4809C13.5187 22.4809 13.1068 22.3096 12.7641 21.9669C12.4214 21.6242 12.25 21.2122 12.25 20.731C12.25 20.2497 12.4214 19.8378 12.7641 19.4951C13.1068 19.1524 13.5187 18.981 14 18.981C14.4812 18.981 14.8932 19.1524 15.2359 19.4951C15.5786 19.8378 15.7499 20.2497 15.7499 20.731C15.7499 21.2122 15.5786 21.6242 15.2359 21.9669C14.8932 22.3096 14.4812 22.4809 14 22.4809ZM14 15.7502C13.5187 15.7502 13.1068 15.5789 12.7641 15.2361C12.4214 14.8934 12.25 14.4815 12.25 14.0002C12.25 13.519 12.4214 13.107 12.7641 12.7643C13.1068 12.4216 13.5187 12.2503 14 12.2503C14.4812 12.2503 14.8932 12.4216 15.2359 12.7643C15.5786 13.107 15.7499 13.519 15.7499 14.0002C15.7499 14.4815 15.5786 14.8934 15.2359 15.2361C14.8932 15.5789 14.4812 15.7502 14 15.7502ZM14 9.01944C13.5187 9.01944 13.1068 8.84809 12.7641 8.50538C12.4214 8.16269 12.25 7.75072 12.25 7.26947C12.25 6.78824 12.4214 6.37627 12.7641 6.03357C13.1068 5.69088 13.5187 5.51953 14 5.51953C14.4812 5.51953 14.8932 5.69088 15.2359 6.03357C15.5786 6.37627 15.7499 6.78824 15.7499 7.26947C15.7499 7.75072 15.5786 8.16269 15.2359 8.50538C14.8932 8.84809 14.4812 9.01944 14 9.01944Z"
+                    fill={`${theme === 'dark' ? 'white' : 'black'}`}
+                  />
+                </svg>
+
                 {isTaskOptionOpen && (
                   <TaskOption>
                     <li
@@ -111,13 +121,20 @@ export default function ToDoModal({
               <button
                 type="button"
                 className="relative size-6 cursor-pointer md:size-8"
+                onClick={onClose}
               >
-                <Image
-                  src="/icons/icon_close.svg"
-                  alt="닫기 아이콘"
-                  onClick={onClose}
-                  fill
-                />
+                <svg
+                  width="32"
+                  height="32"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16 17.4051L9.23585 24.1692C9.05125 24.3538 8.8192 24.4482 8.53972 24.4525C8.26025 24.4568 8.02394 24.3624 7.83078 24.1692C7.6376 23.976 7.54102 23.7418 7.54102 23.4666C7.54102 23.1914 7.6376 22.9573 7.83078 22.7641L14.5949 16L7.83078 9.23585C7.64616 9.05125 7.55172 8.8192 7.54745 8.53972C7.54316 8.26025 7.6376 8.02394 7.83078 7.83078C8.02394 7.6376 8.25812 7.54102 8.53332 7.54102C8.80852 7.54102 9.04269 7.6376 9.23585 7.83078L16 14.5949L22.7641 7.83078C22.9487 7.64616 23.1808 7.55172 23.4602 7.54745C23.7397 7.54316 23.976 7.6376 24.1692 7.83078C24.3624 8.02394 24.4589 8.25812 24.4589 8.53332C24.4589 8.80852 24.3624 9.04269 24.1692 9.23585L17.4051 16L24.1692 22.7641C24.3538 22.9487 24.4482 23.1808 24.4525 23.4602C24.4568 23.7397 24.3624 23.976 24.1692 24.1692C23.976 24.3624 23.7418 24.4589 23.4666 24.4589C23.1914 24.4589 22.9573 24.3624 22.7641 24.1692L16 17.4051Z"
+                    fill={`${theme === 'dark' ? 'white' : 'black'}`}
+                  />
+                </svg>
               </button>
             </div>
           </div>

@@ -19,7 +19,7 @@ export default function DashboardChangeForm({
   dashboardTitle,
   dashboardColor,
 }: DashboardChangeFormProps) {
-  const { register, handleSubmit, setValue } = useForm<Dashboard>({
+  const { register, handleSubmit, setValue, getValues } = useForm<Dashboard>({
     defaultValues: {
       title: dashboardTitle,
       color: dashboardColor,
@@ -46,6 +46,7 @@ export default function DashboardChangeForm({
         <div className="flex justify-end">
           <ColorList
             setValue={setValue}
+            getValues={getValues}
             onColorChange={handleColorChange}
             className="right-[61px] md:right-[73px]"
             register={register}
