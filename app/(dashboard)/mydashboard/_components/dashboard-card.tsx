@@ -38,7 +38,10 @@ export default function DashboardCard({ dashboard }: DashboardProps) {
   }, []);
 
   return (
-    <li key={dashboard.id}>
+    <li
+      key={dashboard.id}
+      className="transition-transform duration-500 ease-in-out hover:-translate-y-2"
+    >
       <Link
         href={`/dashboard/${dashboard.id}`}
         className="relative flex h-20 items-center justify-between rounded-lg border border-gray-600 bg-secondary-foreground px-5 py-5"

@@ -46,7 +46,7 @@ export default function PageButton({
   return (
     <>
       <button
-        className={`${buttonStyle} rounded-l`}
+        className={`${buttonStyle} cursor-pointer rounded-l`}
         type="button"
         onClick={goToForward}
         disabled={currentPage === 1}
@@ -59,7 +59,7 @@ export default function PageButton({
         />
       </button>
       <button
-        className={`${buttonStyle} rounded-r`}
+        className={`${buttonStyle} cursor-pointer rounded-r`}
         type="button"
         onClick={goToNext}
         disabled={totalPage === currentPage}
