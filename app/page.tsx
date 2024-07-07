@@ -33,10 +33,18 @@ export default function Home() {
           <span className="sr-only">Taskify</span>
         </h1>
         <div>
-          <Link className="mr-5 md:mr-9" href="/login">
+          <Link
+            className="inline-block border-r border-gray-700 pr-[10px] text-sm font-medium hover:text-primary md:pr-[18px] md:text-base"
+            href="/login"
+          >
             로그인
           </Link>
-          <Link href="/signup">회원가입</Link>
+          <Link
+            className="pl-[10px] text-sm font-medium hover:text-primary md:pl-[18px] md:text-base"
+            href="/signup"
+          >
+            회원가입
+          </Link>
         </div>
       </header>
 
@@ -61,11 +69,11 @@ export default function Home() {
           <p className="mt-5 text-center md:mt-11">
             스마트하게 나의 일정을 관리해보자!
           </p>
-          <div className="my-[80px] text-center">
+          <div className="my-[80px] cursor-pointer text-center">
             <Buttons
               variant="mobile235x42"
               href="/login"
-              className="rounded-lg bg-primary text-primary-foreground hover:bg-accent"
+              className="rounded-lg bg-primary text-primary-foreground transition-transform duration-500 ease-in-out hover:scale-110 hover:bg-accent"
             >
               로그인하기
             </Buttons>
