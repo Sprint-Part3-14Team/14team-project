@@ -18,7 +18,6 @@ export default async function DashBoards() {
     <section>
       <div className="mb-3 flex items-center gap-1 text-xs">
         <h2 className="text-xl font-bold">Dashboard</h2>
-        <p>{totalCount}</p>
       </div>
       {totalCount === 0 ? (
         <div className="h-[68px]" />
