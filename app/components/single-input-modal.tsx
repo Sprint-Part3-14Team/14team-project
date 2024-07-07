@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 
 import Button from './button';
 import Modal from './modal';
@@ -13,9 +14,13 @@ interface SingleInputModalProps {
   inputId: string;
   inputValue: string;
   setInputValue: (value: string) => void;
-  onSubmit: (inputValue: string) => Promise<void>;
+  onSubmit: (value: string) => Promise<void>;
   placeholder: string;
   error?: string;
+}
+
+interface FormValues {
+  inputField: string;
 }
 
 export default function SingleInputModal({
@@ -32,13 +37,35 @@ export default function SingleInputModal({
   placeholder,
   error,
 }: SingleInputModalProps) {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { isValid },
+    setValue,
+  } = useForm<FormValues>({
+    mode: 'onChange',
+    defaultValues: {
+      inputField: inputValue,
+    },
+  });
+
+  useEffect(() => {
+    if (isOpen) {
+      reset({ inputField: '' });
+      setInputValue('');
+    }
+  }, [isOpen, reset, setInputValue]);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue('inputField', e.target.value, { shouldValidate: true });
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    await onSubmit(inputValue);
+  const handleFormSubmit: SubmitHandler<FormValues> = async ({
+    inputField,
+  }) => {
+    await onSubmit(inputField);
   };
 
   return (
@@ -50,7 +77,7 @@ export default function SingleInputModal({
       <h2 className="ml-[20px] mt-[28px] text-xl font-bold md:ml-[28px] md:mt-[32px] md:text-2xl">
         {title}
       </h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(handleFormSubmit)}>
         <label
           htmlFor={inputId}
           className="ml-[20px] mt-[24px] block text-base font-medium md:ml-[28px] md:mt-[32px] md:text-lg"
@@ -63,6 +90,7 @@ export default function SingleInputModal({
             type="text"
             value={inputValue}
             placeholder={placeholder}
+            {...register('inputField', { required: true })}
             onChange={handleInputChange}
             className="mt-[10px] flex h-[42px] w-[287px] rounded-md border border-gray-700 pl-[16px] text-sm font-normal md:h-[48px] md:w-[484px] md:text-base"
           />
@@ -83,7 +111,7 @@ export default function SingleInputModal({
             </button>
           )}
           <div
-            className={`${onDelete ? 'md:ml-[183px] md:mt-[28px]' : 'mt-[24px] md:ml-[260px]'} mb-[28px] flex justify-center`}
+            className={`${onDelete ? 'md:ml-[147px] md:mt-[28px]' : 'mt-[24px] md:ml-[223px]'} mb-[28px] flex justify-center`}
           >
             <Button
               variant="mobile138x42"
@@ -96,6 +124,7 @@ export default function SingleInputModal({
               variant="mobile138x42"
               type="submit"
               className="ml-[12px] rounded-lg bg-primary text-primary-foreground"
+              disabled={!isValid}
             >
               {buttonText}
             </Button>

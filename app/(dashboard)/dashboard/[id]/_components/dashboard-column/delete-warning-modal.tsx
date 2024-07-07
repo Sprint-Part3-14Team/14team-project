@@ -24,11 +24,11 @@ export default function WarnimgModal({
       <h2 className="mt-[81px] text-center text-base font-medium md:mt-[108px]">
         칼럼의 모든 카드가 삭제됩니다.
       </h2>
-      <div className="mb-[28px] mt-[50px] flex justify-center md:ml-[260px] md:mt-[45px]">
+      <div className="mb-[28px] mt-[50px] flex justify-center md:ml-[210px] md:mt-[45px]">
         <Button
           variant="mobile138x42"
           onClick={onClose}
-          className="rounded-lg border border-solid border-gray-700 bg-background text-black"
+          className="rounded-lg border border-solid border-gray-700 bg-background"
         >
           취소
         </Button>
@@ -36,7 +36,7 @@ export default function WarnimgModal({
           variant="mobile138x42"
           type="submit"
           onClick={onDelete}
-          className="ml-[12px] rounded-lg bg-primary text-primary"
+          className="ml-[12px] rounded-lg border border-solid border-gray-700 bg-primary"
         >
           삭제
         </Button>
