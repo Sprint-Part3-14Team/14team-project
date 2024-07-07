@@ -21,14 +21,14 @@ export default function SignModal({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      className="relative flex h-[220px] w-[327px] flex-col items-center justify-center md:h-[250px] md:w-[540px]"
+      className="flex h-[220px] w-[327px] flex-col items-center justify-center p-6 md:h-[250px] md:w-[540px]"
     >
-      <h2 className="text-center text-base md:text-lg">{message}</h2>
-      <div className="absolute bottom-7 right-24 md:right-7">
+      <h2 className="mb-8 text-center text-base md:text-lg">{message}</h2>
+      <div>
         <Button
           onClick={onClose}
           variant="mobile138x42"
-          className="rounded-lg bg-primary text-sm text-primary md:text-base"
+          className="rounded-lg bg-primary text-sm text-primary-foreground md:text-base"
         >
           확인
         </Button>

@@ -31,7 +31,7 @@ export default function MemberCard({ member, deleteHandler }: MemberCardProps) {
       <p className="grow text-left text-sm md:text-base">{member.nickname}</p>
       <Button
         variant="mobile52x28"
-        className="rounded border border-gray-700 text-xs text-primary md:text-sm"
+        className="rounded border border-gray-700 text-xs text-primary hover:bg-primary/25 md:text-sm"
         onClick={buttonHandler}
       >
         삭제

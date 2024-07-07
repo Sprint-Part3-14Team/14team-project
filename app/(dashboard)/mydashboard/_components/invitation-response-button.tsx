@@ -42,13 +42,13 @@ export default function InvitationResponseButton({
       <input
         type="button"
         value="수락"
-        className="inline-flex h-[28px] w-full min-w-[109px] items-center justify-center rounded bg-primary text-xs font-medium text-primary-foreground md:h-[30px] md:min-w-[72px] xl:h-[32px] xl:min-w-[84px]"
+        className="inline-flex h-[28px] w-full min-w-[109px] cursor-pointer items-center justify-center rounded bg-primary text-xs font-medium text-primary-foreground hover:bg-accent md:h-[30px] md:min-w-[72px] xl:h-[32px] xl:min-w-[84px]"
         onClick={handleAccept}
       />
       <input
         type="button"
         value="거절"
-        className="inline-flex h-[28px] w-full min-w-[109px] items-center justify-center rounded border border-gray-700 text-xs font-medium text-primary-foreground md:h-[30px] md:min-w-[72px] xl:h-[32px] xl:min-w-[84px]"
+        className="inline-flex h-[28px] w-full min-w-[109px] cursor-pointer items-center justify-center rounded border border-gray-700 text-xs font-medium text-primary-foreground hover:text-primary md:h-[30px] md:min-w-[72px] xl:h-[32px] xl:min-w-[84px]"
         onClick={handleDecline}
       />
     </div>

@@ -50,12 +50,14 @@
     --primary-foreground: 346 87% 97%;
 
     --secondary: 344 10% 21%;
+    /* main 배경 */
     --secondary-foreground: 216 28% 7%;
 
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
 
-    --accent: 240 3.7% 15.9%;
+    /* 버튼 hover 시 색 짙게 */
+    --accent: 343 71% 59%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;

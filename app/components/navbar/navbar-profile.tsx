@@ -46,18 +46,21 @@ export default function NavbarProfile({ user }: { user: User }) {
               size="65px"
               textSize="20px"
             />
-            <p className="text-lg font-semibold">{user.nickname}</p>
-            <p>{user.email}</p>
+            <p className="text-lg font-medium">{user.nickname}</p>
+            <p className="text-base font-light text-gray-300">{user.email}</p>
           </div>
           <div className="flex flex-col gap-2">
             <Link href="/mypage">
-              <button type="button" className="h-11 w-full rounded-sm border">
+              <button
+                type="button"
+                className="h-11 w-full rounded-sm border bg-primary/15 text-primary hover:bg-primary/25 hover:text-primary"
+              >
                 마이페이지
               </button>
             </Link>
             <button
               type="button"
-              className="h-11 w-full rounded-sm border"
+              className="h-11 w-full rounded-sm border hover:text-primary/65"
               onClick={handleLogout}
             >
               로그아웃
