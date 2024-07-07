@@ -30,7 +30,7 @@ export default function InvitationCard({
         <div className="flex gap-7">
           <p className="text-sm font-normal text-gray-400 md:hidden">초대자</p>
           <p className="text-sm font-normal md:text-base">
-            {invitation.invitee.nickname}
+            {invitation.inviter.nickname}
           </p>
         </div>
       </div>
