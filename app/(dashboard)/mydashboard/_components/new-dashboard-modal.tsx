@@ -121,7 +121,7 @@ export default function NewDashboardModal({
           <Button
             variant="mobile138x42"
             type="submit"
-            className="ml-[12px] rounded-lg bg-primary text-primary-foreground md:mr-[28px]"
+            className="ml-[12px] rounded-lg bg-primary text-primary-foreground hover:bg-accent disabled:bg-secondary-foreground md:mr-[28px]"
             disabled={!isValid}
           >
             생성

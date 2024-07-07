@@ -20,7 +20,7 @@ export default function ColorPicker({
   return (
     <div>
       <input
-        {...register('color2')}
+        {...register('color2', { require: true })}
         type="color"
         className="h-[30px] w-[30px] cursor-pointer appearance-none rounded-full border border-gray-600 bg-background p-0.5"
         id="hs-color-input"
