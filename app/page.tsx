@@ -87,7 +87,7 @@ export default function Home() {
             secondDesc="관리하세요"
             isReverse={false}
           >
-            <div className="absolute bottom-0 right-0 h-[248px] w-[296px] md:h-[435px] md:w-[520px] xl:h-[498px] xl:w-[594px]">
+            <div className="absolute bottom-10 right-10 h-[248px] w-[296px] md:h-[435px] md:w-[520px] xl:h-[498px] xl:w-[594px]">
               <Image fill src={pointImg1} alt="대시보드 페이지 화면" />
             </div>
           </PointCard>
@@ -98,7 +98,7 @@ export default function Home() {
             secondDesc="등록하세요"
             isReverse
           >
-            <div className="absolute bottom-0 left-1/2 h-[250px] w-[216px] translate-x-[-50%] md:h-[415px] md:w-[360px] xl:left-[108px] xl:h-[502px] xl:w-[436px] xl:translate-x-0">
+            <div className="absolute bottom-10 left-1/2 h-[250px] w-[216px] translate-x-[-50%] md:h-[415px] md:w-[360px] xl:left-[108px] xl:h-[502px] xl:w-[436px] xl:translate-x-0">
               <Image fill src={pointImg2} alt="할 일 생성 모달 창 이미지" />
             </div>
           </PointCard>
