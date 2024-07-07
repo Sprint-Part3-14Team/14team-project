@@ -49,7 +49,7 @@ export default function DashboardList({
     );
 
     // NOTE: 6개 이하일 경우(=중복 데이터 존재) 함수 호출
-    if (checkDashboard.length < 6) {
+    if (checkDashboard.length < 6 && dashboards.length >= 6) {
       setDashboardList(
         await makeDashboardArr(
           checkDashboard,
