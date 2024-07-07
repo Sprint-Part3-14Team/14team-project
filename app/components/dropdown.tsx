@@ -17,12 +17,6 @@ import {
 
 /* eslint-disable */
 
-/* eslint-disable */
-
-/* eslint-disable */
-
-/* eslint-disable */
-
 interface DropdownContextType {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
@@ -47,7 +41,7 @@ function Item({ children }: { children: React.ReactNode }) {
   return (
     <li
       onClick={handleClick}
-      className={`flex h-[48px] w-full cursor-pointer items-center border-b px-4 first:rounded-t-md last:rounded-b-md last:border-b-0 ${isSelected ? 'bg-red-500' : ''}`}
+      className={`flex h-[48px] w-full cursor-pointer items-center border-b px-4 first:rounded-t-md last:rounded-b-md last:border-b-0 hover:bg-secondary-foreground ${isSelected ? 'bg-red-500' : ''}`}
     >
       {children}
     </li>

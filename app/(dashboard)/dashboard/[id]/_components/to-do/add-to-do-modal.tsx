@@ -199,7 +199,7 @@ export default function AddToDoModal({
           <div className="mt-5 flex gap-[11px] md:ml-auto">
             <button
               type="button"
-              className="h-[42px] w-full rounded border border-gray-700 bg-background text-center text-sm font-medium text-gray-500 md:w-[120px] md:text-base"
+              className="h-[42px] w-full rounded border border-gray-700 bg-background text-center text-sm font-medium text-gray-500 hover:text-primary md:w-[120px] md:text-base"
               onClick={onClose}
             >
               취소

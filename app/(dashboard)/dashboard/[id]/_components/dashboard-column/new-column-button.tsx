@@ -21,7 +21,7 @@ export default function NewColumnButton() {
         onClick={openModal}
       >
         새로운 컬럼 추가하기
-        <p className="flex size-5 items-center justify-center rounded bg-secondary-foreground text-lg font-medium text-primary md:size-[22px]">
+        <p className="flex size-5 items-center justify-center rounded bg-primary/25 text-lg font-medium text-primary md:size-[22px]">
           +
         </p>
       </button>
