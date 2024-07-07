@@ -16,7 +16,7 @@ export default function ColorRadio({
   return (
     <label>
       <input
-        {...register('color')}
+        {...register('color', { require: true })}
         className={`h-[30px] w-[30px] cursor-pointer appearance-none rounded-full bg-center checked:bg-[url('/icons/checked.svg')]`}
         type="radio"
         name="color"

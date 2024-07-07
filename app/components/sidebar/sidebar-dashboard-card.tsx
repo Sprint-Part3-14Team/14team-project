@@ -18,7 +18,7 @@ export default function SidebarDashboardCard({
     <Link href={`/dashboard/${dashboard.id}`}>
       <li
         key={dashboard.id}
-        className={`flex h-[50px] w-[50px] items-center justify-center overflow-hidden rounded-full border p-[2px] text-xs font-semibold text-primary-foreground transition-transform duration-500 ease-in-out hover:scale-110 hover:rounded-md ${
+        className={`flex h-[50px] w-[50px] items-center justify-center overflow-hidden rounded-full border p-[2px] text-center text-xs font-semibold text-primary-foreground transition-transform duration-500 ease-in-out hover:scale-110 hover:rounded-md ${
           isActive &&
           (theme === 'dark'
             ? 'rounded-md border-white'

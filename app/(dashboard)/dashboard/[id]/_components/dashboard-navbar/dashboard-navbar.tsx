@@ -32,7 +32,7 @@ export default async function DashboardNavbar({ id }: { id: number }) {
       </div>
       <div className="flex items-center gap-1">
         <DashboardMemberList members={members} totalCount={totalCount} />
-        <InviteButton />
+        {data.createdByMe && <InviteButton />}
       </div>
     </section>
   );

@@ -123,7 +123,7 @@ export default function SingleInputModal({
             <Button
               variant="mobile138x42"
               type="submit"
-              className="ml-[12px] rounded-lg bg-primary text-primary-foreground"
+              className="ml-[12px] rounded-lg bg-primary text-primary-foreground hover:bg-accent disabled:bg-secondary-foreground"
               disabled={!isValid}
             >
               {buttonText}
