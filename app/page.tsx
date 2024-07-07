@@ -65,7 +65,7 @@ export default function Home() {
             <Buttons
               variant="mobile235x42"
               href="/login"
-              className="rounded-lg bg-primary text-primary-foreground hover:bg-accent"
+              className="rounded-lg bg-primary text-primary-foreground transition-transform duration-500 ease-in-out hover:scale-110 hover:bg-accent"
             >
               로그인하기
             </Buttons>
