@@ -9,9 +9,8 @@
 ### 배포 주소
 
 주소 넣기
-<br/>
 
-## 프로젝트 목적
+## ✨ 프로젝트 목적
 
 ### NEXT.js 활용
 
@@ -28,7 +27,11 @@
 - 근거를 바탕으로 기술적 기획 토론
 - 협업 툴 100% 활용
 
-## 기술 스택
+## 💎 유저 플로우
+
+유저플로우 사진 넣기
+
+## 🔨 기술 스택
 
 ### 프론트엔드
 
@@ -50,7 +53,51 @@
 
 <img src="https://img.shields.io/badge/Netlify-00C7B7?style=for-the-badge&logo=netlify&logoColor=white" />
 
-## 팀 소개
+## 📝 폴더 구조
+
+```
+14team-project
+├ .github
+├ .husky
+├ app
+  ├ components (공통 컴포넌트)
+    ├ landing
+    ├ navbar
+    ├ pagination
+    ├ profile
+    ├ sidebar
+  ├ (auth)
+    ├ _components
+    ├ login
+    ├ signup
+  ├ (dashboard)
+    ├ _components
+    ├ dashboard
+      ├ [id]
+        ├ _components
+        ├ edit
+    ├ mydashboard
+      ├ _components
+    ├ mypage
+├ node_modules
+├ public
+  ├ fonts
+  ├ icons
+  ├ images
+├ hooks
+├ lib
+  ├ api
+  ├ schemas
+├ constants
+├ hooks
+├ types
+├ utils
+├ .gitignore
+├ package.json
+└ README.md
+```
+
+## 👍 팀 소개
 
 <table align="center">
     <tbody>
@@ -60,17 +107,17 @@
                     <img src="https://avatars.githubusercontent.com/ssseeo0" width="100" height="100"/>
                 </a>
             </td>
-            <td style="text-align: center;">
+            <td align="center">
                 <a href="https://github.com/Haze-S">
                     <img src="https://avatars.githubusercontent.com/Haze-S" width="100" height="100"/>
                 </a>  
             </td>
-            <td style="text-align: center;">
+            <td align="center">
                 <a href="https://github.com/JHmeatschool">
                     <img src="https://avatars.githubusercontent.com/JHmeatschool" width="100px" height="100px"/>
                 </a>
             </td>
-            <td style="text-align: center;">
+            <td align="center">
                 <a href="https://github.com/CitrusSoda">
                     <img src="https://avatars.githubusercontent.com/CitrusSoda" width="100px" height="100px"/>
                 </a>  
@@ -113,12 +160,13 @@
                   <li>대시보드 생성 및 초대</li>
                   <li>새 칼럼 생성 및 관리</li>
                   <li>color-picker</li>
+                  <li>README 수정</li>
                 </ul>
             </th>
             <th>
                 <a href="https://github.com/CitrusSoda">장준혁</a>
                 <br>
-                <ul>
+                <ul style="padding-left: 0;">
                   <li>프로젝트 기초 세팅</li>
                   <li>로그인/회원가입</li>           
                   <li>대시보드</li>
