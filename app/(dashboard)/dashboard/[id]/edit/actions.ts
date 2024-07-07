@@ -3,9 +3,7 @@
 import { EDIT_PAGE_DATA_SIZE, TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
 import { DashboardInvitationResponse } from '@/types/invitations';
 import { DashboardMembersResponse } from '@/types/members';
-import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 export default async function putDashboardInfo(
   title: string,
@@ -23,9 +21,6 @@ export default async function putDashboardInfo(
     },
     body: JSON.stringify({ title, color }),
   });
-
-  revalidatePath(`/dashboard/${dashboardId}`);
-  redirect(`/dashboard/${dashboardId}/edit`);
 }
 
 export async function getMember(

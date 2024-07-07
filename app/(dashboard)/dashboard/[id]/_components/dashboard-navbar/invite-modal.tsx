@@ -27,6 +27,7 @@ export default function InviteModal({
     try {
       await inviteEmailSchema.validate({ email: inviteEmail });
       await Invitedashboard(dashboardId, inviteEmail);
+      window.location.reload();
       onClose();
     } catch (error: any) {
       if (error.name === 'ValidationError') {
