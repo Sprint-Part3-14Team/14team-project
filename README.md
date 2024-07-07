@@ -55,22 +55,22 @@
 <table align="center">
     <tbody>
         <tr>
-            <td>
+            <td align="center">
                 <a href="https://github.com/ssseeo0">
                     <img src="https://avatars.githubusercontent.com/ssseeo0" width="100" height="100"/>
                 </a>
             </td>
-            <td>
+            <td style="text-align: center;">
                 <a href="https://github.com/Haze-S">
                     <img src="https://avatars.githubusercontent.com/Haze-S" width="100" height="100"/>
                 </a>  
             </td>
-            <td>
+            <td style="text-align: center;">
                 <a href="https://github.com/JHmeatschool">
                     <img src="https://avatars.githubusercontent.com/JHmeatschool" width="100px" height="100px"/>
                 </a>
             </td>
-            <td>
+            <td style="text-align: center;">
                 <a href="https://github.com/CitrusSoda">
                     <img src="https://avatars.githubusercontent.com/CitrusSoda" width="100px" height="100px"/>
                 </a>  
@@ -79,15 +79,54 @@
         <tr>
             <th>
                 <a href="https://github.com/ssseeo0">김서영</a>
+                <br>
+                <ul>
+                  <li>할 일 카드 생성 및 수정</li>
+                  <li>사이드바, 헤더</li>
+                  <li>프로필 공통 컴포넌트</li>
+                  <li>초대하기 목록</li>
+                  <li>무한스크롤</li>
+                  <li>수락 및 거절 (응답)</li>
+                  <li>깃헙 저장소, 팀 문서 관리</li>
+                </ul>
             </th>
             <th>
                 <a href="https://github.com/Haze-S">송현정</a>
+                <br>
+                <ul>
+                  <li>랜딩 페이지</li>
+                  <li>대시보드 정보 수정</li>
+                  <li>페이지네이션</li>
+                  <li>대시보드 목록</li>
+                  <li>구성원, 초대 내역 목록</li>
+                  <li>초대 내역 검색</li>
+                  <li>발표</li>
+                </ul>
             </th>
             <th>
                 <a href="https://github.com/JHmeatschool">이재혁</a>
+                <br>
+                <ul>
+                  <li>공통 컴포넌트 제작</li>
+                  <li>공용 및 아이콘 버튼</li>
+                  <li>공용 및 알림 모달</li>
+                  <li>대시보드 생성 및 초대</li>
+                  <li>새 칼럼 생성 및 관리</li>
+                  <li>color-picker</li>
+                </ul>
             </th>
             <th>
                 <a href="https://github.com/CitrusSoda">장준혁</a>
+                <br>
+                <ul>
+                  <li>프로젝트 기초 세팅</li>
+                  <li>로그인/회원가입</li>           
+                  <li>대시보드</li>
+                  <li>할 일 카드 모달</li>
+                  <li>마이페이지</li>
+                  <li>다크모드/라이트모드</li>
+                  <li>토스트(Toast) 알림</li>
+                </ul>
             </th>
         </tr>
     </tbody>
