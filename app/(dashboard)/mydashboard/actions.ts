@@ -1,6 +1,7 @@
 'use server';
 
 import { TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { ApiErrorResponse } from '@/types/apiErrorResponse';
 import { DashboardResponse } from '@/types/dashboard';
 import { InvitationResponse } from '@/types/invitations';
 import { DashboardMembersResponse } from '@/types/members';
@@ -68,6 +69,11 @@ export async function getDashboard(page: number): Promise<DashboardResponse> {
     },
   });
 
+  if (!res.ok) {
+    const errorMessage: ApiErrorResponse = await res.json();
+    throw new Error(errorMessage.message);
+  }
+
   return res.json();
 }
 
@@ -85,6 +91,11 @@ export async function getDashboardMember(
       Authorization: `Bearer ${token}`,
     },
   });
+
+  if (!res.ok) {
+    const errorMessage: ApiErrorResponse = await res.json();
+    throw new Error(errorMessage.message);
+  }
 
   const data = await res.json();
   return data;
