@@ -1,6 +1,7 @@
 'use server';
 
 import { EDIT_PAGE_DATA_SIZE, TEAM_BASE_URL } from '@/constants/TEAM_BASE_URL';
+import { ApiErrorResponse } from '@/types/apiErrorResponse';
 import { DashboardInvitationResponse } from '@/types/invitations';
 import { DashboardMembersResponse } from '@/types/members';
 import { cookies } from 'next/headers';
@@ -13,7 +14,7 @@ export default async function putDashboardInfo(
   const token = cookies().get('token')?.value;
   const url = `${TEAM_BASE_URL}/dashboards/${dashboardId}`;
 
-  await fetch(url, {
+  const res = await fetch(url, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -21,6 +22,11 @@ export default async function putDashboardInfo(
     },
     body: JSON.stringify({ title, color }),
   });
+
+  if (!res.ok) {
+    const errorMessage: ApiErrorResponse = await res.json();
+    throw new Error(errorMessage.message);
+  }
 }
 
 export async function getMember(
@@ -39,6 +45,12 @@ export async function getMember(
       },
     }
   );
+
+  if (!res.ok) {
+    const errorMessage: ApiErrorResponse = await res.json();
+    throw new Error(errorMessage.message);
+  }
+
   const data = await res.json();
   return data;
 }
@@ -46,12 +58,17 @@ export async function getMember(
 export async function deleteMember(memberId: number) {
   const token = cookies().get('token')?.value;
 
-  await fetch(`${TEAM_BASE_URL}/members/${memberId}`, {
+  const res = await fetch(`${TEAM_BASE_URL}/members/${memberId}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+
+  if (!res.ok) {
+    const errorMessage: ApiErrorResponse = await res.json();
+    throw new Error(errorMessage.message);
+  }
 }
 
 export async function getInvitation(
@@ -70,6 +87,12 @@ export async function getInvitation(
       },
     }
   );
+
+  if (!res.ok) {
+    const errorMessage: ApiErrorResponse = await res.json();
+    throw new Error(errorMessage.message);
+  }
+
   const data = await res.json();
   return data;
 }
@@ -80,7 +103,7 @@ export async function deleteInvitation(
 ) {
   const token = cookies().get('token')?.value;
 
-  await fetch(
+  const res = await fetch(
     `${TEAM_BASE_URL}/dashboards/${dashboardId}/invitations/${invitationId}`,
     {
       method: 'DELETE',
@@ -89,4 +112,9 @@ export async function deleteInvitation(
       },
     }
   );
+
+  if (!res.ok) {
+    const errorMessage: ApiErrorResponse = await res.json();
+    throw new Error(errorMessage.message);
+  }
 }
