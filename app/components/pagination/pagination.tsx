@@ -47,15 +47,16 @@ export default function Pagination({
 
   const goToForwardHandler = () => {
     const params = new URLSearchParams(searchParams);
-    const prev = Number(params.get(paramKey));
-    params.set(paramKey, String(Math.max(prev - 1, 1)));
+    params.set(paramKey, String(Math.max(currentPage - 1, 1)));
     replace(`${pathname}?${params.toString()}`);
   };
 
   const goToNextHandler = () => {
     const params = new URLSearchParams(searchParams);
-    const prev = Number(params.get(paramKey)) || 1;
-    params.set(paramKey, String(prev !== lastPage ? prev + 1 : prev));
+    params.set(
+      paramKey,
+      String(currentPage !== lastPage ? currentPage + 1 : currentPage)
+    );
     replace(`${pathname}?${params.toString()}`);
   };
 
