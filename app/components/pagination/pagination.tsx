@@ -54,7 +54,7 @@ export default function Pagination({
 
   const goToNextHandler = () => {
     const params = new URLSearchParams(searchParams);
-    const prev = Number(params.get(paramKey));
+    const prev = Number(params.get(paramKey)) || 1;
     params.set(paramKey, String(prev !== lastPage ? prev + 1 : prev));
     replace(`${pathname}?${params.toString()}`);
   };

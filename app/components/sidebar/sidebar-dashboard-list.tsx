@@ -54,7 +54,7 @@ export default function SidebarDashboardList({
 
     if (
       checkDashboard.length < SIDE_DASHBOARD_COUNT &&
-      dashboards.length >= SIDE_DASHBOARD_COUNT
+      dashboards.length > SIDE_DASHBOARD_COUNT
     ) {
       setDashboardList(
         await makeDashboardArr(
